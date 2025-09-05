@@ -261,3 +261,178 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicia a aplicação
     PitchutchaApp.init();
 });
+
+    /**
+     * ===================================================================
+     * MÓDULOS DE FUNCIONALIDADE
+     * ===================================================================
+     * Cada módulo é responsável por uma parte da interatividade da UI.
+     */
+
+    // MÓDULO: NAVEGAÇÃO MÓVEL
+    const mobileNavModule = {
+        init() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarNav = document.getElementById('sidebar-nav');
+
+            if (!menuToggle || !sidebar) return;
+
+            menuToggle.addEventListener('click', () => {
+                this.toggle(menuToggle, sidebar);
+            });
+            
+            // Fecha o menu ao clicar em um link (melhora a UX no mobile)
+            sidebarNav.addEventListener('click', (e) => {
+                if(e.target.matches('.nav-link') && sidebar.classList.contains('is-open')) {
+                    this.toggle(menuToggle, sidebar);
+                }
+            });
+        },
+        toggle(button, sidebar) {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            button.classList.toggle('is-active');
+            sidebar.classList.toggle('is-open');
+        }
+    };
+
+    // MÓDULO: TROCA DE TEMA (LIGHT/DARK)
+    const themeSwitcherModule = {
+        init() {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (!themeToggle) return;
+
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+            this.applyInitialTheme();
+        },
+        applyTheme(theme) {
+            document.body.dataset.theme = theme;
+            localStorage.setItem('pitchutcha-theme', theme);
+        },
+        toggleTheme() {
+            const currentTheme = document.body.dataset.theme || 'light';
+            this.applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+        },
+        applyInitialTheme() {
+            const savedTheme = localStorage.getItem('pitchutcha-theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                this.applyTheme(savedTheme);
+            } else if (systemPrefersDark) {
+                this.applyTheme('dark');
+            } else {
+                this.applyTheme('light');
+            }
+        }
+    };
+
+    // MÓDULO: TOC INTERATIVO (SCROLL SPY)
+    const tocScrollSpyModule = {
+        observer: null,
+        init() {
+            if (this.observer) {
+                this.observer.disconnect(); // Limpa o observador anterior
+            }
+
+            const mainContent = document.querySelector('.content-and-toc-wrapper');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const headingElements = Array.from(tocLinks).map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+            if (headingElements.length === 0 || !mainContent) return;
+
+            const observerOptions = {
+                root: mainContent,
+                rootMargin: '0px 0px -80% 0px',
+            };
+
+            this.observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        tocLinks.forEach(link => link.classList.remove('is-active'));
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        if(activeLink) activeLink.classList.add('is-active');
+                    }
+                });
+            }, observerOptions);
+
+            headingElements.forEach(header => this.observer.observe(header));
+        }
+    };
+
+    // MÓDULO: BOTÃO "COPIAR CÓDIGO"
+    const copyCodeModule = {
+        init() {
+            // Usa delegação de eventos no container principal para performance
+            const mainContent = document.getElementById('main-content');
+            mainContent.addEventListener('click', (e) => {
+                if (e.target.matches('.copy-code-button')) {
+                    this.handleCopyClick(e.target);
+                }
+            });
+        },
+        // Adiciona o botão a todos os blocos de código <pre>
+        attachButtonsToCodeBlocks() {
+            const codeBlocks = document.querySelectorAll('.main-content .article-body pre');
+            codeBlocks.forEach(block => {
+                // Evita adicionar o botão múltiplas vezes se a função for chamada novamente
+                if(block.querySelector('.copy-code-button')) return;
+
+                const button = document.createElement('button');
+                button.className = 'copy-code-button';
+                button.setAttribute('aria-label', 'Copiar código');
+                button.innerHTML = `
+                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M0 4.75C0 3.784.784 3 1.75 3h6.5a.75.75 0 0 1 0 1.5h-6.5A.25.25 0 0 0 1.5 5v6.5c0 .138.112.25.25.25h6.5a.75.75 0 0 1 0 1.5h-6.5A1.75 1.75 0 0 1 0 11.25Zm9.5-3.25a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM11.25 2h3A1.75 1.75 0 0 1 16 3.75v9.5A1.75 1.75 0 0 1 14.25 15h-3a.75.75 0 0 1 0-1.5h3a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25h-3a.75.75 0 0 1 0-1.5Z"></path></svg>
+                    <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+                    <span>Copiar</span>
+                `;
+                block.appendChild(button);
+            });
+        },
+        // Lógica para copiar o texto
+        handleCopyClick(button) {
+            const pre = button.closest('pre');
+            const code = pre.querySelector('code');
+            const textToCopy = code ? code.innerText : pre.innerText;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const textSpan = button.querySelector('span');
+                const copyIcon = button.querySelector('.copy-icon');
+                const successIcon = button.querySelector('.success-icon');
+
+                textSpan.textContent = 'Copiado!';
+                copyIcon.style.display = 'none';
+                successIcon.style.display = 'block';
+
+                setTimeout(() => {
+                    textSpan.textContent = 'Copiar';
+                    copyIcon.style.display = 'block';
+                    successIcon.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
+                const textSpan = button.querySelector('span');
+                textSpan.textContent = 'Erro!';
+            });
+        }
+    };
+
+    // MÓDULO: BARRA DE PROGRESSO DE LEITURA
+    const progressBarModule = {
+        init() {
+            const progressBar = document.getElementById('progressBar');
+            const contentWrapper = document.getElementById('content-wrapper');
+
+            if (!progressBar || !contentWrapper) return;
+
+            contentWrapper.addEventListener('scroll', () => {
+                const scrollableHeight = contentWrapper.scrollHeight - contentWrapper.clientHeight;
+                const scrollTop = contentWrapper.scrollTop;
+                const progress = (scrollTop / scrollableHeight) * 100;
+                
+                progressBar.style.width = `${progress}%`;
+            });
+        }
+    };
