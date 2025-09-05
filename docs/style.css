@@ -1,0 +1,753 @@
+/*
+====================================================================================
+PROJETO: Pitchutcha (Versão Final)
+ARQUIVO: style.css
+DESCRIÇÃO: Folha de estilos completa com a estética do GitHub Docs.
+           Aplicada à nova arquitetura de conteúdo expandida.
+====================================================================================
+*/
+
+/*------------------------------------------------------------------
+[ ÍNDICE ]
+
+1. RESET E NORMALIZAÇÃO
+2. VARIÁVEIS GLOBAIS (DESIGN TOKENS)
+3. ESTILOS GERAIS E TIPOGRAFIA BASE
+4. LAYOUT PRINCIPAL (GRID E RESPONSIVIDADE)
+5. COMPONENTES
+   - Cabeçalho (Site Header)
+   - Sidebar de Navegação
+   - Conteúdo Principal (Article)
+   - Sidebar de Tópicos (TOC)
+   - Componentes de Conteúdo (Callouts, Cards, KBD)
+   - Rodapé (Footer)
+6. CLASSES UTILITÁRIAS E DE ESTADO
+------------------------------------------------------------------*/
+
+
+/*==================================================================
+  1. RESET E NORMALIZAÇÃO
+==================================================================*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset para o cabeçalho fixo */
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
+    font-size: 16px;
+    line-height: 1.6;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-accent);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*==================================================================
+  2. VARIÁVEIS GLOBAIS (DESIGN TOKENS)
+==================================================================*/
+
+/* TEMA CLARO (PADRÃO) */
+:root, [data-theme="light"] {
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f6f8fa;
+    --color-text-primary: #1f2328;
+    --color-text-secondary: #57606a;
+    --color-border: #d0d7de;
+    --color-accent: #0969da;
+    --color-accent-hover: #0a5cc9;
+    --color-shadow: rgba(140, 149, 159, 0.2);
+
+    --color-info-bg: #ddf4ff;
+    --color-info-border: #58a6ff;
+    --color-info-icon: #0969da;
+}
+
+/* TEMA ESCURO */
+[data-theme="dark"] {
+    --color-bg: #0d1117;
+    --color-bg-secondary: #161b22;
+    --color-text-primary: #c9d1d9;
+    --color-text-secondary: #8b949e;
+    --color-border: #30363d;
+    --color-accent: #58a6ff;
+    --color-accent-hover: #79c0ff;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+
+    --color-info-bg: rgba(56, 139, 253, 0.1);
+    --color-info-border: #388bfd;
+    --color-info-icon: #58a6ff;
+}
+
+
+/*==================================================================
+  3. ESTILOS GERAIS E TIPOGRAFIA BASE
+==================================================================*/
+h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+}
+h1 { font-size: 2.25rem; margin-top: 0; }
+h2 { font-size: 1.75rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-top: 2.5rem; }
+h3 { font-size: 1.25rem; margin-top: 2rem; }
+
+p {
+    margin-bottom: 1rem;
+    max-width: 75ch;
+}
+
+ul, ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background-color: var(--color-bg-secondary);
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
+}
+
+pre {
+    font-family: var(--font-mono);
+    background-color: var(--color-bg-secondary);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+/*==================================================================
+  4. LAYOUT PRINCIPAL
+==================================================================*/
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 60px; /* Altura do Header */
+    height: calc(100vh - 60px);
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        grid-template-columns: 280px 1fr;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-container {
+        grid-template-columns: 280px 1fr 240px;
+    }
+}
+
+.content-and-toc-wrapper {
+    display: flex;
+    overflow-y: auto;
+}
+
+/*==================================================================
+  5. COMPONENTES
+==================================================================*/
+
+/* Cabeçalho (Site Header) */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 100;
+    padding: 0 1rem;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-link {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+}
+.logo-link:hover { text-decoration: none; }
+
+.search-input {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    color: var(--color-text-primary);
+    min-width: 250px;
+}
+
+.search-wrapper { position: relative; }
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+    pointer-events: none;
+}
+
+.menu-toggle, .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-primary);
+    padding: 0.5rem;
+}
+
+.theme-toggle .icon-moon, .menu-toggle .icon-close { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+.menu-toggle.is-active .icon-menu { display: none; }
+.menu-toggle.is-active .icon-close { display: block; }
+
+@media (min-width: 768px) {
+    .menu-toggle { display: none; }
+}
+@media (max-width: 767px) {
+    .header-center { display: none; }
+}
+
+/* Sidebar de Navegação */
+.sidebar {
+    background-color: var(--color-bg);
+    border-right: 1px solid var(--color-border);
+    padding: 1.5rem 1rem;
+    overflow-y: auto;
+    transition: transform 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        transform: translateX(-100%);
+        z-index: 200;
+    }
+    .sidebar.is-open {
+        transform: translateX(0);
+    }
+}
+
+.nav-summary {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block;
+}
+.nav-sublist {
+    list-style: none;
+    padding-left: 1rem;
+}
+.nav-link {
+    display: block;
+    color: var(--color-text-secondary);
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+.nav-link:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-secondary);
+    text-decoration: none;
+}
+.nav-link.active {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    padding: 2rem;
+    flex-grow: 1;
+}
+.content-article {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.article-header {
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.breadcrumbs {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+.article-title {
+    margin-bottom: 0.5rem;
+}
+.article-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+.article-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Sidebar de Tópicos (TOC) */
+.toc-sidebar {
+    width: 240px;
+    padding: 2rem 1rem;
+    font-size: 0.875rem;
+    border-left: 1px solid var(--color-border);
+}
+
+@media (max-width: 1199px) {
+    .toc-sidebar {
+        display: none;
+    }
+}
+
+.toc-heading {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.toc-list {
+    list-style: none;
+    padding-left: 0;
+    border-left: 2px solid var(--color-border);
+}
+.toc-link {
+    display: block;
+    color: var(--color-text-secondary);
+    padding: 0.25rem 1rem;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.toc-link:hover {
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+.toc-link.is-active {
+    color: var(--color-accent);
+    font-weight: 600;
+    border-left-color: var(--color-accent);
+    transform: translateX(-2px);
+}
+
+/* Componentes de Conteúdo */
+.callout-box {
+    padding: 1rem;
+    border-left: 4px solid var(--color-info-border);
+    background-color: var(--color-info-bg);
+    border-radius: 6px;
+    margin: 1.5rem 0;
+}
+.callout-box p:last-child {
+    margin-bottom: 0;
+}
+.callout-box strong {
+    color: var(--color-text-primary);
+}
+kbd {
+    font-family: var(--font-mono);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-secondary);
+    font-size: 0.85em;
+}
+
+.quick-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+.card {
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1rem;
+    height: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card-link:hover { text-decoration: none; }
+.card-link:hover .card {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 12px var(--color-shadow);
+}
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.card-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.article-pagination {
+    display: flex;
+    justify-content: space-between;
+}
+.pagination-link {
+    border: 1px solid var(--color-border);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    max-width: 48%;
+}
+.pagination-link.next { text-align: right; }
+.pagination-label { font-size: 0.8rem; color: var(--color-text-secondary); }
+.pagination-title { color: var(--color-accent); font-weight: 600; }
+
+/* Rodapé */
+.site-footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border);
+}
+
+/*==================================================================
+  6. CLASSES UTILITÁRIAS E DE ESTADO
+==================================================================*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background-color: var(--color-accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 1100;
+  border-radius: 6px;
+  transition: top 0.3s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/*
+====================================================================================
+  ADIÇÕES PARA NOVAS FUNCIONALIDADES
+====================================================================================
+*/
+
+/* Barra de Progresso de Leitura */
+.progress-bar-container {
+    position: fixed;
+    top: 60px; /* Abaixo do cabeçalho */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: transparent;
+    z-index: 101;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: var(--color-accent);
+    transition: width 0.1s linear;
+}
+
+/* Ajuste no Layout Principal para a Barra de Progresso */
+.main-container {
+    /* O margin-top agora considera o header + a barra de progresso, se visível */
+    margin-top: 64px; 
+    height: calc(100vh - 64px);
+}
+@media (max-width: 767px) {
+    .sidebar {
+        top: 64px; /* Ajuste para a versão mobile também */
+    }
+}
+
+
+/* Resultados da Busca */
+.search-results {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px var(--color-shadow);
+    z-index: 200;
+}
+
+.search-results.is-visible {
+    display: block;
+}
+
+.search-results a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--color-text-primary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.search-results a:last-child {
+    border-bottom: none;
+}
+
+.search-results a:hover,
+.search-results a:focus {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.search-result-title {
+    font-weight: 600;
+    display: block;
+}
+
+.search-result-breadcrumb {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    display: block;
+}
+
+.search-results-empty {
+    padding: 1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+
+/* Botões de Ação da Sidebar (Expandir/Recolher) */
+.sidebar-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-action-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-action-btn:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border);
+}
+
+/*
+====================================================================================
+  ADIÇÕES PARA NOVAS FUNCIONALIDADES (CONTINUAÇÃO)
+====================================================================================
+*/
+
+/* Botão "Copiar Código" para blocos <pre> */
+pre {
+    position: relative; /* Necessário para posicionar o botão */
+}
+
+.copy-code-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.2s ease-in-out, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+}
+
+pre:hover .copy-code-button {
+    opacity: 1; /* Aparece no hover do container <pre> */
+}
+
+.copy-code-button:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+}
+
+.copy-code-button .copy-icon,
+.copy-code-button .success-icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.copy-code-button .success-icon {
+    display: none; /* Escondido por padrão */
+    color: #2da44e; /* Verde sucesso - uma exceção por ter significado semântico */
+}
+
+[data-theme="dark"] .copy-code-button .success-icon {
+    color: #3fb950;
+}
+
+
+/* Glossário Dinâmico e Tooltips */
+.glossary-term {
+    text-decoration: underline dotted;
+    text-decoration-color: var(--color-text-secondary);
+    cursor: help;
+    position: relative;
+}
+
+.tooltip-popup {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Acima do termo */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    width: 300px;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 12px var(--color-shadow);
+    z-index: 300;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.tooltip-popup::after { /* Pequena seta indicadora */
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--color-border) transparent transparent transparent;
+}
+
+.glossary-term:hover .tooltip-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Feedback de Artigo */
+.article-feedback {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.article-feedback-question {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+}
+
+.feedback-buttons button {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.feedback-buttons button:hover {
+    background-color: var(--color-bg-secondary);
+    transform: scale(1.1);
+}
+
+.feedback-buttons button.selected {
+    background-color: var(--color-info-bg);
+    border-color: var(--color-accent);
+}
+
+.feedback-thank-you {
+    display: none;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+
+/* Animação de Transição de Conteúdo */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content.is-loading {
+    animation: fadeIn 0.3s ease-in-out;
+}
