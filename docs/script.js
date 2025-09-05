@@ -1,9 +1,8 @@
 /*
 ====================================================================================
-PROJETO: Pitchutcha (Versão Final Refatorada)
+PROJETO: Pitchutcha (Versão Final Completa)
 ARQUIVO: script.js
-DESCRIÇÃO: Arquitetura central da Single Page Application (SPA).
-           Inclui o banco de dados de conteúdo, o roteador e os renderizadores.
+DESCRIÇÃO: Script completo com arquitetura SPA, conteúdo e todas as funcionalidades.
 ====================================================================================
 */
 
@@ -13,21 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * ===================================================================
-     * BANCO DE DADOS DE CONTEÚDO (appData)
+     * BANCO DE DADOS DE CONTEÚDO (appData) - VERSÃO EXPANDIDA
      * ===================================================================
-     * Todo o conteúdo do site vive aqui. Para adicionar uma nova página ou
-     * seção, basta adicionar as informações neste objeto.
+     * Todo o conteúdo do site vive aqui.
      */
     const appData = {
-        // Definição das categorias para a sidebar
         categories: [
             { id: 'fundacoes', name: 'Fundações da Computação', open: true },
             { id: 'hardware', name: 'Hardware e Arquitetura', open: false },
             { id: 'so', name: 'Sistemas Operacionais', open: false },
             { id: 'redes', name: 'Redes de Computadores', open: false },
             { id: 'algoritmos', name: 'Algoritmos e Estruturas de Dados', open: false },
+            { id: 'linguagens', name: 'Linguagens de Programação', open: false },
+            { id: 'db', name: 'Bancos de Dados', open: false },
+            { id: 'arquitetura', name: 'Arquitetura de Software', open: false },
+            { id: 'seguranca', name: 'Segurança da Informação', open: false },
+            { id: 'devops', name: 'DevOps e Cloud Computing', open: false },
+            { id: 'avancado', name: 'Tópicos Avançados', open: false },
         ],
-        // Todos os artigos, organizados por um ID único (categoria/arquivo)
         articles: {
             'introducao': {
                 title: 'Bem-vindo ao Pitchutcha',
@@ -42,22 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Se você é novo no assunto, sugerimos começar por um dos nossos pilares de conteúdo:</p>
                     <div class="quick-nav-grid">
                         <a href="#fundacoes/pioneiros" class="card-link">
-                            <div class="card">
-                                <h3 class="card-title">Pioneiros da Computação</h3>
-                                <p class="card-description">Conheça as mentes brilhantes como Ada Lovelace, Alan Turing e Grace Hopper.</p>
-                            </div>
+                            <div class="card"><h3 class="card-title">Pioneiros da Computação</h3><p class="card-description">Conheça as mentes brilhantes como Ada Lovelace, Alan Turing e Grace Hopper.</p></div>
                         </a>
                         <a href="#hardware/cpu" class="card-link">
-                            <div class="card">
-                                <h3 class="card-title">Como funciona uma CPU</h3>
-                                <p class="card-description">Mergulhe na arquitetura que alimenta todos os dispositivos modernos.</p>
-                            </div>
+                            <div class="card"><h3 class="card-title">Como funciona uma CPU</h3><p class="card-description">Mergulhe na arquitetura que alimenta todos os dispositivos modernos.</p></div>
                         </a>
-                         <a href="#so/conceitos" class="card-link">
-                            <div class="card">
-                                <h3 class="card-title">Sistemas Operacionais</h3>
-                                <p class="card-description">Descubra o software que gerencia todo o hardware do seu computador.</p>
-                            </div>
+                         <a href="#arquitetura/api-design" class="card-link">
+                            <div class="card"><h3 class="card-title">Design de APIs</h3><p class="card-description">Descubra como os sistemas conversam entre si usando REST e GraphQL.</p></div>
                         </a>
                     </div>
                 `,
@@ -87,352 +80,452 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Um dos pais da ciência da computação, Turing formalizou os conceitos de algoritmo e computação com a Máquina de Turing. Seu trabalho foi fundamental para a quebra de códigos na Segunda Guerra Mundial e para o desenvolvimento da inteligência artificial.</p>
                 `,
                 prevArticle: 'fundacoes/historia',
-                nextArticle: 'fundacoes/teoria'
+                nextArticle: 'hardware/cpu'
             },
-            // Adicionaremos mais artigos aqui...
+            'hardware/cpu': {
+                title: 'CPU e Microprocessadores',
+                breadcrumb: 'Hardware e Arquitetura',
+                content: `
+                    <h2 id="o-cerebro">O Cérebro do Computador</h2>
+                    <p>A Unidade Central de Processamento, ou CPU, é o componente de hardware primário que executa as instruções de um programa de computador. Ela realiza operações aritméticas, lógicas, de controle e de entrada/saída (I/O).</p>
+                    <h2 id="componentes">Componentes Principais</h2>
+                    <ul>
+                        <li><strong>Unidade Lógica e Aritmética (ULA):</strong> Realiza cálculos matemáticos e operações lógicas.</li>
+                        <li><strong>Unidade de Controle (UC):</strong> Dirige o fluxo de operações, interpretando instruções e enviando sinais de controle para outros componentes.</li>
+                        <li><strong>Registradores:</strong> Pequenas e rápidas unidades de memória que armazenam dados temporariamente para a CPU.</li>
+                    </ul>
+                    <h2 id="ciclo">Ciclo de Instrução</h2>
+                    <p>A CPU opera em um ciclo contínuo para processar instruções:</p>
+                    <ol>
+                        <li><strong>Busca (Fetch):</strong> A UC busca a próxima instrução da memória.</li>
+                        <li><strong>Decodificação (Decode):</strong> A UC interpreta a instrução.</li>
+                        <li><strong>Execução (Execute):</strong> A ULA executa a operação.</li>
+                        <li><strong>Armazenamento (Store):</strong> O resultado é armazenado em um registrador ou na memória.</li>
+                    </ol>
+                    <pre><code class="language-assembly">; Exemplo simples de Assembly
+MOV AX, 5  ; Mover o valor 5 para o registrador AX
+ADD AX, 3  ; Adicionar 3 ao registrador AX (agora AX = 8)</code></pre>
+                `,
+                prevArticle: 'fundacoes/pioneiros'
+            },
+            'arquitetura/api-design': {
+                title: 'Design de APIs (REST & GraphQL)',
+                breadcrumb: 'Arquitetura de Software',
+                content: `
+                    <h2 id="o-que-e-api">O que é uma API?</h2>
+                    <p>Uma Interface de Programação de Aplicações (API) é um conjunto de regras e definições que permite que diferentes aplicações de software se comuniquem. Elas são os "garçons" do mundo do software, pegando um pedido (requisição) de um cliente e trazendo a resposta do sistema (servidor).</p>
+                    <h2 id="rest">REST (Representational State Transfer)</h2>
+                    <p>REST é um estilo arquitetural que define um conjunto de restrições para a criação de web services. É o padrão mais comum para APIs na web.</p>
+                    <ul>
+                        <li>Usa métodos HTTP padrão: <code>GET</code> (ler), <code>POST</code> (criar), <code>PUT</code>/<code>PATCH</code> (atualizar), <code>DELETE</code> (remover).</li>
+                        <li>É stateless: cada requisição do cliente deve conter toda a informação necessária para o servidor entendê-la.</li>
+                        <li>Usa URLs (endpoints) para identificar recursos. Ex: <code>/api/users/123</code>.</li>
+                    </ul>
+                    <h2 id="graphql">GraphQL</h2>
+                    <p>GraphQL é uma linguagem de consulta para APIs desenvolvida pelo Facebook. Ela permite que o cliente peça exatamente os dados de que precisa, e nada mais.</p>
+                    <ul>
+                        <li><strong>Evita over-fetching:</strong> O cliente especifica os campos que quer, evitando receber dados desnecessários.</li>
+                        <li><strong>Endpoint único:</strong> Geralmente, todas as requisições são enviadas para um único endpoint (ex: <code>/graphql</code>).</li>
+                        <li><strong>Fortemente tipado:</strong> O schema da API é definido com um sistema de tipos, o que garante a consistência dos dados.</li>
+                    </ul>
+                    <pre><code class="language-graphql"># Exemplo de consulta GraphQL
+query GetUserDetails {
+  user(id: "123") {
+    name
+    email
+    posts {
+      title
+    }
+  }
+}</code></pre>
+                `,
+            },
+            'avancado/computacao-quantica': {
+                title: 'Computação Quântica',
+                breadcrumb: 'Tópicos Avançados',
+                content: `
+                    <h2 id="alem-do-bit">Além do Bit Clássico</h2>
+                    <p>Enquanto a computação clássica se baseia em bits que podem ser 0 ou 1, a computação quântica usa <strong>qubits</strong>. Um qubit aproveita os princípios da mecânica quântica para existir em múltiplos estados ao mesmo tempo.</p>
+                    <h2 id="superposicao">Superposição</h2>
+                    <p>Um qubit pode estar em uma superposição de 0 e 1. É como uma moeda girando no ar antes de cair: ela não é nem cara nem coroa, mas uma combinação de ambas as possibilidades. Apenas quando medimos o qubit, ele "colapsa" para um estado definido (0 ou 1).</p>
+                    <h2 id="entrelacamento">Entrelaçamento (Emaranhamento)</h2>
+                    <p>O entrelaçamento é um fenômeno quântico onde dois ou mais qubits se tornam interligados de tal forma que o estado de um afeta instantaneamente o estado do outro, não importa a distância que os separe. Einstein chamou isso de "ação fantasmagórica à distância".</p>
+                    <h2 id="aplicacoes">Aplicações Potenciais</h2>
+                    <ul>
+                        <li><strong>Criptografia:</strong> Quebra de algoritmos de criptografia atuais e criação de novos métodos seguros (criptografia quântica).</li>
+                        <li><strong>Desenvolvimento de Fármacos:</strong> Simulação de moléculas complexas para criar novos medicamentos.</li>
+                        <li><strong>Otimização:</strong> Resolução de problemas complexos de logística, finanças e machine learning de forma muito mais rápida.</li>
+                    </ul>
+                `,
+            },
         },
         glossary: {
-            // Adicionaremos o glossário aqui...
+            "API": "Interface de Programação de Aplicações. Um conjunto de regras que permite que diferentes softwares se comuniquem.",
+            "CPU": "Unidade Central de Processamento. O 'cérebro' do computador, responsável por executar instruções.",
+            "HTTP": "Protocolo de Transferência de Hipertexto. O protocolo fundamental usado para a comunicação na World Wide Web.",
+            "Qubit": "Bit quântico. A unidade básica de informação na computação quântica, que pode existir em uma superposição de estados.",
+            "Kernel": "O núcleo de um sistema operacional, responsável por gerenciar os recursos do sistema e a comunicação entre hardware e software."
         }
     };
 
-
+    // FIM DA PARTE 1. O código continua na próxima parte.
     /**
      * ===================================================================
-     * MÓDULO PRINCIPAL DA APLICAÇÃO (PitchutchaApp)
+     * OBJETO PRINCIPAL DA APLICAÇÃO (PitchutchaApp)
      * ===================================================================
-     * Orquestra toda a aplicação, desde a renderização inicial até
-     * o gerenciamento de rotas e eventos.
+     * Gerencia o estado, a renderização e os eventos do site.
+     * Usamos um objeto para organizar o código de forma limpa e modular.
      */
     const PitchutchaApp = {
-        // Elementos do DOM cacheados para performance
-        elements: {
-            mainContent: document.getElementById('main-content'),
-            sidebarNav: document.getElementById('sidebar-nav'),
-            tocNav: document.getElementById('toc-nav'),
-            pageTitle: document.querySelector('title'),
-            contentWrapper: document.getElementById('content-wrapper'),
+        // --- PROPRIEDADES (STATE) ---
+        dom: {}, // Armazena referências aos elementos do DOM
+        state: {
+            currentArticleId: null, // ID do artigo sendo exibido
+            sidebarOpen: window.innerWidth > 1024, // Sidebar começa aberta em telas grandes
+            searchResults: [], // Armazena os resultados da busca
         },
 
-        // Ponto de entrada da aplicação
+        /**
+         * Ponto de entrada da aplicação.
+         * É chamado quando o DOM está pronto.
+         */
         init() {
+            console.log("PitchutchaApp: Inicializando a aplicação...");
+            
+            // 1. Mapeia os elementos do DOM para acesso fácil
+            this.cacheDom();
+
+            // 2. Registra todos os event listeners (cliques, busca, etc.)
+            this.bindEvents();
+
+            // 3. Processa a URL inicial para carregar o artigo correto
+            this.handleRouting();
+
+            // 4. Renderiza a barra lateral com categorias e artigos
             this.renderSidebar();
-            this.handleRouteChange();
 
-            // Ouve por mudanças na URL (cliques em links com #)
-            window.addEventListener('hashchange', () => this.handleRouteChange());
+            // 5. Adiciona um listener para o botão de voltar/avançar do navegador
+            window.addEventListener('popstate', this.handleRouting.bind(this));
             
-            // Permite que links internos na página funcionem com o roteador
-            this.elements.mainContent.addEventListener('click', (e) => {
-                if (e.target.matches('.card-link, .card-link *')) {
-                    const link = e.target.closest('.card-link');
-                    if (link && link.getAttribute('href').startsWith('#')) {
-                        e.preventDefault();
-                        window.location.hash = link.getAttribute('href');
-                    }
-                }
-            });
-
-            console.log("Pitchutcha SPA Initialized.");
+            console.log("PitchutchaApp: Aplicação inicializada com sucesso.");
         },
 
-        // Função principal que controla a navegação
-        handleRouteChange() {
-            const path = window.location.hash.slice(1) || 'introducao';
-            this.loadArticle(path);
-            this.updateActiveSidebarLink(path);
+        /**
+         * Seleciona e armazena os elementos do DOM que serão usados frequentemente.
+         */
+        cacheDom() {
+            this.dom.sidebar = document.getElementById('sidebar');
+            this.dom.sidebarNav = document.getElementById('sidebar-nav');
+            this.dom.mainContent = document.getElementById('main-content');
+            this.dom.contentBody = document.getElementById('content-body');
+            this.dom.breadcrumb = document.getElementById('breadcrumb');
+            this.dom.articleTitle = document.getElementById('article-title');
+            this.dom.articleSubtitle = document.getElementById('article-subtitle');
+            this.dom.navButtons = document.getElementById('nav-buttons');
+            this.dom.searchInput = document.getElementById('search-input');
+            this.dom.searchResults = document.getElementById('search-results');
+            this.dom.clearSearchBtn = document.getElementById('clear-search-btn');
+            this.dom.menuToggleBtn = document.getElementById('menu-toggle');
         },
 
-        // Carrega e renderiza um artigo
-        loadArticle(path) {
-            const articleData = appData.articles[path];
-            if (!articleData) {
-                // TODO: Criar uma página de "Não encontrado" mais robusta
-                this.elements.mainContent.innerHTML = '<h1>Artigo não encontrado</h1>';
-                return;
-            }
-
-            // Animação de entrada
-            this.elements.mainContent.classList.remove('is-loading');
-            void this.elements.mainContent.offsetWidth; // Força o repaint para reiniciar a animação
-            this.elements.mainContent.classList.add('is-loading');
-
-            // Constrói o HTML do artigo
-            let html = `
-                <article class="content-article">
-                    <header class="article-header">
-                        <div class="breadcrumbs"><a href="#">Início</a> &rsaquo; ${articleData.breadcrumb}</div>
-                        <h1 class="article-title" id="titulo-principal">${articleData.title}</h1>
-                        ${articleData.subtitle ? `<p class="article-subtitle">${articleData.subtitle}</p>` : ''}
-                    </header>
-                    <section class="article-body">
-                        ${articleData.content}
-                    </section>
-                </article>
-                <footer class="article-footer">
-                    <nav class="article-pagination" aria-label="Navegação de artigos">
-                        ${this.createPaginationLink(articleData.prevArticle, 'prev')}
-                        ${this.createPaginationLink(articleData.nextArticle, 'next')}
-                    </nav>
-                </footer>
-            `;
-
-            this.elements.mainContent.innerHTML = html;
-            this.elements.pageTitle.textContent = `${articleData.title} - Pitchutcha`;
-            this.renderTOC(this.elements.mainContent);
-            this.elements.contentWrapper.scrollTop = 0; // Rola para o topo ao carregar
-        },
-
-        // Renderiza a barra de navegação lateral (Sidebar)
-        renderSidebar() {
-            let html = '<ul class="nav-list">';
-            // Link fixo para a introdução
-            html += `<li class="nav-item"><a href="#" data-path="introducao" class="nav-link">Introdução</a></li>`;
-
-            appData.categories.forEach(cat => {
-                html += `
-                    <li class="nav-item">
-                        <details ${cat.open ? 'open' : ''}>
-                            <summary class="nav-summary">${cat.name}</summary>
-                            <ul class="nav-sublist">
-                `;
-                // Encontra todos os artigos que pertencem a esta categoria
-                for (const path in appData.articles) {
-                    if (path.startsWith(cat.id + '/')) {
-                        const article = appData.articles[path];
-                        html += `<li><a href="#${path}" data-path="${path}" class="nav-link">${article.title}</a></li>`;
-                    }
-                }
-                html += `</ul></details></li>`;
-            });
-
-            html += '</ul>';
-            this.elements.sidebarNav.innerHTML = html;
-        },
-
-        // Renderiza o Sumário (Table of Contents) da página atual
-        renderTOC(contentElement) {
-            const headings = contentElement.querySelectorAll('h2[id]');
-            if (headings.length === 0) {
-                this.elements.tocNav.innerHTML = '';
-                return;
-            }
+        /**
+         * Centraliza o registro de todos os eventos da aplicação.
+         */
+        bindEvents() {
+            // Evento para abrir/fechar categorias na sidebar
+            this.dom.sidebarNav.addEventListener('click', this.toggleCategory.bind(this));
             
-            let html = `
-                <h2 id="toc-heading" class="toc-heading">Nesta Página</h2>
-                <ul class="toc-list">
-            `;
-            headings.forEach(h => {
-                html += `<li><a href="#${h.id}" class="toc-link">${h.textContent}</a></li>`;
-            });
-            html += '</ul>';
-            this.elements.tocNav.innerHTML = html;
+            // Eventos da barra de busca
+            this.dom.searchInput.addEventListener('keyup', this.handleSearch.bind(this));
+            this.dom.searchInput.addEventListener('focus', () => this.dom.searchResults.classList.remove('hidden'));
+            document.addEventListener('click', this.handleClickOutsideSearch.bind(this)); // Fecha busca ao clicar fora
+            this.dom.clearSearchBtn.addEventListener('click', this.clearSearch.bind(this));
+
+            // Evento para o botão de abrir/fechar menu (mobile)
+            this.dom.menuToggleBtn.addEventListener('click', this.toggleSidebar.bind(this));
         },
 
-        // Atualiza qual link está 'ativo' na sidebar
-        updateActiveSidebarLink(path) {
-            this.elements.sidebarNav.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-path') === path) {
-                    link.classList.add('active');
-                    // Abre o <details> pai, se estiver fechado
-                    const details = link.closest('details');
-                    if (details && !details.hasAttribute('open')) {
-                        details.setAttribute('open', '');
-                    }
-                }
-            });
-        },
+        // --- MÉTODOS DE RENDERIZAÇÃO E LÓGICA (Serão adicionados nas próximas partes) ---
 
-        // Helper para criar os links de paginação (anterior/próximo)
-        createPaginationLink(path, type) {
-            if (!path || !appData.articles[path]) return '';
-            const article = appData.articles[path];
-            const isNext = type === 'next';
-            return `
-                <a href="#${path}" class="pagination-link ${isNext ? 'next' : ''}">
-                    <span class="pagination-label">${isNext ? 'Próximo' : 'Anterior'}</span>
-                    <span class="pagination-title">${article.title}</span>
-                </a>
-            `;
-        }
     };
 
-    // Inicia a aplicação
-    PitchutchaApp.init();
-});
+    // FIM DA PARTE 2. O código continua na próxima parte.
+    /**
+     * ===================================================================
+     * CONTINUAÇÃO DO OBJETO PitchutchaApp (MÉTODOS DE RENDERIZAÇÃO)
+     * ===================================================================
+     */
+    Object.assign(PitchutchaApp, {
+
+        /**
+         * Renderiza (desenha) todo o conteúdo da barra lateral.
+         */
+        renderSidebar() {
+            const getArticleLink = (id, title) => {
+                const isActive = id === this.state.currentArticleId;
+                return `<li><a href="#${id}" class="nav-link ${isActive ? 'active' : ''}">${title}</a></li>`;
+            };
+
+            this.dom.sidebarNav.innerHTML = appData.categories.map(category => `
+                <div class="category-group ${category.open ? 'open' : ''}" data-category-id="${category.id}">
+                    <h3 class="category-title">
+                        <span>${category.name}</span>
+                        <svg class="icon-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                    </h3>
+                    <ul class="nav-list">
+                        ${Object.entries(appData.articles)
+                            .filter(([id]) => id.startsWith(category.id))
+                            .map(([id, article]) => getArticleLink(id, article.title))
+                            .join('')
+                        }
+                    </ul>
+                </div>
+            `).join('');
+        },
+
+        /**
+         * Renderiza o conteúdo principal de um artigo específico.
+         * @param {string} articleId - A chave do artigo em appData.articles.
+         */
+        renderContent(articleId) {
+            const article = appData.articles[articleId];
+            if (!article) {
+                this.renderContent('introducao'); // Artigo padrão se não encontrar
+                return;
+            }
+
+            this.state.currentArticleId = articleId;
+            document.title = `${article.title} - Pitchutcha`;
+
+            // Atualiza o DOM
+            this.dom.breadcrumb.textContent = article.breadcrumb;
+            this.dom.articleTitle.textContent = article.title;
+            this.dom.articleSubtitle.innerHTML = article.subtitle || '';
+            this.dom.contentBody.innerHTML = article.content;
+
+            // Renderiza os botões de navegação "Anterior" e "Próximo"
+            this.renderNavButtons(article);
+
+            // Realça o link ativo na sidebar
+            this.updateActiveSidebarLink();
+            
+            // Aplica o realce de sintaxe nos blocos de código
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+
+            // Aplica tooltips do glossário
+            this.applyGlossaryTooltips();
+
+            // Rola a página para o topo
+            this.dom.mainContent.scrollTop = 0;
+            
+            // Fecha a sidebar em telas pequenas após selecionar um artigo
+            if (window.innerWidth <= 1024) {
+                this.closeSidebar();
+            }
+        },
+
+        /**
+         * Renderiza os botões de navegação (artigo anterior/próximo).
+         * @param {object} article - O objeto do artigo atual.
+         */
+        renderNavButtons(article) {
+            let html = '';
+            if (article.prevArticle) {
+                const prev = appData.articles[article.prevArticle];
+                html += `<a href="#${article.prevArticle}" class="nav-button prev">
+                           <span>Anterior</span>
+                           <h4>${prev.title}</h4>
+                         </a>`;
+            }
+            if (article.nextArticle) {
+                const next = appData.articles[article.nextArticle];
+                html += `<a href="#${article.nextArticle}" class="nav-button next">
+                           <span>Próximo</span>
+                           <h4>${next.title}</h4>
+                         </a>`;
+            }
+            this.dom.navButtons.innerHTML = html;
+        },
+
+        /**
+         * Atualiza qual link está com a classe 'active' na sidebar.
+         */
+        updateActiveSidebarLink() {
+            this.dom.sidebarNav.querySelectorAll('.nav-link').forEach(link => {
+                if (link.href.endsWith(`#${this.state.currentArticleId}`)) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+    });
+
+    // FIM DA PARTE 3. O código continua na próxima parte.
+    /**
+     * ===================================================================
+     * CONTINUAÇÃO DO OBJETO PitchutchaApp (LÓGICA DE EVENTOS E ROTEAMENTO)
+     * ===================================================================
+     */
+    Object.assign(PitchutchaApp, {
+
+        /**
+         * Lida com a navegação baseada na hash da URL (#).
+         * Determina qual artigo carregar.
+         */
+        handleRouting() {
+            let articleId = window.location.hash.substring(1);
+            if (!appData.articles[articleId]) {
+                articleId = 'introducao'; // Artigo padrão
+                window.location.hash = '#introducao';
+            }
+            this.renderContent(articleId);
+        },
+
+        /**
+         * Lida com a entrada de texto na barra de busca.
+         * Filtra os artigos e exibe os resultados.
+         */
+        handleSearch(event) {
+            const query = event.target.value.toLowerCase().trim();
+
+            if (query.length > 1) {
+                this.dom.clearSearchBtn.classList.remove('hidden');
+                this.state.searchResults = Object.entries(appData.articles)
+                    .map(([id, article]) => ({ id, ...article }))
+                    .filter(article =>
+                        article.title.toLowerCase().includes(query) ||
+                        article.content.toLowerCase().includes(query)
+                    );
+
+                this.renderSearchResults();
+                this.dom.searchResults.classList.remove('hidden');
+            } else {
+                this.clearSearch();
+            }
+        },
+
+        /**
+         * Limpa o campo de busca e esconde os resultados.
+         */
+        clearSearch() {
+            this.dom.searchInput.value = '';
+            this.state.searchResults = [];
+            this.dom.searchResults.classList.add('hidden');
+            this.dom.clearSearchBtn.classList.add('hidden');
+        },
+        
+        /**
+         * Renderiza a lista de resultados da busca.
+         */
+        renderSearchResults() {
+            if (this.state.searchResults.length === 0) {
+                this.dom.searchResults.innerHTML = '<li class="no-results">Nenhum resultado encontrado.</li>';
+            } else {
+                this.dom.searchResults.innerHTML = this.state.searchResults.map(article =>
+                    `<li><a href="#${article.id}">${article.title}</a></li>`
+                ).join('');
+            }
+        },
+        
+        /**
+         * Fecha a caixa de resultados da busca se o usuário clicar fora dela.
+         */
+        handleClickOutsideSearch(event) {
+            if (!this.dom.searchInput.contains(event.target) && !this.dom.searchResults.contains(event.target)) {
+                this.dom.searchResults.classList.add('hidden');
+            }
+        },
+
+        /**
+         * Expande ou recolhe uma categoria de artigos na sidebar.
+         */
+        toggleCategory(event) {
+            const categoryTitle = event.target.closest('.category-title');
+            if (categoryTitle) {
+                categoryTitle.parentElement.classList.toggle('open');
+            }
+        },
+
+        /**
+         * Abre ou fecha a sidebar (usado em telas menores).
+         */
+        toggleSidebar() {
+            this.state.sidebarOpen = !this.state.sidebarOpen;
+            if (this.state.sidebarOpen) {
+                this.dom.sidebar.classList.add('open');
+            } else {
+                this.dom.sidebar.classList.remove('open');
+            }
+        },
+
+        openSidebar() {
+            this.state.sidebarOpen = true;
+            this.dom.sidebar.classList.add('open');
+        },
+
+        closeSidebar() {
+            this.state.sidebarOpen = false;
+            this.dom.sidebar.classList.remove('open');
+        }
+    });
+
+    // FIM DA PARTE 4. O código continua na próxima parte.
+    /**
+     * ===================================================================
+     * CONTINUAÇÃO DO OBJETO PitchutchaApp (LÓGICA FINAL E INICIALIZAÇÃO)
+     * ===================================================================
+     */
+    Object.assign(PitchutchaApp, {
+        
+        /**
+         * Encontra termos do glossário no conteúdo e adiciona tooltips.
+         */
+        applyGlossaryTooltips() {
+            const content = this.dom.contentBody;
+            const terms = Object.keys(appData.glossary);
+
+            // Regex para encontrar os termos como palavras inteiras, não sensível a maiúsculas/minúsculas
+            const regex = new RegExp(`\\b(${terms.join('|')})\\b`, 'gi');
+
+            // Substitui apenas em nós de texto para não quebrar o HTML
+            const textNodes = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+            let currentNode;
+            while (currentNode = textNodes.nextNode()) {
+                if (currentNode.parentElement.tagName === 'SPAN' && currentNode.parentElement.classList.contains('glossary-term')) {
+                    continue; // Pula os nós que já foram processados
+                }
+
+                const newHTML = currentNode.textContent.replace(regex, (match) => {
+                    const termKey = Object.keys(appData.glossary).find(key => key.toLowerCase() === match.toLowerCase());
+                    const definition = appData.glossary[termKey];
+                    return `<span class="glossary-term" data-definition="${definition}">${match}</span>`;
+                });
+
+                if (newHTML !== currentNode.textContent) {
+                    const tempWrapper = document.createElement('div');
+                    tempWrapper.innerHTML = newHTML;
+                    const newNodes = Array.from(tempWrapper.childNodes);
+                    
+                    newNodes.forEach(newNode => {
+                        currentNode.parentNode.insertBefore(newNode, currentNode);
+                    });
+                    
+                    currentNode.parentNode.removeChild(currentNode);
+                }
+            }
+        }
+    });
+
 
     /**
      * ===================================================================
-     * MÓDULOS DE FUNCIONALIDADE
+     * INICIALIZAÇÃO DA APLICAÇÃO
      * ===================================================================
-     * Cada módulo é responsável por uma parte da interatividade da UI.
+     * Dispara o método init do nosso objeto principal.
      */
+    PitchutchaApp.init();
 
-    // MÓDULO: NAVEGAÇÃO MÓVEL
-    const mobileNavModule = {
-        init() {
-            const menuToggle = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarNav = document.getElementById('sidebar-nav');
-
-            if (!menuToggle || !sidebar) return;
-
-            menuToggle.addEventListener('click', () => {
-                this.toggle(menuToggle, sidebar);
-            });
-            
-            // Fecha o menu ao clicar em um link (melhora a UX no mobile)
-            sidebarNav.addEventListener('click', (e) => {
-                if(e.target.matches('.nav-link') && sidebar.classList.contains('is-open')) {
-                    this.toggle(menuToggle, sidebar);
-                }
-            });
-        },
-        toggle(button, sidebar) {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            button.classList.toggle('is-active');
-            sidebar.classList.toggle('is-open');
-        }
-    };
-
-    // MÓDULO: TROCA DE TEMA (LIGHT/DARK)
-    const themeSwitcherModule = {
-        init() {
-            const themeToggle = document.getElementById('theme-toggle');
-            if (!themeToggle) return;
-
-            themeToggle.addEventListener('click', () => this.toggleTheme());
-            this.applyInitialTheme();
-        },
-        applyTheme(theme) {
-            document.body.dataset.theme = theme;
-            localStorage.setItem('pitchutcha-theme', theme);
-        },
-        toggleTheme() {
-            const currentTheme = document.body.dataset.theme || 'light';
-            this.applyTheme(currentTheme === 'light' ? 'dark' : 'light');
-        },
-        applyInitialTheme() {
-            const savedTheme = localStorage.getItem('pitchutcha-theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme) {
-                this.applyTheme(savedTheme);
-            } else if (systemPrefersDark) {
-                this.applyTheme('dark');
-            } else {
-                this.applyTheme('light');
-            }
-        }
-    };
-
-    // MÓDULO: TOC INTERATIVO (SCROLL SPY)
-    const tocScrollSpyModule = {
-        observer: null,
-        init() {
-            if (this.observer) {
-                this.observer.disconnect(); // Limpa o observador anterior
-            }
-
-            const mainContent = document.querySelector('.content-and-toc-wrapper');
-            const tocLinks = document.querySelectorAll('.toc-link');
-            const headingElements = Array.from(tocLinks).map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
-
-            if (headingElements.length === 0 || !mainContent) return;
-
-            const observerOptions = {
-                root: mainContent,
-                rootMargin: '0px 0px -80% 0px',
-            };
-
-            this.observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        tocLinks.forEach(link => link.classList.remove('is-active'));
-                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-                        if(activeLink) activeLink.classList.add('is-active');
-                    }
-                });
-            }, observerOptions);
-
-            headingElements.forEach(header => this.observer.observe(header));
-        }
-    };
-
-    // MÓDULO: BOTÃO "COPIAR CÓDIGO"
-    const copyCodeModule = {
-        init() {
-            // Usa delegação de eventos no container principal para performance
-            const mainContent = document.getElementById('main-content');
-            mainContent.addEventListener('click', (e) => {
-                if (e.target.matches('.copy-code-button')) {
-                    this.handleCopyClick(e.target);
-                }
-            });
-        },
-        // Adiciona o botão a todos os blocos de código <pre>
-        attachButtonsToCodeBlocks() {
-            const codeBlocks = document.querySelectorAll('.main-content .article-body pre');
-            codeBlocks.forEach(block => {
-                // Evita adicionar o botão múltiplas vezes se a função for chamada novamente
-                if(block.querySelector('.copy-code-button')) return;
-
-                const button = document.createElement('button');
-                button.className = 'copy-code-button';
-                button.setAttribute('aria-label', 'Copiar código');
-                button.innerHTML = `
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M0 4.75C0 3.784.784 3 1.75 3h6.5a.75.75 0 0 1 0 1.5h-6.5A.25.25 0 0 0 1.5 5v6.5c0 .138.112.25.25.25h6.5a.75.75 0 0 1 0 1.5h-6.5A1.75 1.75 0 0 1 0 11.25Zm9.5-3.25a.75.75 0 0 1 .75.75v9a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM11.25 2h3A1.75 1.75 0 0 1 16 3.75v9.5A1.75 1.75 0 0 1 14.25 15h-3a.75.75 0 0 1 0-1.5h3a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25h-3a.75.75 0 0 1 0-1.5Z"></path></svg>
-                    <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
-                    <span>Copiar</span>
-                `;
-                block.appendChild(button);
-            });
-        },
-        // Lógica para copiar o texto
-        handleCopyClick(button) {
-            const pre = button.closest('pre');
-            const code = pre.querySelector('code');
-            const textToCopy = code ? code.innerText : pre.innerText;
-
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const textSpan = button.querySelector('span');
-                const copyIcon = button.querySelector('.copy-icon');
-                const successIcon = button.querySelector('.success-icon');
-
-                textSpan.textContent = 'Copiado!';
-                copyIcon.style.display = 'none';
-                successIcon.style.display = 'block';
-
-                setTimeout(() => {
-                    textSpan.textContent = 'Copiar';
-                    copyIcon.style.display = 'block';
-                    successIcon.style.display = 'none';
-                }, 2000);
-            }).catch(err => {
-                console.error('Falha ao copiar texto: ', err);
-                const textSpan = button.querySelector('span');
-                textSpan.textContent = 'Erro!';
-            });
-        }
-    };
-
-    // MÓDULO: BARRA DE PROGRESSO DE LEITURA
-    const progressBarModule = {
-        init() {
-            const progressBar = document.getElementById('progressBar');
-            const contentWrapper = document.getElementById('content-wrapper');
-
-            if (!progressBar || !contentWrapper) return;
-
-            contentWrapper.addEventListener('scroll', () => {
-                const scrollableHeight = contentWrapper.scrollHeight - contentWrapper.clientHeight;
-                const scrollTop = contentWrapper.scrollTop;
-                const progress = (scrollTop / scrollableHeight) * 100;
-                
-                progressBar.style.width = `${progress}%`;
-            });
-        }
-    };
+});
