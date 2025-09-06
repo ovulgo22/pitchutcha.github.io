@@ -189,3 +189,59 @@
 Excelente! A estrutura principal do site agora está montada. Já temos um layout visualmente organizado, mesmo sem o CSS.
 
 Na parte final (4 de 4), adicionaremos os elementos que ficam "fora" do fluxo normal, como o modal de busca (a tela que aparecerá ao pressionar `Ctrl+K`) e a mensagem para usuários com JavaScript desabilitado. E, claro, fecharemos as tags `<body>` e `<html>` para completar nosso arquivo.
+<div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title" hidden>
+        <div class="search-modal__overlay" id="search-modal-overlay"></div>
+        <div class="search-modal__content">
+            <div class="search-modal__header">
+                <div class="search-modal__input-wrapper">
+                    <svg class="icon search-modal__icon"><use href="#icon-search"></use></svg>
+                    <input type="text" id="search-modal-input" class="search-modal__input" placeholder="Buscar em todo o Codex..." autocomplete="off">
+                </div>
+                <button type="button" class="search-modal__close-button" aria-label="Fechar busca">ESC</button>
+            </div>
+            <div class="search-modal__results" id="search-results-container">
+                <p class="search-modal__placeholder">Nenhum resultado de busca recente.</p>
+            </div>
+            <div class="search-modal__footer">
+                <ul class="search-modal__instructions">
+                    <li><kbd>↑</kbd><kbd>↓</kbd> para navegar</li>
+                    <li><kbd>Enter</kbd> para selecionar</li>
+                    <li><kbd>Esc</kbd> para fechar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <noscript>
+        <style>
+            .main-container, .main-header { display: none; }
+            .noscript-message {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: sans-serif;
+                text-align: center;
+                padding: 2rem;
+                background-color: #f0f0f0;
+                color: #1a1a1a;
+            }
+            .noscript-message div {
+                max-width: 600px;
+            }
+            .noscript-message h1 {
+                font-size: 2rem;
+                color: #d93025;
+            }
+        </style>
+        <div class="noscript-message">
+            <div>
+                <h1>JavaScript Desabilitado</h1>
+                <p>O site <strong>Pitchutcha</strong> é uma aplicação web altamente interativa e depende do JavaScript para funcionar.</p>
+                <p>Por favor, habilite o JavaScript nas configurações do seu navegador para explorar o Codex da Computação.</p>
+            </div>
+        </div>
+    </noscript>
+
+</body>
+</html>
