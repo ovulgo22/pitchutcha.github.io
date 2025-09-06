@@ -9,56 +9,20 @@
 
     <meta property="og:title" content="A Máquina de Turing - Pitchutcha" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://ovulgo22.github.io/articles/fundacoes/maquina-turing.html" />
-    <meta property="og:description" content="Entenda o modelo matemático abstrato que define uma máquina teórica capaz de simular qualquer algoritmo de computador." />
-    <meta property="og:site_name" content="Pitchutcha" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="A Máquina de Turing - Pitchutcha" />
-    <meta name="twitter:description" content="Entenda o modelo matemático abstrato que define uma máquina teórica capaz de simular qualquer algoritmo de computador." />
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2290%22 font-size=%2290%22 text-anchor=%22middle%22>💻</text></svg>" type="image/svg+xml">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/print.css" media="print">
+    <link rel="icon" href="data:image/svg+xml,...">
+    <link rel="stylesheet" href="/style.css"> <link rel="stylesheet" href="/print.css" media="print">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 <body data-theme="dark">
 
     <div class="app-container">
         
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-content">
-                <header class="sidebar-header">
-                    <h1 class="logo"><a href="/index.html">Pitchutcha</a></h1>
-                    <div class="search-container">
-                        <input type="text" id="search-input" class="search-input" placeholder="Pesquisar artigos...">
-                        <button id="clear-search-btn" class="clear-search-btn hidden" aria-label="Limpar pesquisa">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95z"/></svg>
-                        </button>
-                        <ul id="search-results" class="search-results hidden" role="listbox"></ul>
-                    </div>
-                </header>
-                <nav id="sidebar-nav" class="sidebar-nav" aria-label="Navegação da enciclopédia"></nav>
-            </div>
-            <footer class="sidebar-footer">
-                <button id="theme-toggler" class="theme-toggler" aria-label="Alternar tema">
-                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 M18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.591a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.591a.75.75 0 010 1.06zM12 21a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25A.75.75 0 0112 21zM5.106 17.803a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.69a.75.75 0 01.981.98 10.503 10.503 0 01-4.293 2.126C13.199 21.75 10.5 21.75 8.25 19.5c-2.25-2.25-2.25-5.024-2.25-7.372 0-2.348.86-4.42 2.364-6.002a.75.75 0 01.819.162z"/></svg>
-                </button>
-                <a href="https://github.com/ovulgo22" target="_blank" rel="noopener noreferrer" class="author-link" aria-label="Perfil do autor no GitHub">Criado por ovulgo22</a>
-            </footer>
-        </aside>
+        <aside id="sidebar" class="sidebar"></aside>
+
         <main class="main-content-grid">
             
-            <header id="main-header" class="main-header" role="banner">
-                <button id="menu-toggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir/Fechar menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"></path></svg>
-                </button>
-                <p id="breadcrumb" class="breadcrumb" aria-label="Caminho atual">Fundações</p>
-                <a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="Ver o repositório no GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="github-icon"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    <span>GitHub</span>
-                </a>
-            </header>
+            <header id="main-header" class="main-header" role="banner"></header>
+
             <div class="content-wrapper">
                 <article itemprop="articleBody" id="content-area" class="content-area">
                     <header class="article-header">
@@ -67,32 +31,18 @@
                     </header>
                     <div id="content-body" class="content-body">
                         <h2>O Modelo Abstrato da Computação</h2>
-                        <p>Proposta por Alan Turing em 1936, a Máquina de Turing é um modelo matemático abstrato que define uma máquina teórica capaz de simular qualquer algoritmo de computador. Ela consiste em uma fita infinita dividida em células, um cabeçote de leitura/escrita e um conjunto de estados. Este conceito foi fundamental para o desenvolvimento da teoria da computação e da ciência da computação como um todo.</p>
-                        <h3>Componentes</h3>
-                        <ul>
-                            <li><strong>Fita Infinita:</strong> Onde os dados são armazenados.</li>
-                            <li><strong>Cabeçote:</strong> Lê, escreve ou apaga símbolos na fita.</li>
-                            <li><strong>Unidade de Controle:</strong> Um conjunto finito de estados que dita a ação do cabeçote.</li>
-                        </ul>
-                        <h3>Legado</h3>
-                        <p>O trabalho de Turing lançou as bases para o que hoje chamamos de "algoritmo" e "computabilidade", sendo essencial para o desenvolvimento da inteligência artificial.</p>
-                    </div>
+                        <p>Proposta por Alan Turing em 1936...</p>
+                        </div>
                 </article>
 
-                <aside role="complementary" id="toc-sidebar" class="toc-sidebar">
-                    <h2 id="toc-heading" class="toc-heading">Nesta Página</h2>
-                    <nav id="toc-nav"></nav>
-                </aside>
+                <aside role="complementary" id="toc-sidebar" class="toc-sidebar"></aside>
             </div>
 
             <footer id="nav-buttons" class="nav-buttons" aria-label="Navegação de artigos"></footer>
             
-            <footer class="main-footer" role="contentinfo">
-                <p>&copy; 2025 Pitchutcha. Todos os direitos reservados. Construído por <a href="https://github.com/ovulgo22" target="_blank" rel="noopener noreferrer">ovulgo22</a>.</p>
-            </footer>
-            </main>
+            <footer class="main-footer" role="contentinfo"></footer>
+        </main>
     </div>
 
-    <script src="/script.js" defer></script>
-</body>
+    <script src="/script.js" defer></script> </body>
 </html>
