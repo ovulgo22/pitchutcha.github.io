@@ -3,44 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitchutcha</title>
+    <title>Pitchutcha: Enciclopédia de Tecnologia</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2290%22 font-size=%2290%22 text-anchor=%22middle%22>💻</text></svg>" type="image/svg+xml">
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="script.js" defer></script>
 </head>
 <body>
 
     <div class="app-container">
         <aside id="sidebar" class="sidebar">
             <header class="sidebar-header">
-                <h1 class="logo">Pitchutcha</h1>
+                <h1 class="logo">
+                    <a href="#home">Pitchutcha</a>
+                </h1>
                 <div class="search-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="Pesquisar...">
-                    <button id="clear-search-btn" class="clear-search-btn hidden">&times;</button>
-                    <ul id="search-results" class="search-results hidden"></ul>
+                    <input type="text" id="search-input" class="search-input" placeholder="Pesquisar artigos...">
+                    <button id="clear-search-btn" class="clear-search-btn hidden" aria-label="Limpar pesquisa">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95z"/>
+                        </svg>
+                    </button>
+                    <ul id="search-results" class="search-results hidden" role="listbox" aria-label="Resultados da pesquisa"></ul>
                 </div>
             </header>
-            <nav id="sidebar-nav" class="sidebar-nav"></nav>
+            <nav id="sidebar-nav" class="sidebar-nav" aria-label="Navegação da enciclopédia"></nav>
         </aside>
 
-        <main id="main-content" class="main-content">
+        <main id="main-content" class="main-content" aria-live="polite">
             <header class="main-header">
-                <button id="menu-toggle" class="menu-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"></path></svg>
+                <button id="menu-toggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir/Fechar menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"></path>
+                    </svg>
                 </button>
-                <p id="breadcrumb" class="breadcrumb"></p>
+                <p id="breadcrumb" class="breadcrumb" aria-label="Caminho atual"></p>
+                <div id="feedback-widget" class="feedback-widget hidden" aria-hidden="true">
+                    <span>Este artigo foi útil?</span>
+                    <button class="feedback-btn" data-feedback="like" aria-label="Sim, útil">👍</button>
+                    <button class="feedback-btn" data-feedback="dislike" aria-label="Não, inútil">👎</button>
+                </div>
             </header>
             
+            <div id="reading-progress-bar" class="reading-progress-bar"></div>
+
             <article id="content-area" class="content-area">
                 <h1 id="article-title"></h1>
                 <p id="article-subtitle" class="subtitle"></p>
-                <div id="content-body" class="content-body">
-                    </div>
+                <div id="content-body" class="content-body"></div>
             </article>
 
-            <footer id="nav-buttons" class="nav-buttons">
-                </footer>
+            <footer id="nav-buttons" class="nav-buttons" aria-label="Navegação de artigos"></footer>
         </main>
     </div>
 
@@ -48,5 +61,7 @@
         <p>Este site requer JavaScript para funcionar corretamente. Por favor, habilite-o em seu navegador.</p>
     </noscript>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
