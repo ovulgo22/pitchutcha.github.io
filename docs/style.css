@@ -1,4 +1,4 @@
-/*=============== INÍCIO DA PARTE 1 ===============*/
+/*=============== INÍCIO DA PARTE 1 (CORRIGIDA) ===============*/
 
 /* ==========================================================================
    1. FUNDAÇÃO E VARIÁVEIS DE TEMA
@@ -73,11 +73,12 @@ body {
 }
 
 /* --- Sidebar Principal (Esquerda) --- */
-/* Na nova arquitetura, este placeholder controla a posição da sidebar */
 #sidebar-placeholder {
     position: sticky;
     top: 0;
-    height: 100vh;
+    /* CORREÇÃO: Usa 'dvh' (dynamic viewport height) para se adaptar às barras do navegador em mobile */
+    height: 100vh; /* Fallback para navegadores antigos */
+    height: 100dvh;
     flex-shrink: 0;
 }
 
@@ -98,7 +99,7 @@ body {
     overflow-y: hidden;
     height: 100%;
 }
-/*================ FIM DA PARTE 1 ================*/
+/*================ FIM DA PARTE 1 (CORRIGIDA) ================*/
 /*=============== INÍCIO DA PARTE 2 ===============*/
 
 /* ==========================================================================
