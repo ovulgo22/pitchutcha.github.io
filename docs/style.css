@@ -73,18 +73,22 @@ body {
 }
 
 /* --- Sidebar Principal (Esquerda) --- */
-/* Estilos aplicados diretamente no componente <aside> que tem a classe .sidebar */
-.sidebar {
-    width: 320px;
-    height: 100vh; /* Ocupa a altura inteira da janela de visualização */
+/* Na nova arquitetura, este placeholder controla a posição da sidebar */
+#sidebar-placeholder {
     position: sticky;
     top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+}
+
+.sidebar {
+    width: 320px;
+    height: 100%;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-shrink: 0;
     transition: margin-left 0.3s ease-in-out, background-color 0.2s;
 }
 
@@ -555,15 +559,18 @@ body[data-theme='light'] .theme-toggler .icon-moon { display: block; }
 }
 
 @media (max-width: 1024px) {
-    .sidebar {
+    #sidebar-placeholder {
         position: fixed;
         left: 0; top: 0; bottom: 0;
         z-index: 2000;
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
     }
-    .sidebar.open {
+    /* ESTA É A CORREÇÃO: Diz ao navegador o que fazer quando a classe .open for adicionada */
+    #sidebar-placeholder.open {
         transform: translateX(0);
+    }
+    .sidebar.open {
         box-shadow: 0 0 40px var(--shadow-color);
     }
     .menu-toggle { display: block; }
