@@ -192,3 +192,207 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
+        /**
+         * ===================================================================
+         * 4. MÉTODOS DE LÓGICA E RENDERIZAÇÃO
+         * ===================================================================
+         * O coração da aplicação. Estes métodos são responsáveis por
+         * processar dados e atualizar a interface do usuário (UI).
+         */
+        Object.assign(PitchutchaApp, {
+            
+            // --- MÉTODOS DE RENDERIZAÇÃO ---
+
+            renderSidebar() {
+                const getArticleLink = (id, title) => `<li role="none"><a href="#${id}" class="nav-link" role="menuitem">${title}</a></li>`;
+                
+                this.dom.sidebarNav.innerHTML = appData.categories.map(cat => `
+                    <div class="category-group ${cat.open ? 'open' : ''}" data-category-id="${cat.id}">
+                        <h3 class="category-title" role="button" aria-expanded="${cat.open}" tabindex="0">
+                            <span>${cat.name}</span>
+                            <svg class="icon-chevron" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path></svg>
+                        </h3>
+                        <ul class="nav-list" role="menu">${Object.entries(appData.articles)
+                            .filter(([id]) => id.startsWith(cat.id))
+                            .map(([id, art]) => getArticleLink(id, art.title)).join('')}
+                        </ul>
+                    </div>`).join('');
+            },
+
+            renderContent(articleId) {
+                const article = appData.articles[articleId];
+                if (!article) {
+                    console.error(`Artigo com id "${articleId}" não encontrado. Redirecionando para home.`);
+                    this.renderContent('home');
+                    return;
+                }
+
+                this.state.currentArticleId = articleId;
+                document.title = `${article.title} - Pitchutcha`;
+
+                this.dom.breadcrumb.textContent = article.breadcrumb || 'Artigo';
+                this.dom.articleTitle.textContent = article.title;
+                this.dom.articleSubtitle.innerHTML = article.subtitle || '';
+                this.dom.contentBody.innerHTML = article.content;
+
+                this.renderNavButtons(article);
+                this.updateActiveSidebarLink();
+                this.applyGlossaryTooltips();
+
+                if (typeof hljs !== 'undefined') {
+                    document.querySelectorAll('pre code').forEach(hljs.highlightElement);
+                }
+
+                this.dom.mainContent.scrollTop = 0;
+                this.dom.feedbackWidget.classList.remove('hidden');
+                this.dom.feedbackWidget.setAttribute('aria-hidden', 'false');
+                
+                if (window.innerWidth <= 1024) this.closeSidebar();
+            },
+
+            renderNavButtons(article) {
+                let html = '';
+                if (article.prevArticle) {
+                    const prev = appData.articles[article.prevArticle];
+                    html += `<a href="#${article.prevArticle}" class="nav-button prev"><span>Anterior</span><h4>${prev.title}</h4></a>`;
+                }
+                if (article.nextArticle) {
+                    const next = appData.articles[article.nextArticle];
+                    html += `<a href="#${article.nextArticle}" class="nav-button next"><span>Próximo</span><h4>${next.title}</h4></a>`;
+                }
+                this.dom.navButtons.innerHTML = html;
+            },
+
+            renderSearchResults(results) {
+                if (results.length === 0) {
+                    this.dom.searchResults.innerHTML = '<li class="no-results" role="option">Nenhum resultado encontrado.</li>';
+                } else {
+                    this.dom.searchResults.innerHTML = results.map(r => `<li role="option"><a href="#${r.id}">${r.title}</a></li>`).join('');
+                }
+            },
+
+            // --- MÉTODOS DE LÓGICA / HANDLERS DE EVENTOS ---
+
+            handleRouting() {
+                let articleId = window.location.hash.substring(1);
+                if (!appData.articles[articleId]) {
+                    articleId = 'home';
+                    window.history.replaceState(null, '', '#home');
+                }
+                this.renderContent(articleId);
+            },
+
+            handleSidebarClick(event) {
+                const categoryTitle = event.target.closest('.category-title');
+                const navLink = event.target.closest('.nav-link');
+                
+                if (categoryTitle) {
+                    this.toggleCategory(categoryTitle.parentElement);
+                }
+                if (navLink) {
+                    this.clearSearch();
+                }
+            },
+
+            handleSearch(event) {
+                this.state.searchQuery = event.target.value.toLowerCase().trim();
+                if (this.state.searchQuery.length > 1) {
+                    this.dom.clearSearchBtn.classList.remove('hidden');
+                    const results = Object.entries(appData.articles)
+                        .map(([id, article]) => ({ id, ...article }))
+                        .filter(a => a.title.toLowerCase().includes(this.state.searchQuery) || a.content.toLowerCase().includes(this.state.searchQuery));
+                    this.renderSearchResults(results);
+                    this.dom.searchResults.classList.remove('hidden');
+                } else {
+                    this.clearSearch();
+                }
+            },
+            
+            clearSearch() {
+                this.dom.searchInput.value = '';
+                this.state.searchQuery = '';
+                this.dom.searchResults.classList.add('hidden');
+                this.dom.clearSearchBtn.classList.add('hidden');
+            },
+
+            handleClickOutsideSearch(event) {
+                if (!this.dom.searchInput.contains(event.target) && !this.dom.searchResults.contains(event.target)) {
+                    this.dom.searchResults.classList.add('hidden');
+                }
+            },
+
+            toggleCategory(categoryElement) {
+                const isOpen = categoryElement.classList.toggle('open');
+                categoryElement.querySelector('.category-title').setAttribute('aria-expanded', isOpen);
+            },
+
+            toggleSidebar() {
+                this.state.sidebarOpen = !this.state.sidebarOpen;
+                this.dom.sidebar.classList.toggle('open', this.state.sidebarOpen);
+                this.dom.menuToggleBtn.setAttribute('aria-expanded', this.state.sidebarOpen);
+            },
+
+            closeSidebar() {
+                if (this.state.sidebarOpen) this.toggleSidebar();
+            },
+
+            updateReadingProgress() {
+                const scrollableHeight = this.dom.mainContent.scrollHeight - this.dom.mainContent.clientHeight;
+                const scrollTop = this.dom.mainContent.scrollTop;
+                const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+                this.dom.readingProgressBar.style.width = `${progress}%`;
+            },
+            
+            handleFeedback(event) {
+                const button = event.target.closest('.feedback-btn');
+                if (!button) return;
+
+                const feedback = button.dataset.feedback;
+                console.log(`Feedback recebido: ${feedback}`);
+                
+                this.dom.feedbackWidget.innerHTML = `<span>Obrigado pelo feedback!</span>`;
+            },
+
+            // --- MÉTODOS UTILITÁRIOS ---
+
+            updateActiveSidebarLink() {
+                this.dom.sidebarNav.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.toggle('active', link.href.endsWith(`#${this.state.currentArticleId}`));
+                });
+            },
+
+            applyGlossaryTooltips() {
+                 const regex = new RegExp(`\\b(${Object.keys(appData.glossary).join('|')})\\b`, 'gi');
+                const walker = document.createTreeWalker(this.dom.contentBody, NodeFilter.SHOW_TEXT);
+                let node;
+                while (node = walker.nextNode()) {
+                    if (node.parentElement.tagName === 'SPAN' && node.parentElement.classList.contains('glossary-term')) continue;
+                    
+                    const newHTML = node.textContent.replace(regex, (match) => {
+                        const termKey = Object.keys(appData.glossary).find(k => k.toLowerCase() === match.toLowerCase());
+                        return `<span class="glossary-term" data-definition="${appData.glossary[termKey]}">${match}</span>`;
+                    });
+
+                    if (newHTML !== node.textContent) {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = newHTML;
+                        node.replaceWith(...tempDiv.childNodes);
+                    }
+                }
+            }
+        });
+
+        /**
+         * ===================================================================
+         * 5. INICIALIZAÇÃO DA APLICAÇÃO
+         * ===================================================================
+         * Dispara o método init do nosso objeto principal para iniciar o site.
+         */
+        PitchutchaApp.init();
+
+    } catch (error) {
+        console.error("Erro fatal na inicialização do Pitchutcha:", error);
+        document.body.innerHTML = `<div style="font-family: sans-serif; color: #ff4d4d; background-color: #111; padding: 2rem;"><h1>Erro Crítico na Aplicação</h1><p>Ocorreu um erro que impediu o carregamento do site. Verifique o console do navegador (F12) para detalhes técnicos.</p><pre style="background-color: #222; padding: 1rem; border-radius: 8px; margin-top: 1rem; color: #ffb8b8;">${error.stack}</pre></div>`;
+    }
+
+}); // Fim do DOMContentLoaded
