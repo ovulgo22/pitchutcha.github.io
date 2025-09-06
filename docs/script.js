@@ -1,4 +1,4 @@
-/*=============== INÍCIO DA PARTE 1 ===============*/
+/*=============== INÍCIO DA PARTE 1 (EXPANDIDA) ===============*/
 
 /* ==========================================================================
    PITCHUTCHA - SCRIPT GLOBAL (ARQUITETURA MPA)
@@ -15,21 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
          * ===================================================================
          * 1. MANIFESTO DE CONTEÚDO (contentManifest)
          * ===================================================================
-         * Este objeto é o "mapa" do nosso site. Ele não contém o conteúdo
-         * em si, mas diz ao script onde encontrar cada artigo e seus metadados.
          */
         const contentManifest = {
             categories: [
                 { id: 'home', name: 'Início', open: true },
                 { id: 'fundacoes', name: 'Fundações da Computação', open: true },
                 { id: 'redes', name: 'Redes e Protocolos', open: false },
-                { id: 'arquitetura', name: 'Arquitetura de Software', open: false },
                 { id: 'webdev', name: 'Desenvolvimento Web', open: false },
                 { id: 'db', name: 'Bancos de Dados', open: false },
-                { id: 'ia', name: 'Inteligência Artificial', open: false },
-                { id: 'seguranca', name: 'Cibersegurança', open: false },
-                { id: 'devops', name: 'DevOps & Cloud', open: false },
-                { id: 'avancado', name: 'Tópicos Avançados', open: false },
             ],
             articles: {
                 // FUNDAÇÕES
@@ -37,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'A Máquina de Turing',
                     breadcrumb: 'Fundações',
                     description: 'Entenda o modelo matemático abstrato que define uma máquina teórica capaz de simular qualquer algoritmo de computador.',
-                    mdPath: '/content/fundacoes/maquina-turing.md', // Caminho para o arquivo Markdown
+                    mdPath: '/content/fundacoes/maquina-turing.md',
                     nextArticle: 'fundacoes/arquitetura-von-neumann',
                     lastUpdated: '2025-09-05',
                     readingTime: 2
@@ -57,34 +50,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     breadcrumb: 'Redes',
                     description: 'Aprenda sobre as sete camadas do modelo conceitual que padroniza as funções de um sistema de comunicação.',
                     mdPath: '/content/redes/modelo-osi.md',
+                    nextArticle: 'redes/tcp-ip',
                     lastUpdated: '2025-09-03',
                     readingTime: 4
                 },
-                 // ARTIGOS DE EXEMPLO QUE AINDA NÃO EXISTEM, APENAS PARA O MANIFESTO
-                'webdev/http3': {
-                    title: 'HTTP/3 e QUIC',
-                    breadcrumb: 'Desenvolvimento Web',
-                    description: 'Descubra o futuro dos protocolos da web e por que eles são mais rápidos e resilientes.',
-                    mdPath: '/content/webdev/http3.md',
-                    lastUpdated: '2025-09-06',
+                'redes/tcp-ip': {
+                    title: 'Pilha de Protocolos TCP/IP',
+                    breadcrumb: 'Redes',
+                    description: 'Entenda o conjunto de protocolos prático que move a Internet, em contraste com o modelo teórico OSI.',
+                    mdPath: '/content/redes/tcp-ip.md',
+                    prevArticle: 'redes/modelo-osi',
+                    lastUpdated: '2025-09-02',
                     readingTime: 3
                 },
-                'ia/llms': {
-                    title: 'Modelos de Linguagem Grandes (LLMs)',
-                    breadcrumb: 'Inteligência Artificial',
-                    description: 'Uma introdução à tecnologia por trás da IA generativa que alimenta assistentes como GPT e Gemini.',
-                    mdPath: '/content/ia/llms.md',
+                // WEB DEV
+                'webdev/o-que-e-uma-api': {
+                    title: 'O que é uma API?',
+                    breadcrumb: 'Web Dev',
+                    description: 'Descubra como as Interfaces de Programação de Aplicações permitem que diferentes sistemas de software conversem entre si.',
+                    mdPath: '/content/webdev/o-que-e-uma-api.md',
                     lastUpdated: '2025-09-06',
                     readingTime: 4
                 },
+                // BANCOS DE DADOS
+                'db/sql-vs-nosql': {
+                    title: 'SQL vs. NoSQL',
+                    breadcrumb: 'Bancos de Dados',
+                    description: 'Compare os modelos de bancos de dados relacionais (SQL) e não relacionais (NoSQL) e entenda quando usar cada um.',
+                    mdPath: '/content/db/sql-vs-nosql.md',
+                    lastUpdated: '2025-09-06',
+                    readingTime: 5
+                },
             },
             glossary: {
-                "TCP": "Transmission Control Protocol. Um dos principais protocolos da suíte de protocolos da Internet, garantindo a entrega confiável de dados.",
-                "UDP": "User Datagram Protocol. Um protocolo de transporte mais simples e rápido que o TCP, mas não garante a entrega de pacotes.",
-                "CPU": "Central Processing Unit. A Unidade Central de Processamento, o cérebro do computador.",
-                "IP": "Internet Protocol. O principal protocolo de comunicação na camada de rede, responsável pelo endereçamento e roteamento de pacotes.",
-                "DNS": "Domain Name System. O sistema que traduz nomes de domínio em endereços IP.",
-                "Markdown": "Uma linguagem de marcação leve projetada para ser fácil de ler e escrever, frequentemente usada para formatação de texto na web."
+                "SQL": "Structured Query Language. A linguagem padrão para gerenciar e manipular bancos de dados relacionais.",
+                "NoSQL": "Termo usado para descrever bancos de dados não relacionais, que armazenam dados em formatos como documentos, grafos ou chave-valor.",
+                "API": "Application Programming Interface. Uma interface que permite que dois sistemas de software se comuniquem.",
+                "TCP/IP": "Transmission Control Protocol/Internet Protocol. A pilha de protocolos fundamental da Internet.",
             }
         };
 
@@ -92,27 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
          * ===================================================================
          * 2. OBJETO PRINCIPAL DA APLICAÇÃO (PitchutchaApp)
          * ===================================================================
-         * Encapsula todo o estado, referências do DOM e métodos da aplicação.
          */
         const PitchutchaApp = {
-            // -- Propriedades para armazenar o estado da aplicação
-            state: {
-                currentPageId: null, // ID do artigo ou página atual
-                sidebarOpen: window.innerWidth > 1024,
-                searchQuery: '',
-                currentTheme: 'dark',
-            },
-            
-            // -- Propriedade para "cachear" elementos do DOM para acesso rápido
+            state: { currentPageId: null, sidebarOpen: window.innerWidth > 1024, searchQuery: '', currentTheme: 'dark', },
             dom: {},
-
-            // -- Manifesto de conteúdo
             manifest: contentManifest,
-
-            // -- Métodos da aplicação serão adicionados nas próximas partes
         };
         
-/*================ FIM DA PARTE 1 ================*/
+/*================ FIM DA PARTE 1 (EXPANDIDA) ================*/
 /*=============== INÍCIO DA PARTE 2 (CORRIGIDA) ===============*/
 
         /**
