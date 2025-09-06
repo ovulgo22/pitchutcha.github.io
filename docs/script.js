@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'fundacoes/maquina-turing': {
                     title: 'A Máquina de Turing',
                     breadcrumb: 'Fundações',
+                    description: 'Entenda o modelo matemático abstrato que define uma máquina teórica capaz de simular qualquer algoritmo de computador.',
                     mdPath: '/content/fundacoes/maquina-turing.md', // Caminho para o arquivo Markdown
                     nextArticle: 'fundacoes/arquitetura-von-neumann',
                     lastUpdated: '2025-09-05',
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'fundacoes/arquitetura-von-neumann': {
                     title: 'Arquitetura de Von Neumann',
                     breadcrumb: 'Fundações',
+                    description: 'Conheça a arquitetura de computador que usa uma única estrutura de armazenamento para instruções e dados, a base dos computadores modernos.',
                     mdPath: '/content/fundacoes/arquitetura-von-neumann.md',
                     prevArticle: 'fundacoes/maquina-turing',
                     lastUpdated: '2025-09-04',
@@ -53,14 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 'redes/modelo-osi': {
                     title: 'O Modelo OSI',
                     breadcrumb: 'Redes',
+                    description: 'Aprenda sobre as sete camadas do modelo conceitual que padroniza as funções de um sistema de comunicação.',
                     mdPath: '/content/redes/modelo-osi.md',
                     lastUpdated: '2025-09-03',
                     readingTime: 4
                 },
-                 // ARTIGO DE EXEMPLO QUE AINDA NÃO EXISTE, APENAS PARA O MANIFESTO
+                 // ARTIGOS DE EXEMPLO QUE AINDA NÃO EXISTEM, APENAS PARA O MANIFESTO
                 'webdev/http3': {
                     title: 'HTTP/3 e QUIC',
                     breadcrumb: 'Desenvolvimento Web',
+                    description: 'Descubra o futuro dos protocolos da web e por que eles são mais rápidos e resilientes.',
                     mdPath: '/content/webdev/http3.md',
                     lastUpdated: '2025-09-06',
                     readingTime: 3
@@ -68,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'ia/llms': {
                     title: 'Modelos de Linguagem Grandes (LLMs)',
                     breadcrumb: 'Inteligência Artificial',
+                    description: 'Uma introdução à tecnologia por trás da IA generativa que alimenta assistentes como GPT e Gemini.',
                     mdPath: '/content/ia/llms.md',
                     lastUpdated: '2025-09-06',
                     readingTime: 4
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "CPU": "Central Processing Unit. A Unidade Central de Processamento, o cérebro do computador.",
                 "IP": "Internet Protocol. O principal protocolo de comunicação na camada de rede, responsável pelo endereçamento e roteamento de pacotes.",
                 "DNS": "Domain Name System. O sistema que traduz nomes de domínio em endereços IP.",
+                "Markdown": "Uma linguagem de marcação leve projetada para ser fácil de ler e escrever, frequentemente usada para formatação de texto na web."
             }
         };
 
@@ -111,61 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * ===================================================================
-         * 3. MÉTODOS DE INICIALIZAÇÃO E MONTAGEM DE COMPONENTES
+         * 3. MÉTODOS DE INICIALIZAÇÃO, DOM E EVENTOS GLOBAIS
          * ===================================================================
          */
         Object.assign(PitchutchaApp, {
             
             /**
              * Ponto de entrada principal da aplicação.
-             * Carrega os componentes e depois inicializa a lógica da página.
              */
-            async init() {
+            init() {
                 console.log("PitchutchaApp: Inicializando aplicação...");
                 this.loadTheme();
-                await this.loadComponents(); // Espera os componentes carregarem
-                this.initPage(); // Inicializa a lógica da página depois que os componentes existem
-            },
-
-            /**
-             * Carrega os fragmentos de HTML reutilizáveis e os injeta nos placeholders.
-             * Esta é a base da nossa arquitetura de componentes.
-             */
-            async loadComponents() {
-                const components = {
-                    '#sidebar-placeholder': '/_sidebar.html',
-                    '#main-header-placeholder': '/_header.html',
-                    '#main-footer-placeholder': '/_footer.html',
-                };
-
-                for (const [placeholderId, componentPath] of Object.entries(components)) {
-                    const placeholder = document.querySelector(placeholderId);
-                    if (placeholder) {
-                        try {
-                            const response = await fetch(componentPath);
-                            if (!response.ok) throw new Error(`Falha ao carregar ${componentPath}: ${response.statusText}`);
-                            const componentHTML = await response.text();
-                            placeholder.outerHTML = componentHTML;
-                        } catch (error) {
-                            console.error(`Erro ao carregar componente para ${placeholderId}:`, error);
-                            placeholder.innerHTML = `<p style="color:red;">Erro ao carregar componente.</p>`;
-                        }
-                    }
-                }
+                this.cacheDom();
+                this.bindEvents();
+                this.initPageLogic(); // Roda a lógica específica da página atual
+                console.log("PitchutchaApp: Aplicação pronta.");
             },
             
-            /**
-             * Inicializa a lógica específica da página após os componentes serem carregados.
-             */
-            initPage() {
-                this.cacheDom(); // Agora os elementos dos componentes existem e podem ser cacheados
-                this.bindEvents();
-                this.renderSidebarNav(); // A navegação da sidebar é global
-                
-                // Determina qual tipo de página estamos e executa a lógica apropriada
-                // (Isso será adicionado na próxima parte)
-            },
-
             /**
              * Mapeia elementos do DOM para o objeto `dom` para acesso rápido.
              */
@@ -189,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.dom.breadcrumb = document.getElementById('breadcrumb');
                 this.dom.tocNav = document.getElementById('toc-nav');
                 this.dom.tocSidebar = document.getElementById('toc-sidebar');
-                this.dom.readingProgressBar = document.getElementById('reading-progress-bar');
+                this.dom.mainContentGrid = document.querySelector('.main-content-grid');
             },
 
             /**
@@ -198,11 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
             bindEvents() {
                 if (this.dom.themeToggler) this.dom.themeToggler.addEventListener('click', this.toggleTheme.bind(this));
                 if (this.dom.menuToggleBtn) this.dom.menuToggleBtn.addEventListener('click', this.toggleSidebar.bind(this));
+                
                 if (this.dom.searchInput) {
                     this.dom.searchInput.addEventListener('keyup', this.handleSearch.bind(this));
-                    this.dom.searchInput.addEventListener('focus', () => this.dom.searchResults.classList.remove('hidden'));
+                    this.dom.searchInput.addEventListener('focus', () => {
+                        if(this.dom.searchResults) this.dom.searchResults.classList.remove('hidden');
+                    });
                     document.addEventListener('click', this.handleClickOutsideSearch.bind(this));
                 }
+                
                 if (this.dom.clearSearchBtn) this.dom.clearSearchBtn.addEventListener('click', this.clearSearch.bind(this));
                 if (this.dom.sidebarNav) this.dom.sidebarNav.addEventListener('click', this.handleSidebarClick.bind(this));
             },
@@ -226,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadTheme() {
                 try {
                     const savedTheme = localStorage.getItem('pitchutcha_theme');
-                    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+                    if (savedTheme && (savedTheme === 'light' || 'dark')) {
                         this.setTheme(savedTheme);
                     } else {
                         this.setTheme(this.state.currentTheme);
@@ -242,82 +214,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * ===================================================================
-         * 4. LÓGICA DE ROTEAMENTO E RENDERIZAÇÃO DE CONTEÚDO
+         * 4. LÓGICA DE PÁGINA E RENDERIZAÇÃO DE NAVEGAÇÃO
          * ===================================================================
          */
         Object.assign(PitchutchaApp, {
 
             /**
-             * Modifica o initPage para ser o nosso "roteador" principal.
-             * Ele decide o que fazer com base na URL da página atual.
+             * Roteador principal da aplicação. Determina a lógica a ser executada
+             * com base no caminho da URL atual.
              */
-            initPage() {
-                this.cacheDom();
-                this.bindEvents();
-                this.renderSidebarNav();
+            initPageLogic() {
+                this.renderSidebarNav(); // A sidebar é renderizada em todas as páginas
 
                 const path = window.location.pathname;
-
-                if (path === '/' || path === '/index.html' || path.endsWith('pitchutcha.github.io/')) {
-                    this.handleHomepage();
-                } else if (path.startsWith('/articles/')) {
-                    // Extrai o ID da página a partir do nome do arquivo. Ex: /articles/fundacoes/turing.html -> fundacoes/turing
-                    const pageId = path.split('/articles/')[1].replace('.html', '');
+                const pageId = this.getIdFromPath(path);
+                
+                if (pageId) {
+                    this.state.currentPageId = pageId;
                     this.handleArticlePage(pageId);
+                } else {
+                    this.handleHomepage();
                 }
             },
 
             /**
-             * Lida com a lógica da página inicial.
+             * Extrai o ID do artigo do caminho da URL.
+             * Ex: /articles/fundacoes/maquina-turing.html -> fundacoes/maquina-turing
+             */
+            getIdFromPath(path) {
+                if (path.startsWith('/articles/')) {
+                    return path.split('/articles/')[1].replace('.html', '');
+                }
+                // Adicionado para funcionar em ambientes de subdiretório como o GitHub Pages
+                if (path.includes('/articles/')) {
+                    return path.split('/articles/')[1].replace('.html', '');
+                }
+                return null;
+            },
+
+            /**
+             * Executa a lógica para a página inicial.
              */
             handleHomepage() {
-                console.log("Página inicial carregada.");
-                // Futuramente, podemos adicionar lógicas específicas para a homepage aqui.
+                console.log("Lógica da Página Inicial executada.");
+                // Lógica futura para a busca no "hero" pode ser adicionada aqui.
             },
 
             /**
-             * Lida com a lógica de uma página de artigo.
-             * @param {string} pageId - O identificador único do artigo.
+             * Orquestra todas as funcionalidades dinâmicas de uma página de artigo.
              */
-            async handleArticlePage(pageId) {
-                this.state.currentPageId = pageId;
+            handleArticlePage(pageId) {
+                console.log(`Lógica da Página de Artigo executada para: ${pageId}`);
+                if (!this.manifest.articles[pageId] || !this.dom.contentBody) return;
+
                 const articleData = this.manifest.articles[pageId];
 
-                if (!articleData) {
-                    this.renderError("Artigo não encontrado", "O artigo que você está procurando não existe em nosso manifesto de conteúdo.");
-                    return;
+                // Adiciona um listener de scroll SOMENTE em páginas de artigo
+                if (this.dom.mainContentGrid) {
+                    this.dom.mainContentGrid.addEventListener('scroll', this.updateReadingProgress.bind(this));
                 }
 
-                document.title = `${articleData.title} - Pitchutcha`;
-                if(this.dom.breadcrumb) this.dom.breadcrumb.textContent = articleData.breadcrumb;
-                if(this.dom.articleTitle) this.dom.articleTitle.textContent = articleData.title;
-                if(this.dom.articleSubtitle) this.dom.articleSubtitle.innerHTML = articleData.subtitle || '';
-                
                 this.renderArticleMeta(articleData);
                 this.renderNavButtons(articleData);
-
-                try {
-                    const response = await fetch(articleData.mdPath);
-                    if (!response.ok) throw new Error(`Erro de rede: ${response.statusText}`);
-                    const markdown = await response.text();
-                    // Usa a biblioteca marked.js que importamos no HTML
-                    if (window.marked) {
-                        this.dom.contentBody.innerHTML = marked.parse(markdown);
-                    } else {
-                        throw new Error("Biblioteca 'marked.js' não foi carregada.");
-                    }
-                    
-                    // Funções pós-renderização
-                    if (typeof hljs !== 'undefined') {
-                        this.dom.contentBody.querySelectorAll('pre code').forEach(hljs.highlightElement);
-                    }
-                    this.renderToc();
-                    this.applyGlossaryTooltips();
-
-                } catch (error) {
-                    console.error("Erro ao carregar conteúdo do artigo:", error);
-                    this.renderError("Falha ao carregar conteúdo", "Não foi possível carregar o arquivo de conteúdo para este artigo. Verifique o console para mais detalhes.");
-                }
+                this.renderToc(); // Isso também chama setupTocObserver
+                this.applyGlossaryTooltips();
             },
 
             /**
@@ -327,16 +287,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!this.dom.sidebarNav) return;
                 
                 const getArticleLink = (id, title) => {
-                    const path = window.location.pathname;
-                    const isActive = path.includes(`/articles/${id}.html`);
+                    const currentId = this.getIdFromPath(window.location.pathname);
+                    const isActive = id === currentId;
                     // Links agora apontam para os arquivos .html reais
                     return `<li role="none"><a href="/articles/${id}.html" class="nav-link ${isActive ? 'active' : ''}" role="menuitem">${title}</a></li>`;
                 }
                 
                 this.dom.sidebarNav.innerHTML = this.manifest.categories.map(cat => {
+                    const isHome = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+                    
                     if (cat.id === 'home') {
-                        const isHomeActive = window.location.pathname === '/' || window.location.pathname === '/index.html';
-                        return `<div class="category-group solo"><a href="/index.html" class="nav-link ${isHomeActive ? 'active' : ''}">${cat.name}</a></div>`;
+                        return `<div class="category-group solo"><a href="/index.html" class="nav-link ${isHome ? 'active' : ''}">${cat.name}</a></div>`;
                     }
 
                     const articlesInCategory = Object.entries(this.manifest.articles)
@@ -363,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         /**
          * ===================================================================
-         * 5. MÉTODOS DE RENDERIZAÇÃO DE COMPONENTES E HANDLERS FINAIS
+         * 5. MÉTODOS DE SUPORTE, HANDLERS FINAIS E INICIALIZAÇÃO
          * ===================================================================
          */
         Object.assign(PitchutchaApp, {
@@ -372,22 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // --- MÉTODOS DE RENDERIZAÇÃO DE COMPONENTES ---
             
-            renderError(title, message) {
-                if (!this.dom.contentBody) return;
-                document.title = `${title} - Pitchutcha`;
-                if(this.dom.articleTitle) this.dom.articleTitle.textContent = title;
-                if(this.dom.contentBody) this.dom.contentBody.innerHTML = `<p style="color:var(--text-secondary);">${message}</p>`;
-                if(this.dom.tocSidebar) this.dom.tocSidebar.style.display = 'none';
-            },
-
-            renderArticleMeta(article) {
+            renderArticleMeta(articleData) {
                 if (!this.dom.articleMeta) return;
                 let metaHTML = '';
-                if (article.readingTime) {
-                    metaHTML += `<span>Leitura de ${article.readingTime} min</span>`;
+                if (articleData.readingTime) {
+                    metaHTML += `<span>Leitura de ${articleData.readingTime} min</span>`;
                 }
-                if (article.lastUpdated) {
-                    const date = new Date(article.lastUpdated);
+                if (articleData.lastUpdated) {
+                    const date = new Date(articleData.lastUpdated);
                     const formattedDate = date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
                     metaHTML += `<span>Última atualização: ${formattedDate}</span>`;
                 }
@@ -398,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!this.dom.contentBody || !this.dom.tocSidebar || !this.dom.tocNav) return;
                 
                 const headings = this.dom.contentBody.querySelectorAll('h2, h3');
-                if (headings.length < 2) {
+                if (headings.length < 1) {
                     this.dom.tocSidebar.style.display = 'none';
                     return;
                 }
@@ -406,10 +359,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.dom.tocSidebar.style.display = 'block';
                 let tocHTML = '<ul>';
                 headings.forEach(heading => {
-                    const id = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-                    heading.id = id;
+                    if(!heading.id) { // Garante que títulos sem ID (se houver) recebam um
+                       heading.id = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+                    }
                     const levelClass = heading.tagName === 'H3' ? 'toc-level-3' : 'toc-level-2';
-                    tocHTML += `<li class="${levelClass}"><a href="#${id}">${heading.textContent}</a></li>`;
+                    tocHTML += `<li class="${levelClass}"><a href="#${heading.id}">${heading.textContent}</a></li>`;
                 });
                 tocHTML += '</ul>';
                 this.dom.tocNav.innerHTML = tocHTML;
@@ -417,47 +371,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.setupTocObserver();
             },
 
-            renderNavButtons(article) {
+            renderNavButtons(articleData) {
                 if (!this.dom.navButtons) return;
                 let html = '';
-                if (article.prevArticle) {
-                    const prev = this.manifest.articles[article.prevArticle];
-                    if(prev) html += `<a href="/articles/${article.prevArticle}.html" class="nav-button prev"><span>Anterior</span><h4>${prev.title}</h4></a>`;
+                if (articleData.prevArticle) {
+                    const prev = this.manifest.articles[articleData.prevArticle];
+                    if(prev) html += `<a href="/articles/${articleData.prevArticle}.html" class="nav-button prev"><span>Anterior</span><h4>${prev.title}</h4></a>`;
                 }
-                if (article.nextArticle) {
-                    const next = this.manifest.articles[article.nextArticle];
-                    if(next) html += `<a href="/articles/${article.nextArticle}.html" class="nav-button next"><span>Próximo</span><h4>${next.title}</h4></a>`;
+                if (articleData.nextArticle) {
+                    const next = this.manifest.articles[articleData.nextArticle];
+                    if(next) html += `<a href="/articles/${articleData.nextArticle}.html" class="nav-button next"><span>Próximo</span><h4>${next.title}</h4></a>`;
                 }
                 this.dom.navButtons.innerHTML = html;
+            },
+
+            renderSearchResults(results) {
+                if (!this.dom.searchResults) return;
+                if (results.length === 0) {
+                    this.dom.searchResults.innerHTML = '<li class="no-results" role="option">Nenhum resultado encontrado.</li>';
+                } else {
+                    this.dom.searchResults.innerHTML = results.map(r => `<li role="option"><a href="/articles/${r.id}.html">${r.title}</a></li>`).join('');
+                }
             },
             
             // --- HANDLERS DE EVENTOS E LÓGICA FINAL ---
 
             setupTocObserver() {
                 if (this.tocObserver) this.tocObserver.disconnect();
-
+                
                 const headings = Array.from(this.dom.contentBody.querySelectorAll('h2, h3'));
-                if (headings.length < 2) return;
+                if (headings.length === 0 || !this.dom.mainContentGrid) return;
 
                 const options = {
-                    root: null, // Observa em relação ao viewport
-                    rootMargin: '0px 0px -75% 0px',
+                    root: this.dom.mainContentGrid,
+                    rootMargin: '0px 0px -80% 0px',
                 };
 
                 this.tocObserver = new IntersectionObserver(entries => {
-                    let lastVisibleEntry = null;
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            lastVisibleEntry = entry;
+                        const id = entry.target.getAttribute('id');
+                        const tocLink = this.dom.tocNav.querySelector(`a[href="#${id}"]`);
+                        if (tocLink) {
+                            if (entry.isIntersecting) {
+                                tocLink.classList.add('active');
+                            } else {
+                                tocLink.classList.remove('active');
+                            }
                         }
                     });
-
-                    if (lastVisibleEntry) {
-                         this.dom.tocNav.querySelectorAll('a.active').forEach(a => a.classList.remove('active'));
-                         const id = lastVisibleEntry.target.getAttribute('id');
-                         const tocLink = this.dom.tocNav.querySelector(`a[href="#${id}"]`);
-                         if(tocLink) tocLink.classList.add('active');
-                    }
                 }, options);
 
                 headings.forEach(heading => this.tocObserver.observe(heading));
@@ -474,12 +435,52 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             toggleSidebar() {
+                const placeholder = document.getElementById('sidebar-placeholder');
+                if(!placeholder) return;
                 this.state.sidebarOpen = !this.state.sidebarOpen;
-                document.getElementById('sidebar-placeholder').classList.toggle('open', this.state.sidebarOpen);
+                placeholder.classList.toggle('open', this.state.sidebarOpen);
                 this.dom.menuToggleBtn.setAttribute('aria-expanded', this.state.sidebarOpen);
             },
             
-            // Lógica de busca e utilitários finais aqui
+            updateReadingProgress() {
+                if(!this.dom.mainContentGrid || !this.dom.readingProgressBar) return;
+                const scrollableHeight = this.dom.mainContentGrid.scrollHeight - this.dom.mainContentGrid.clientHeight;
+                const scrollTop = this.dom.mainContentGrid.scrollTop;
+                const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+                this.dom.readingProgressBar.style.width = `${progress}%`;
+            },
+            
+            handleSearch(event) {
+                this.state.searchQuery = event.target.value.toLowerCase().trim();
+                if (this.state.searchQuery.length > 1) {
+                    if(this.dom.clearSearchBtn) this.dom.clearSearchBtn.classList.remove('hidden');
+                    const results = Object.entries(this.manifest.articles)
+                        .map(([id, article]) => ({ id, ...article }))
+                        .filter(a => a.title.toLowerCase().includes(this.state.searchQuery));
+                    this.renderSearchResults(results);
+                } else {
+                    this.clearSearch();
+                }
+            },
+            
+            clearSearch() {
+                if(this.dom.searchInput) this.dom.searchInput.value = '';
+                this.state.searchQuery = '';
+                if(this.dom.searchResults) this.dom.searchResults.classList.add('hidden');
+                if(this.dom.clearSearchBtn) this.dom.clearSearchBtn.classList.add('hidden');
+            },
+
+            handleClickOutsideSearch(event) {
+                const searchContainer = this.dom.searchInput?.parentElement;
+                if (searchContainer && !searchContainer.contains(event.target)) {
+                    if(this.dom.searchResults) this.dom.searchResults.classList.add('hidden');
+                }
+            },
+
+            applyGlossaryTooltips() {
+                if(!this.dom.contentBody) return;
+                // Lógica do glossário aqui
+            }
         });
 
         /**
