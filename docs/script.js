@@ -1,7 +1,8 @@
 /* ==========================================================================
-   PITCHUTCHA - SCRIPT PRINCIPAL (VERSÃO EXPANDIDA)
+   PITCHUTCHA - SCRIPT PRINCIPAL (VERSÃO DE VERIFICAÇÃO COMPLETA)
    - ARQUITETO: Gemini (Senior Front-End Architect & QA Engineer)
    - PROJETO: pitchutcha.github.io by ovulgo22
+   - NOTA: Este é o código completo e verificado para garantir a integridade.
    ========================================================================== */
 
 'use strict';
@@ -9,12 +10,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     try {
-        /**
-         * ===================================================================
-         * 1. BANCO DE DADOS DE CONTEÚDO (appData)
-         * ===================================================================
-         * Fonte única de verdade para todo o conteúdo do site.
-         */
         const appData = {
             categories: [
                 { id: 'home', name: 'Início', open: true },
@@ -25,17 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'avancado', name: 'Tópicos Avançados', open: false },
             ],
             articles: {
-                // HOME
                 'home': {
                     title: 'Bem-vindo à Pitchutcha',
                     breadcrumb: 'Início',
                     subtitle: 'Uma enciclopédia de tecnologia curada, construída para desenvolvedores, por desenvolvedores.',
-                    content: `
-                        <p>Navegue pelo conhecimento que impulsiona o mundo digital. Da teoria fundamental da computação às últimas tendências em inteligência artificial e desenvolvimento web, nossa missão é fornecer informações claras, precisas e práticas.</p>
-                        <p>Este projeto é mantido por <a href="https://github.com/ovulgo22" target="_blank" rel="noopener noreferrer">ovulgo22</a> e sua comunidade. Use o menu lateral para explorar os tópicos.</p>
-                    `,
+                    content: `<p>Navegue pelo conhecimento que impulsiona o mundo digital. Da teoria fundamental da computação às últimas tendências em inteligência artificial e desenvolvimento web, nossa missão é fornecer informações claras, precisas e práticas.</p><p>Este projeto é mantido por <a href="https://github.com/ovulgo22" target="_blank" rel="noopener noreferrer">ovulgo22</a> e sua comunidade. Use o menu lateral para explorar os tópicos.</p>`,
                 },
-                // FUNDAÇÕES
                 'fundacoes/maquina-turing': {
                     title: 'A Máquina de Turing',
                     breadcrumb: 'Fundações',
@@ -48,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     content: `<h2>A Base dos Computadores Modernos</h2><p>A arquitetura de Von Neumann, descrita por John von Neumann em 1945, é um modelo de arquitetura de computador que usa uma única estrutura de armazenamento tanto para as instruções do programa quanto para os dados. Quase todos os computadores de hoje são baseados neste modelo, que consiste em uma Unidade Central de Processamento (CPU), uma unidade de memória, e dispositivos de entrada/saída.</p>`,
                     prevArticle: 'fundacoes/maquina-turing'
                 },
-                // DESENVOLVIMENTO WEB
                 'webdev/http3': {
                     title: 'HTTP/3 e QUIC',
                     breadcrumb: 'Desenvolvimento Web',
@@ -61,19 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     content: `<h2>Performance Perto do Nativo no Navegador</h2><p>WebAssembly é um formato de instrução binária para uma máquina virtual baseada em pilha. Ele foi projetado como um alvo de compilação portátil para linguagens de programação de alto nível como C, C++ e Rust, permitindo a execução de código de cliente na web em velocidades próximas às nativas. O WASM não visa substituir o JavaScript, mas sim complementá-lo, permitindo que tarefas computacionalmente intensivas (como jogos, edição de vídeo e criptografia) rodem eficientemente no navegador.</p>`,
                     prevArticle: 'webdev/http3'
                 },
-                // INTELIGÊNCIA ARTIFICIAL
                 'ia/llms': {
                     title: 'Modelos de Linguagem Grandes (LLMs)',
                     breadcrumb: 'Inteligência Artificial',
                     content: `<h2>A Revolução da IA Generativa</h2><p>Large Language Models (LLMs) são modelos de inteligência artificial massivos, treinados em vastas quantidades de texto, capazes de entender e gerar linguagem humana com uma fluidez sem precedentes. Baseados na arquitetura <a href="https://ai.google/research/pubs/pub46201" target="_blank" rel="noopener noreferrer">Transformer</a>, modelos como o GPT (Generative Pre-trained Transformer) e o Gemini são exemplos que impulsionam aplicações como chatbots avançados, assistentes de codificação, e ferramentas de criação de conteúdo.</p>`,
                 },
-                // CIBERSEGURANÇA
                 'seguranca/zero-trust': {
                     title: 'Arquitetura Zero Trust',
                     breadcrumb: 'Cibersegurança',
                     content: `<h2>"Nunca Confie, Sempre Verifique"</h2><p>Zero Trust é um modelo de segurança estratégica que opera sob o princípio de que nenhuma pessoa ou dispositivo, dentro ou fora da rede de uma organização, deve ter acesso a sistemas ou dados até que sua identidade e autorização sejam verificadas. Em vez de um perímetro de segurança tradicional (o "castelo e fosso"), a arquitetura Zero Trust trata cada solicitação de acesso como uma ameaça em potencial, exigindo autenticação e autorização rigorosas para cada recurso.</p>`,
                 },
-                // TÓPICOS AVANÇADOS
                 'avancado/computacao-quantica': {
                     title: 'Computação Quântica',
                     breadcrumb: 'Tópicos Avançados',
@@ -90,62 +76,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        /**
-         * ===================================================================
-         * 2. OBJETO PRINCIPAL DA APLICAÇÃO (PitchutchaApp)
-         * ===================================================================
-         * Encapsula todo o estado, referências do DOM e métodos da aplicação.
-         */
         const PitchutchaApp = {
-            // -- Propriedades para armazenar o estado da aplicação
             state: {
                 currentArticleId: null,
                 sidebarOpen: window.innerWidth > 1024,
                 searchQuery: '',
             },
-            
-            // -- Propriedade para "cachear" elementos do DOM para acesso rápido
             dom: {},
-
-            // -- Métodos da aplicação serão adicionados nas próximas partes
-        };
-
-    } catch (error) {
-        console.error("Erro fatal na inicialização do Pitchutcha:", error);
-        document.body.innerHTML = `<div style="font-family: sans-serif; color: #ff4d4d; background-color: #111; padding: 2rem;">
-            <h1>Erro Crítico na Aplicação</h1>
-            <p>Ocorreu um erro que impediu o carregamento do site. Verifique o console do navegador (F12) para detalhes técnicos.</p>
-            <pre style="background-color: #222; padding: 1rem; border-radius: 8px; margin-top: 1rem; color: #ffb8b8;">${error.stack}</pre>
-        </div>`;
-    }
-
-}); // Fim do DOMContentLoaded
-
-        /**
-         * ===================================================================
-         * 3. MÉTODOS DE INICIALIZAÇÃO E EVENTOS
-         * ===================================================================
-         * Adiciona os métodos de inicialização, cache do DOM e
-         * registro de eventos ao objeto principal da aplicação.
-         */
-        Object.assign(PitchutchaApp, {
-            
-            /**
-             * Ponto de entrada da aplicação. Orquestra a inicialização.
-             */
             init() {
-                console.log("PitchutchaApp: Inicializando aplicação...");
                 this.cacheDom();
                 this.bindEvents();
-                this.handleRouting(); // Processa a URL inicial
-                this.renderSidebar(); // Desenha a sidebar inicial
-                console.log("PitchutchaApp: Aplicação pronta.");
+                this.handleRouting();
+                this.renderSidebar();
             },
-
-            /**
-             * Mapeia elementos do DOM para o objeto `dom` para acesso rápido.
-             * Uma prática de performance para evitar queries repetidas.
-             */
             cacheDom() {
                 this.dom.sidebar = document.getElementById('sidebar');
                 this.dom.sidebarNav = document.getElementById('sidebar-nav');
@@ -162,50 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.dom.readingProgressBar = document.getElementById('reading-progress-bar');
                 this.dom.feedbackWidget = document.getElementById('feedback-widget');
             },
-
-            /**
-             * Centraliza o registro de todos os eventos da aplicação.
-             * Adiciona os "ouvintes" para interações do usuário.
-             */
             bindEvents() {
-                // Evento para navegação (cliques nos links de artigos) e categorias
                 this.dom.sidebarNav.addEventListener('click', this.handleSidebarClick.bind(this));
-                
-                // Eventos da barra de busca
                 this.dom.searchInput.addEventListener('keyup', this.handleSearch.bind(this));
                 this.dom.searchInput.addEventListener('focus', () => this.dom.searchResults.classList.remove('hidden'));
                 document.addEventListener('click', this.handleClickOutsideSearch.bind(this));
                 this.dom.clearSearchBtn.addEventListener('click', this.clearSearch.bind(this));
-
-                // Evento para o botão de menu em telas pequenas
                 this.dom.menuToggleBtn.addEventListener('click', this.toggleSidebar.bind(this));
-
-                // Evento para os botões de voltar/avançar do navegador
                 window.addEventListener('popstate', this.handleRouting.bind(this));
-
-                // Evento para a barra de progresso de leitura
                 this.dom.mainContent.addEventListener('scroll', this.updateReadingProgress.bind(this));
-
-                // Evento para os botões de feedback do artigo
                 this.dom.feedbackWidget.addEventListener('click', this.handleFeedback.bind(this));
             },
-
-        });
-
-        /**
-         * ===================================================================
-         * 4. MÉTODOS DE LÓGICA E RENDERIZAÇÃO
-         * ===================================================================
-         * O coração da aplicação. Estes métodos são responsáveis por
-         * processar dados e atualizar a interface do usuário (UI).
-         */
-        Object.assign(PitchutchaApp, {
-            
-            // --- MÉTODOS DE RENDERIZAÇÃO ---
-
             renderSidebar() {
                 const getArticleLink = (id, title) => `<li role="none"><a href="#${id}" class="nav-link" role="menuitem">${title}</a></li>`;
-                
                 this.dom.sidebarNav.innerHTML = appData.categories.map(cat => `
                     <div class="category-group ${cat.open ? 'open' : ''}" data-category-id="${cat.id}">
                         <h3 class="category-title" role="button" aria-expanded="${cat.open}" tabindex="0">
@@ -218,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </ul>
                     </div>`).join('');
             },
-
             renderContent(articleId) {
                 const article = appData.articles[articleId];
                 if (!article) {
@@ -226,30 +137,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.renderContent('home');
                     return;
                 }
-
                 this.state.currentArticleId = articleId;
                 document.title = `${article.title} - Pitchutcha`;
-
                 this.dom.breadcrumb.textContent = article.breadcrumb || 'Artigo';
                 this.dom.articleTitle.textContent = article.title;
                 this.dom.articleSubtitle.innerHTML = article.subtitle || '';
                 this.dom.contentBody.innerHTML = article.content;
-
                 this.renderNavButtons(article);
                 this.updateActiveSidebarLink();
                 this.applyGlossaryTooltips();
-
                 if (typeof hljs !== 'undefined') {
                     document.querySelectorAll('pre code').forEach(hljs.highlightElement);
                 }
-
                 this.dom.mainContent.scrollTop = 0;
                 this.dom.feedbackWidget.classList.remove('hidden');
                 this.dom.feedbackWidget.setAttribute('aria-hidden', 'false');
-                
                 if (window.innerWidth <= 1024) this.closeSidebar();
             },
-
             renderNavButtons(article) {
                 let html = '';
                 if (article.prevArticle) {
@@ -262,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 this.dom.navButtons.innerHTML = html;
             },
-
             renderSearchResults(results) {
                 if (results.length === 0) {
                     this.dom.searchResults.innerHTML = '<li class="no-results" role="option">Nenhum resultado encontrado.</li>';
@@ -270,9 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.dom.searchResults.innerHTML = results.map(r => `<li role="option"><a href="#${r.id}">${r.title}</a></li>`).join('');
                 }
             },
-
-            // --- MÉTODOS DE LÓGICA / HANDLERS DE EVENTOS ---
-
             handleRouting() {
                 let articleId = window.location.hash.substring(1);
                 if (!appData.articles[articleId]) {
@@ -281,11 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 this.renderContent(articleId);
             },
-
             handleSidebarClick(event) {
                 const categoryTitle = event.target.closest('.category-title');
                 const navLink = event.target.closest('.nav-link');
-                
                 if (categoryTitle) {
                     this.toggleCategory(categoryTitle.parentElement);
                 }
@@ -293,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.clearSearch();
                 }
             },
-
             handleSearch(event) {
                 this.state.searchQuery = event.target.value.toLowerCase().trim();
                 if (this.state.searchQuery.length > 1) {
@@ -307,72 +204,57 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.clearSearch();
                 }
             },
-            
             clearSearch() {
                 this.dom.searchInput.value = '';
                 this.state.searchQuery = '';
                 this.dom.searchResults.classList.add('hidden');
                 this.dom.clearSearchBtn.classList.add('hidden');
             },
-
             handleClickOutsideSearch(event) {
                 if (!this.dom.searchInput.contains(event.target) && !this.dom.searchResults.contains(event.target)) {
                     this.dom.searchResults.classList.add('hidden');
                 }
             },
-
             toggleCategory(categoryElement) {
                 const isOpen = categoryElement.classList.toggle('open');
                 categoryElement.querySelector('.category-title').setAttribute('aria-expanded', isOpen);
             },
-
             toggleSidebar() {
                 this.state.sidebarOpen = !this.state.sidebarOpen;
                 this.dom.sidebar.classList.toggle('open', this.state.sidebarOpen);
                 this.dom.menuToggleBtn.setAttribute('aria-expanded', this.state.sidebarOpen);
             },
-
             closeSidebar() {
                 if (this.state.sidebarOpen) this.toggleSidebar();
             },
-
             updateReadingProgress() {
                 const scrollableHeight = this.dom.mainContent.scrollHeight - this.dom.mainContent.clientHeight;
                 const scrollTop = this.dom.mainContent.scrollTop;
                 const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
                 this.dom.readingProgressBar.style.width = `${progress}%`;
             },
-            
             handleFeedback(event) {
                 const button = event.target.closest('.feedback-btn');
                 if (!button) return;
-
                 const feedback = button.dataset.feedback;
                 console.log(`Feedback recebido: ${feedback}`);
-                
                 this.dom.feedbackWidget.innerHTML = `<span>Obrigado pelo feedback!</span>`;
             },
-
-            // --- MÉTODOS UTILITÁRIOS ---
-
             updateActiveSidebarLink() {
                 this.dom.sidebarNav.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.toggle('active', link.href.endsWith(`#${this.state.currentArticleId}`));
                 });
             },
-
             applyGlossaryTooltips() {
                  const regex = new RegExp(`\\b(${Object.keys(appData.glossary).join('|')})\\b`, 'gi');
                 const walker = document.createTreeWalker(this.dom.contentBody, NodeFilter.SHOW_TEXT);
                 let node;
                 while (node = walker.nextNode()) {
                     if (node.parentElement.tagName === 'SPAN' && node.parentElement.classList.contains('glossary-term')) continue;
-                    
                     const newHTML = node.textContent.replace(regex, (match) => {
                         const termKey = Object.keys(appData.glossary).find(k => k.toLowerCase() === match.toLowerCase());
                         return `<span class="glossary-term" data-definition="${appData.glossary[termKey]}">${match}</span>`;
                     });
-
                     if (newHTML !== node.textContent) {
                         const tempDiv = document.createElement('div');
                         tempDiv.innerHTML = newHTML;
@@ -380,14 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
-        });
+        };
 
-        /**
-         * ===================================================================
-         * 5. INICIALIZAÇÃO DA APLICAÇÃO
-         * ===================================================================
-         * Dispara o método init do nosso objeto principal para iniciar o site.
-         */
         PitchutchaApp.init();
 
     } catch (error) {
@@ -395,4 +271,4 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.innerHTML = `<div style="font-family: sans-serif; color: #ff4d4d; background-color: #111; padding: 2rem;"><h1>Erro Crítico na Aplicação</h1><p>Ocorreu um erro que impediu o carregamento do site. Verifique o console do navegador (F12) para detalhes técnicos.</p><pre style="background-color: #222; padding: 1rem; border-radius: 8px; margin-top: 1rem; color: #ffb8b8;">${error.stack}</pre></div>`;
     }
 
-}); // Fim do DOMContentLoaded
+});
