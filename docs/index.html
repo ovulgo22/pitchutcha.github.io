@@ -1,507 +1,192 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="no-js">
+<html lang="pt-BR">
 <head>
-    
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    
-
-    <title>Pitchutcha - O Codex Definitivo da Computação Clássica e Quântica</title>
-    <meta name="description" content="Uma enciclopédia interativa e definitiva sobre a história e o futuro da computação. Explore guias, artigos e playgrounds, do ábaco ao processador quântico.">
-    <meta name="keywords" content="Computação, Computação Quântica, Inteligência Artificial, História da Tecnologia, Apple, Microsoft, Google, Algoritmos, Programação, CPU, GPU, Qubit, Linux, Sistemas Operacionais, Redes de Computadores">
-    <meta name="author" content="Pitchutcha Project">
-    <meta name="robots" content="index, follow">
-    <meta name="generator" content="Hand-coded with passion">
-    <link rel="canonical" href="https://ovulgo22.github.io/pitchutcha.github.io/docs/">
-
-    
-    <meta property="og:title" content="Pitchutcha - O Codex Definitivo da Computação">
-    <meta property="og:description" content="Explore a evolução da tecnologia, de Alan Turing aos processadores quânticos, em uma plataforma de conhecimento única.">
-    <meta property="og:url" content="https://ovulgo22.github.io/pitchutcha.github.io/docs/">
-    <meta property="og:site_name" content="Pitchutcha">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:image" content="https://ovulgo22.github.io/pitchutcha.github.io/docs/assets/images/pitchutcha-og-image.svg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pitchutcha - O Codex Definitivo da Computação">
-    <meta name="twitter:description" content="Explore a evolução da tecnologia, de Alan Turing aos processadores quânticos, em uma plataforma de conhecimento única.">
-    <meta name="twitter:image" content="https://ovulgo22.github.io/pitchutcha.github.io/docs/assets/images/pitchutcha-og-image.svg">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
-
-    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM2MGE1ZmIiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4MWI2ZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBmaWxsPSJ1cmwoI2cpIiBkPSJNNzguNjMgODguNTFIMjEuMzdjLTYuODUgMC0xMi40Mi01LjU3LTEyLjQyLTEyLjQyVjIzLjkxYzAtNi44NSA1LjU3LTEyLjQyIDEyLjQyLTEyLjQyaDM2LjVjMy40MyAwIDYuMiAxLjQ3IDYuMiAzLjI4djYwLjQ3YzAgMS44MS0yLjc3IDMuMjgtNi4yIDMuMjhaIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTU3LjIgNjQuNDNIMjEuMzdjLTMuNDMgMC02LjItMi43Ny02LjItNi4yVjQxLjc3YzAtMy40MyAyLjc3LTYuMiA2LjItNi4yaDM1LjgzYzMuNDMgMCA2LjIgMi43NyA2LjIgNi4ycy0yLjc3IDYuMi02LjIgNi4ySDMxLjEydjQuNDZoMjYuMDh2OC4wMVoiLz48L3N2Zz4=">
-    
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48Y2lyY2xlIGN4PSI5MCIgY3k9IjkwIiByPSI5MCIgZmlsbD0iIzEzYTFlNiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xMjAuMzUgMTE4LjU0SDQ3LjQxYy05LjY0IDAtMTcuNDgtNy44NC0xNy40OC0xNy40OFY3OC45NGMwLTkuNjQgNy44NC0xNy40OCAxNy40OC0xNy40OGg1MS4zN2M0LjgyIDAgOC43NCAyLjA2IDguNzQgNC42dig4NC42MmMwIDIuNTQtMy45MiA0LjYtOC43NCA0LjZaIi8+PHBhdGggZmlsbD0iIzEzYTFlNiIgZD0iTTk3Ljk3IDEwMi4xNkg0Ny40MWMtNC44MiAwLTguNzQtMy45Mi04Ljc0LTguNzRWNzAuMDljMC00LjgyIDMuOTItOC43NCA4Ljc0LTguNzRoNTAuNTdjNC44MiAwIDguNzQgMy45MiA4Ljc0IDguNzRzLTMuOTIgOC43NC04Ljc0IDguNzRINjEuNjN2Ni4yM2g0NS4wOHYxMC4xOVoiLz48L3N2Zz4=">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Pitchutcha",
-      "url": "https://ovulgo22.github.io/pitchutcha.github.io/docs/",
-      "description": "O Codex Definitivo da Computação Clássica e Quântica, uma enciclopédia interativa para estudantes, desenvolvedores e entusiastas da tecnologia.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://ovulgo22.github.io/pitchutcha.github.io/docs/?s={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Pitchutcha Project",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://ovulgo22.github.io/pitchutcha.github.io/docs/assets/images/pitchutcha-logo.svg"
-        }
-      }
-    }
-    </script>
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap"></noscript>
-    
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="script.js" as="script">
-
-    
-    <script>
-        // Remove a classe 'no-js' assim que o JS é detectado. Permite estilizar
-        // cenários onde o JS está desabilitado vs. ainda não carregado.
-        document.documentElement.classList.remove('no-js');
-
-        // Script para prevenir "Flash of Unstyled Content" (FOUC) na troca de tema.
-        // Executa imediatamente para aplicar o tema correto antes da página renderizar.
-        (function() {
-            try {
-                var theme = localStorage.getItem('pitchutcha_theme');
-                if (theme) {
-                    document.documentElement.setAttribute('data-theme', theme);
-                } else {
-                    // Se não houver tema salvo, verifica a preferência do sistema
-                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    if (prefersDark) {
-                        document.documentElement.setAttribute('data-theme', 'dark');
-                    }
-                }
-            } catch (e) {
-                // localStorage pode falhar em alguns navegadores (modo privado, etc.)
-                console.warn('Could not set theme from localStorage.', e);
-            }
-        })();
-    </script>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitchutcha - Documentação do Projeto</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
-        <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></symbol>
-        <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></symbol>
-        <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></symbol>
-        <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></symbol>
-        <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></symbol>
-        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></symbol>
-        <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></symbol>
-        <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></symbol>
-        <symbol id="icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></symbol>
-        <symbol id="icon-twitter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></symbol>
-        <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></symbol>
-        <symbol id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></symbol>
-        <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-5 9c0 2.4-1.3 4.8-3 6h16c-1.7-1.2-3-3.6-3-6a7 7 0 0 0-5-9Z"></path></symbol>
-        <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></symbol>
-        <symbol id="icon-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></symbol>
-        <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></symbol>
-        <symbol id="icon-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"></path></symbol>
-        <symbol id="icon-thumbs-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"></path><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"></path></symbol>
-        <symbol id="icon-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M2.2 13.2c.2-.2.5-.2.7 0l1.1 1.1c.2.2.5.2.7 0l1.1-1.1c.2-.2.5-.2.7 0l1.1 1.1c.2.2.5.2.7 0l1.1-1.1c.2-.2.5-.2.7 0"></path><path d="M2.5 16.5c.1-.1.3-.2.5 0l1 .9c.2.2.5.2.7 0l1-.9c.2-.2.5-.2.7 0l1 .9c.2.2.5.2.7 0l1-.9c.2-.2.5-.2.7 0"></path><path d="M11.5 13.5h1.8c.3 0 .5.2.5.5v3c0 .3-.2.5-.5.5h-1.8a.5.5 0 0 1-.5-.5v-3c0-.3.2-.5.5-.5Z"></path></g></svg>
-    </svg>
-
-    <header class="main-header" id="main-header" role="banner">
-        <div class="header-content">
-            <div class="header-left">
-                <a href="index.html" class="header-logo" aria-label="Página inicial do Pitchutcha">
-                    <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-                        <defs>
-                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color: #60a5fa;"></stop>
-                                <stop offset="100%" style="stop-color: #818cf8;"></stop>
-                            </linearGradient>
-                        </defs>
-                        <path d="M25 10C25 4.47715 29.4772 0 35 0H65C70.5228 0 75 4.47715 75 10V90C75 95.5228 70.5228 100 65 100H35C29.4772 100 25 95.5228 25 90V10Z" fill="url(#logoGradient)"/>
-                        <path d="M25 45H60C68.2843 45 75 51.7157 75 60V60C75 68.2843 68.2843 75 60 75H25" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="header-logo__text">Pitchutcha</span>
-                </a>
-            </div>
-
-            <div class="header-center">
-                <button type="button" class="command-palette-trigger" aria-label="Abrir busca e paleta de comandos (Pressione Ctrl+K)">
-                    <span class="command-palette-trigger__icon">
-                        <svg class="icon"><use href="#icon-search"></use></svg>
-                    </span>
-                    <span class="command-palette-trigger__text">Busque ou pule para...</span>
-                    <span class="command-palette-trigger__kbd">
-                        <kbd>Ctrl</kbd><kbd>K</kbd>
-                    </span>
-                </button>
-            </div>
-
-            <div class="header-right">
-                <nav class="desktop-nav" aria-label="Navegação principal">
-                    <a href="#" class="nav-link">Guias</a>
-                    <a href="#" class="nav-link">História</a>
-                    <a href="#" class="nav-link">Comunidade</a>
-                </nav>
-                <div class="header-actions">
-                    <a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener noreferrer" class="icon-button" aria-label="Ver o código-fonte no GitHub">
-                        <svg class="icon"><use href="#icon-github"></use></svg>
-                    </a>
-                    <button type="button" id="preferences-trigger" class="icon-button" aria-label="Abrir configurações de preferência">
-                        <svg class="icon"><use href="#icon-settings"></use></svg>
-                    </button>
-                    <button type="button" id="theme-toggle" class="icon-button" aria-label="Alternar tema de cores">
-                        <svg class="icon icon-sun"><use href="#icon-sun"></use></svg>
-                        <svg class="icon icon-moon"><use href="#icon-moon"></use></svg>
-                    </button>
-                </div>
-                <button type="button" id="mobile-menu-trigger" class="icon-button mobile-only" aria-label="Abrir menu de navegação">
-                     <svg class="icon"><use href="#icon-menu"></use></svg>
-                </button>
-            </div>
-        </div>
+    <header>
+        <h1>Pitchutcha</h1>
+        <nav>
+            <ul>
+                <li><a href="#funcionalidades">Funcionalidades</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#testes">Testes</a></li>
+                <li><a href="#contribuindo">Contribuindo</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+                <li><a href="#documentacao-externa">Documentação Externa</a></li>
+                <li><a href="#consideracoes-finais">Considerações Finais</a></li>
+                <li><a href="#acessibilidade">Acessibilidade</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
     </header>
-        <div class="modal-container" id="command-palette-modal" role="dialog" aria-modal="true" aria-labelledby="command-palette-title" hidden>
-        <div class="modal-overlay" data-action="close-modal"></div>
-        <div class="modal-content command-palette">
-            <h2 id="command-palette-title" class="sr-only">Paleta de Comandos</h2>
-            <div class="command-palette__header">
-                <svg class="icon command-palette__icon"><use href="#icon-search"></use></svg>
-                <input type="text" id="command-palette-input" class="command-palette__input" placeholder="Busque artigos ou execute comandos..." autocomplete="off">
-                <button type="button" class="command-palette__close-button" aria-label="Fechar" data-action="close-modal">ESC</button>
-            </div>
-            <div class="command-palette__results" id="command-palette-results">
-                </div>
-            <div class="command-palette__footer">
-                <ul class="command-palette__instructions">
-                    <li><kbd>↑</kbd><kbd>↓</kbd><span>Navegar</span></li>
-                    <li><kbd>Enter</kbd><span>Selecionar</span></li>
-                    <li><kbd>Esc</kbd><span>Fechar</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal-container" id="preferences-modal" role="dialog" aria-modal="true" aria-labelledby="preferences-modal-title" hidden>
-        <div class="modal-overlay" data-action="close-modal"></div>
-        <div class="modal-content preferences-modal">
-            <header class="modal-header">
-                <h2 id="preferences-modal-title" class="modal-title">
-                    <svg class="icon"><use href="#icon-settings"></use></svg>
-                    <span>Preferências</span>
-                </h2>
-                <button class="icon-button" aria-label="Fechar" data-action="close-modal">
-                    <svg class="icon"><use href="#icon-close"></use></svg>
-                </button>
-            </header>
-            <div class="modal-body">
-                <fieldset class="preference-group">
-                    <legend class="preference-group__title">Aparência</legend>
-                    <div class="preference-item">
-                        <label for="font-size-control">Tamanho da Fonte</label>
-                        <div class="stepper" id="font-size-control">
-                            <button class="stepper__button" data-action="decrease-font-size" aria-label="Diminuir tamanho da fonte">-</button>
-                            <span class="stepper__value" id="font-size-value">Normal</span>
-                            <button class="stepper__button" data-action="increase-font-size" aria-label="Aumentar tamanho da fonte">+</button>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="preference-group">
-                    <legend class="preference-group__title">Acessibilidade</legend>
-                    <div class="preference-item preference-item--toggle">
-                        <label for="reduce-motion-toggle">Reduzir Movimento</label>
-                        <button type="button" role="switch" aria-checked="false" id="reduce-motion-toggle" class="switch">
-                            <span class="switch__slider"></span>
-                        </button>
-                    </div>
-                </fieldset>
-            </div>
-        </div>
-    </div>
+    <main>
+        <section id="funcionalidades">
+            <h2>Funcionalidades do Projeto</h2>
+            <p>O projeto Pitchutcha oferece uma série de funcionalidades projetadas para facilitar o gerenciamento e a organização de informações. Aqui estão algumas delas:</p>
+            <ul>
+                <li><strong>Interface Amigável:</strong> A UI foi projetada com o usuário em mente, tornando a navegação intuitiva.</li>
+                <li><strong>Configurações Personalizáveis:</strong> Os usuários podem adaptar a plataforma às suas necessidades, incluindo temas e notificações.</li>
+                <li><strong>Exportação de Dados:</strong> Permite que os dados sejam exportados em formatos comuns como CSV, JSON e PDF.</li>
+                <li><strong>Multiusuário:</strong> Suporte para múltiplos usuários, permitindo que diferentes pessoas acessem a plataforma com permissões variadas.</li>
+            </ul>
+        </section>
 
-    <div class="main-container">
+        <section id="roadmap">
+            <h2>Roadmap do Projeto</h2>
+            <p>Abaixo estão algumas metas e desenvolvimentos planejados para o futuro do projeto Pitchutcha:</p>
+            <ul>
+                <li><strong>Versão 1.1:</strong> Melhorias na performance e novas funcionalidades de exportação até o final do Q2 de 2024.</li>
+                <li><strong>Versão 2.0:</strong> Lançamento de uma API robusta para integração com outras plataformas até o final do ano.</li>
+                <li><strong>Suporte a Múltiplas Linguagens:</strong> Planejamento para adicionar suporte a mais idiomas no Q1 de 2025.</li>
+            </ul>
+            <p>Fique atento às nossas atualizações para saber mais sobre o progresso do projeto!</p>
+        </section>
 
-        <aside class="sidebar-nav" id="sidebar-nav" role="navigation" aria-labelledby="sidebar-title">
-            <div class="sidebar-nav__header">
-                <h2 id="sidebar-title" class="sidebar-nav__title">Explorar Codex</h2>
-                <input type="search" class="sidebar-nav__filter" placeholder="Filtrar tópicos...">
-            </div>
-            <div class="sidebar-nav__inner">
-                <ul class="sidebar-nav__list" id="sidebar-nav-list">
-                    <li class="sidebar-nav__item">
-                        <a href="index.html" class="sidebar-nav__link sidebar-nav__link--active" data-path="/">Início</a>
-                    </li>
-                    <li class="sidebar-nav__item" data-collapsible>
-                        <button class="sidebar-nav__category-button" aria-expanded="false">
-                            <span>Fundamentos da Computação Clássica</span>
-                            <svg class="icon icon-chevron"><use href="#icon-chevron-down"></use></svg>
-                        </button>
-                        <ul class="sidebar-nav__list--nested">
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/historia">História Primitiva</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/arquitetura">Arquitetura de Computadores</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/sistemas-operacionais">Sistemas Operacionais</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/redes">Redes de Computadores</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/linguagens">Linguagens de Programação</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/algoritmos">Algoritmos e Estruturas de Dados</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/classica/seguranca">Segurança da Informação</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-nav__item" data-collapsible>
-                        <button class="sidebar-nav__category-button" aria-expanded="false">
-                            <span>A Era Moderna e os Titãs</span>
-                            <svg class="icon icon-chevron"><use href="#icon-chevron-down"></use></svg>
-                        </button>
-                        <ul class="sidebar-nav__list--nested">
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/revolucao-pc">A Revolução do PC</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/boom-internet">O Boom da Internet</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/era-movel">A Era Social e Móvel</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/nuvem-dados">A Nuvem e os Dados</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/revolucao-ia">A Revolução da IA</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/moderna/gigantes-hardware">Gigantes de Hardware (Intel, NVIDIA, TSMC)</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-nav__item" data-collapsible>
-                        <button class="sidebar-nav__category-button" aria-expanded="false">
-                            <span>Computação Quântica</span>
-                            <svg class="icon icon-chevron"><use href="#icon-chevron-down"></use></svg>
-                        </button>
-                        <ul class="sidebar-nav__list--nested">
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/introducao">Introdução Intuitiva</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/conceitos">Conceitos Fundamentais</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/algoritmos">Algoritmos Quânticos</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/hardware">Hardware Quântico</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/software">Software e Simulação</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/quantica/desafios">O Futuro e os Desafios</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-nav__item" data-collapsible>
-                        <button class="sidebar-nav__category-button" aria-expanded="false">
-                            <span>Tópicos Avançados e Fronteiras</span>
-                            <svg class="icon icon-chevron"><use href="#icon-chevron-down"></use></svg>
-                        </button>
-                        <ul class="sidebar-nav__list--nested">
-                            <li><a href="#" class="sidebar-nav__link" data-path="/avancado/blockchain">Blockchain e Criptoativos</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/avancado/bioinformatica">Bioinformática</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/avancado/computacao-grafica">Computação Gráfica e Motores de Jogo</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/avancado/iot">Internet das Coisas (IoT)</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/avancado/computacao-neuromorfica">Computação Neuromórfica</a></li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-nav__item" data-collapsible>
-                        <button class="sidebar-nav__category-button" aria-expanded="false">
-                            <span>Biografias e Contribuições</span>
-                            <svg class="icon icon-chevron"><use href="#icon-chevron-down"></use></svg>
-                        </button>
-                        <ul class="sidebar-nav__list--nested">
-                            <li><a href="#" class="sidebar-nav__link" data-path="/biografias/pioneiros">Pioneiros Históricos</a></li>
-                            <li><a href="#" class="sidebar-nav__link" data-path="/biografias/visionarios-modernos">Visionários Modernos</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-                <main class="main-content" id="main-content" role="main">
-            <article class="content-article" id="content-article">
-                
-                <section class="hero-section">
-                    <h1 class="hero-section__title">O Codex Vivo da Computação</h1>
-                    <p class="hero-section__subtitle">
-                        Uma enciclopédia interativa e definitiva sobre a história e o futuro da computação, 
-                        projetada para ser a fonte de conhecimento mais completa e acessível para desenvolvedores, 
-                        estudantes e entusiastas da tecnologia.
-                    </p>
-                    <div class="hero-section__actions">
-                        <a href="#" class="button button--primary" data-path="/classica/historia">
-                            <svg class="icon" style="width: 20px; height: 20px;"><use href="#icon-play"></use></svg>
-                            <span>Comece a Aprender</span>
-                        </a>
-                        <a href="#" class="button button--secondary" data-path="/quantica/introducao">
-                            <span>Explore a Computação Quântica</span>
-                        </a>
-                    </div>
-                </section>
+        <section id="testes">
+            <h2>Testes e Validações</h2>
+            <p>A qualidade do projeto é uma prioridade. Abaixo, descreveremos os tipos de testes realizados:</p>
+            <h3>Testes Unitários</h3>
+            <p>Testes unitários são implementados para validar cada componente isoladamente. Utilizamos Jest para a execução desses testes.</p>
+            <h3>Testes de Integração</h3>
+            <p>Os testes de integração garantem que diferentes módulos funcionem juntos corretamente. Ferramentas como Mocha e Chai são usadas.</p>
+            <h3>Testes de Aceitação</h3>
+            <p>Realizamos testes de aceitação com usuários finais para garantir que o produto atenda às necessidades do usuário.</p>
+        </section>
 
-                <section class="feature-section">
-                    <h2 class="section-title">Explore os Pilares do Conhecimento</h2>
-                    <div class="feature-grid">
-                        <a href="#" class="feature-card" data-path="/classica/arquitetura">
-                            <div class="feature-card__icon-wrapper">
-                                <svg class="icon"><use href="#icon-info"></use></svg>
-                            </div>
-                            <h3 class="feature-card__title">Fundamentos Clássicos</h3>
-                            <p class="feature-card__description">
-                                Mergulhe na arquitetura de computadores, sistemas operacionais, redes e os algoritmos que formam a base de toda a tecnologia moderna.
-                            </p>
-                        </a>
-                        <a href="#" class="feature-card" data-path="/moderna/revolucao-ia">
-                            <div class="feature-card__icon-wrapper">
-                                <svg class="icon"><use href="#icon-lightbulb"></use></svg>
-                            </div>
-                            <h3 class="feature-card__title">A Era Moderna e a IA</h3>
-                            <p class="feature-card__description">
-                                Conheça a história dos gigantes da tecnologia e entenda a revolução da Inteligência Artificial que está moldando o nosso futuro.
-                            </p>
-                        </a>
-                        <a href="#" class="feature-card" data-path="/quantica/conceitos">
-                            <div class="feature-card__icon-wrapper">
-                                <svg class="icon"><use href="#icon-code"></use></svg>
-                            </div>
-                            <h3 class="feature-card__title">Computação Quântica</h3>
-                            <p class="feature-card__description">
-                                Desvende os mistérios dos qubits, superposição e emaranhamento. Explore o futuro da computação em seu nível mais fundamental.
-                            </p>
-                        </a>
-                    </div>
-                </section>
-                
-                <section class="interactive-section">
-                    <h2 class="section-title">Aprenda na Prática</h2>
-                     <div class="code-playground-skeleton">
-                        <div class="code-playground-skeleton__header">
-                            <div class="code-playground-skeleton__dots">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <span class="code-playground-skeleton__title">playground.js</span>
-                        </div>
-                        <div class="code-playground-skeleton__body">
-                            <pre><code><span class="comment">// Nossos artigos incluem playgrounds interativos...</span>
-<span class="keyword">function</span> <span class="function">bemVindo</span>(<span class="argument">visitante</span>) {
-  <span class="keyword">return</span> <span class="string">`Olá, ${visitante}! Explore o Pitchutcha.`</span>;
-}</code></pre>
-                        </div>
-                    </div>
-                </section>
+        <section id="contribuindo">
+            <h2>Contribuindo para o Projeto</h2>
+            <p>Quer contribuir para o Pitchutcha? Aqui estão alguns passos que você pode seguir:</p>
+            <ol>
+                <li>Fork o repositório no GitHub.</li>
+                <li>Crie uma nova branch para suas alterações:</li>
+                <pre><code>git checkout -b minha-contribuicao</code></pre>
+                <li>Faça suas alterações e comite:</li>
+                <pre><code>git commit -m "Descrição do que foi feito"</code></pre>
+                <li>Submeta sua branch:</li>
+                <pre><code>git push origin minha-contribuicao</code></pre>
+                <li>Abra um Pull Request!</li>
+            </ol>
+            <p>Estamos animados para ver suas contribuições e agradecemos antecipadamente!</p>
+        </section>
 
-            </article>
-        </main>
+        <section id="feedback">
+            <h2>Feedback</h2>
+            <p>Adoraríamos ouvir sua opinião sobre o projeto! Use o formulário abaixo para nos enviar suas sugestões:</p>
+            <form action="YOUR_SERVER_ENDPOINT" method="POST">
+                <label for="name">Seu Nome:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Seu Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Sua Mensagem:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+            <p>Seu feedback é importante para nós e ajuda a melhorar o projeto continuamente!</p>
+        </section>
 
-        <aside class="page-nav" id="page-nav" role="complementary" aria-labelledby="page-nav-title">
-            <div class="page-nav__inner">
-                <h3 id="page-nav-title" class="page-nav__title">Nesta Página</h3>
-                <nav id="toc-container" aria-label="Sumário da página">
-                    <p class="toc-placeholder">O sumário aparecerá aqui.</p>
-                </nav>
-            </div>
-        </aside>
+        <section id="documentacao-externa">
+            <h2>Documentação Externa</h2>
+            <p>Abaixo estão algumas referências úteis e documentações externas que podem ajudar a aprofundar seu conhecimento sobre tecnologias usadas no projeto:</p>
+            <ul>
+                <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">Documentação do React</a> - Aprenda sobre a biblioteca utilizada para a construção da interface.</li>
+                <li><a href="https://nodejs.org/en/docs/" target="_blank">Documentação do Node.js</a> - Entenda mais sobre o ambiente de execução JavaScript no lado do servidor.</li>
+                <li><a href="https://expressjs.com/en/4x/api.html" target="_blank">Documentação do Express</a> - Explore o framework utilizado para desenvolver a API do seu projeto.</li>
+                <li><a href="https://mongoosejs.com/docs/index.html" target="_blank">Documentação do Mongoose</a> - Saiba mais sobre a biblioteca para modelar objetos MongoDB.</li>
+                <li><a href="https://www.mongodb.com/docs/" target="_blank">Documentação do MongoDB</a> - Aprenda a trabalhar com o banco de dados NoSQL usado no projeto.</li>
+            </ul>
+        </section>
 
-    </div> <footer class="main-footer" role="contentinfo">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-column footer-column--about">
-                    <a href="index.html" class="footer-logo">
-                        <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-                           <use href="#logoGradient" />
-                           <path d="M25 10C25 4.47715 29.4772 0 35 0H65C70.5228 0 75 4.47715 75 10V90C75 95.5228 70.5228 100 65 100H35C29.4772 100 25 95.5228 25 90V10Z" fill="url(#logoGradient)"/>
-                           <path d="M25 45H60C68.2843 45 75 51.7157 75 60V60C75 68.2843 68.2843 75 60 75H25" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Pitchutcha</span>
-                    </a>
-                    <p class="footer-about-text">Um projeto de código aberto dedicado a criar a fonte de conhecimento mais completa sobre o universo da computação.</p>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column__title">Navegação</h4>
-                    <ul class="footer-link-list">
-                        <li><a href="#" data-path="/classica/historia">Computação Clássica</a></li>
-                        <li><a href="#" data-path="/moderna/revolucao-ia">Era Moderna & IA</a></li>
-                        <li><a href="#" data-path="/quantica/introducao">Computação Quântica</a></li>
-                        <li><a href="#" data-path="/avancado/blockchain">Tópicos Avançados</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column__title">Comunidade</h4>
-                    <ul class="footer-link-list">
-                        <li><a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                        <li><a href="#">Guia de Contribuição</a></li>
-                        <li><a href="#">Changelog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4 class="footer-column__title">Legal</h4>
-                    <ul class="footer-link-list">
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Pitchutcha Project. Todo o conteúdo é licenciado sob CC BY-SA 4.0.</p>
-            </div>
-        </div>
+        <section id="consideracoes-finais">
+            <h2>Considerações Finais</h2>
+            <p>Obrigado por acessar a documentação do Pitchutcha! Queremos assegurar que sua experiência seja a melhor possível.</p>
+            <p>Este projeto é open-source e qualquer feedback ou contribuição é muito bem-vindo. Nossa missão é criar uma comunidade colaborativa e inovadora.</p>
+            <p>Fique à vontade para explorar, utilizar e melhorar o projeto. Estamos sempre à disposição para responder a perguntas e ajudar no que for necessário!</p>
+        </section>
+
+        <section id="agradecimentos">
+            <h2>Agradecimentos</h2>
+            <p>Queremos expressar nossa gratidão a todas as pessoas que contribuíram para este projeto, seja através de sugestões, código, testes ou feedback.</p>
+            <p>Agradecimentos especiais a:</p>
+            <ul>
+                <li>Todos os contribuidores que colaboraram com código e sugestões.</li>
+                <li>Quem testou e forneceu feedback para melhorar a usabilidade.</li>
+                <li>Nossa comunidade de usuários que inspira melhorias contínuas!</li>
+            </ul>
+        </section>
+
+        <section id="mantenedores">
+            <h2>Mantenedores do Projeto</h2>
+            <p>Este projeto é mantido por:</p>
+            <ul>
+                <li><strong>Ovulgo22</strong>: Seu nome e a principal força por trás do código.</li>
+                <li><strong>Colaboradores Abertos</strong>: Este espaço está aberto para novas contribuições, seja com melhorias, correções de bugs ou novas funcionalidades.</li>
+            </ul>
+        </section>
+
+        <section id="links-uteis">
+            <h2>Links Úteis</h2>
+            <p>Abaixo estão alguns links úteis para acessar diretamente partes importantes do projeto ou conteúdos relacionados:</p>
+            <ul>
+                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank">Repositório GitHub</a> - Acesse o repositório completo do projeto.</li>
+                <li><a href="https://pitchutcha.github.io/docs" target="_blank">Documentação Completa</a> - Acesse a documentação completa do projeto.</li>
+                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io/issues" target="_blank">Issues do Projeto</a> - Reporte bugs ou sugira novas funcionalidades.</li>
+                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io/pulls" target="_blank">Pull Requests</a> - Veja as contribuições em andamento.</li>
+                <li><a href="mailto:suporte@exemplo.com">Suporte por Email</a> - Entre em contato diretamente para assistência.</li>
+            </ul>
+        </section>
+
+        <section id="acessibilidade">
+            <h2>Acessibilidade</h2>
+            <p>Estamos comprometidos em garantir que nosso projeto seja acessível a todos os usuários. Aqui estão algumas práticas implementadas:</p>
+            <ul>
+                <li><strong>Texto Alternativo:</strong> Todas as imagens têm textos alternativos descritivos para ajudar usuários com deficiência visual.</li>
+                <li><strong>Navegação por Teclado:</strong> Todas as seções são acessíveis via teclado, permitindo navegação sem a necessidade de um mouse.</li>
+                <li><strong>Contraste Adequado:</strong> As cores do site foram escolhidas para garantir que o texto seja legível para todos, incluindo pessoas com daltonismo.</li>
+                <li><strong>ARIALabels:</strong> Usamos ARIA roles e labels para melhorar a experiência de leitores de tela.</li>
+            </ul>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Se você tiver alguma dúvida ou comentário, entre em contato conosco!</p>
+            <ul>
+                <li>Email: <a href="mailto:suporte@exemplo.com">suporte@exemplo.com</a></li>
+                <li>Telefone: (00) 1234-5678</li>
+                <li>Endereço: Rua Exemplo, 123, Cidade, Estado</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <h2>Rodapé</h2>
+        <p>&copy; 2023 Pitchutcha. Todos os direitos reservados.</p>
+        <p>Este projeto está sob a licença <a href="LICENSE_URL" target="_blank">MIT</a>. Sinta-se à vontade para utilizar e modificar, respeitando os termos da licença.</p>
+        
+        <section id="politica-privacidade">
+            <h3>Política de Privacidade</h3>
+            <p>Levamos sua privacidade a sério. As informações coletadas através deste projeto são utilizadas unicamente para melhorar a experiência do usuário. Nunca compartilharemos seus dados com terceiros sem seu consentimento explícito.</p>
+        </section>
+
+        <section id="aviso-responsabilidade">
+            <h3>Aviso de Responsabilidade</h3>
+            <p>Todo o conteúdo e informações deste projeto são fornecidos "no estado em que se encontram". Não assumimos responsabilidade por quaisquer danos diretos ou indiretos resultantes do uso deste projeto, incluindo, mas não se limitando a, perda de dados ou lucros.</p>
+        </section>
+        
+        <ul class="social-media">
+            <li><a href="https://twitter.com/ovulgo22" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+            <li><a href="https://github.com/ovulgo22" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://linkedin.com/in/ovulgo22" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+
+        <p><a href="#topo">Voltar ao topo</a></p>
     </footer>
-        <noscript>
-        <style>
-            .main-header,
-            .main-container,
-            .main-footer,
-            .modal-container {
-                display: none !important;
-            }
-            .noscript-container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                min-height: 100vh;
-                padding: 2rem;
-                font-family: 'Inter', sans-serif;
-                background-color: #f8f9fa;
-                color: #1a1f2c;
-            }
-            .noscript-container svg {
-                width: 64px;
-                height: 64px;
-                margin-bottom: 1.5rem;
-                color: #d97706;
-            }
-            .noscript-container h1 {
-                font-size: 1.875rem;
-                margin-bottom: 0.5rem;
-            }
-            .noscript-container p {
-                max-width: 500px;
-                font-size: 1.125rem;
-                line-height: 1.6;
-                color: #4b5563;
-            }
-        </style>
-        <div class="noscript-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-hidden="true">
-                <path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-            <h1>JavaScript é Necessário</h1>
-            <p>
-                O Pitchutcha foi construído como uma aplicação web moderna e interativa. Para explorar o Codex da Computação, por favor, habilite o JavaScript nas configurações do seu navegador.
-            </p>
-        </div>
-    </noscript>
 
+    <script src="script.js"></script>
 </body>
-
 </html>
