@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         
 /*================ FIM DA PARTE 1 ================*/
-/*=============== INÍCIO DA PARTE 2 ===============*/
+/*=============== INÍCIO DA PARTE 2 (CORRIGIDA) ===============*/
 
         /**
          * ===================================================================
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cacheDom() {
                 // Componentes Globais
                 this.dom.sidebar = document.getElementById('sidebar');
+                this.dom.sidebarPlaceholder = document.getElementById('sidebar-placeholder'); // <-- CORREÇÃO ADICIONADA AQUI
                 this.dom.sidebarNav = document.getElementById('sidebar-nav');
                 this.dom.mainHeader = document.getElementById('main-header');
                 this.dom.mainFooter = document.querySelector('.main-footer');
@@ -209,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
         });
 
-/*================ FIM DA PARTE 2 ================*/
+/*================ FIM DA PARTE 2 (CORRIGIDA) ================*/
 /*=============== INÍCIO DA PARTE 3 ===============*/
 
         /**
@@ -320,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 /*================ FIM DA PARTE 3 ================*/
-/*=============== INÍCIO DA PARTE 4 ===============*/
+/*=============== INÍCIO DA PARTE 4 (CORRIGIDA) ===============*/
 
         /**
          * ===================================================================
@@ -359,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.dom.tocSidebar.style.display = 'block';
                 let tocHTML = '<ul>';
                 headings.forEach(heading => {
-                    if(!heading.id) { // Garante que títulos sem ID (se houver) recebam um
+                    if(!heading.id) {
                        heading.id = heading.textContent.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
                     }
                     const levelClass = heading.tagName === 'H3' ? 'toc-level-3' : 'toc-level-2';
@@ -435,19 +436,19 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             toggleSidebar() {
-                const placeholder = document.getElementById('sidebar-placeholder');
-                if(!placeholder) return;
+                // ESTA É A FUNÇÃO CORRIGIDA
+                if(!this.dom.sidebarPlaceholder) return; 
                 this.state.sidebarOpen = !this.state.sidebarOpen;
-                placeholder.classList.toggle('open', this.state.sidebarOpen);
+                this.dom.sidebarPlaceholder.classList.toggle('open', this.state.sidebarOpen); 
                 this.dom.menuToggleBtn.setAttribute('aria-expanded', this.state.sidebarOpen);
             },
             
             updateReadingProgress() {
-                if(!this.dom.mainContentGrid || !this.dom.readingProgressBar) return;
+                if(!this.dom.mainContentGrid || !document.getElementById('reading-progress-bar')) return;
                 const scrollableHeight = this.dom.mainContentGrid.scrollHeight - this.dom.mainContentGrid.clientHeight;
                 const scrollTop = this.dom.mainContentGrid.scrollTop;
                 const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-                this.dom.readingProgressBar.style.width = `${progress}%`;
+                document.getElementById('reading-progress-bar').style.width = `${progress}%`;
             },
             
             handleSearch(event) {
@@ -497,4 +498,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 }); // Fim do DOMContentLoaded
 
-/*================ FIM DA PARTE 4 ================*/
+/*================ FIM DA PARTE 4 (CORRIGIDA) ================*/
