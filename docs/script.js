@@ -120,3 +120,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 }); // Fim do DOMContentLoaded
+
+        /**
+         * ===================================================================
+         * 3. MÉTODOS DE INICIALIZAÇÃO E EVENTOS
+         * ===================================================================
+         * Adiciona os métodos de inicialização, cache do DOM e
+         * registro de eventos ao objeto principal da aplicação.
+         */
+        Object.assign(PitchutchaApp, {
+            
+            /**
+             * Ponto de entrada da aplicação. Orquestra a inicialização.
+             */
+            init() {
+                console.log("PitchutchaApp: Inicializando aplicação...");
+                this.cacheDom();
+                this.bindEvents();
+                this.handleRouting(); // Processa a URL inicial
+                this.renderSidebar(); // Desenha a sidebar inicial
+                console.log("PitchutchaApp: Aplicação pronta.");
+            },
+
+            /**
+             * Mapeia elementos do DOM para o objeto `dom` para acesso rápido.
+             * Uma prática de performance para evitar queries repetidas.
+             */
+            cacheDom() {
+                this.dom.sidebar = document.getElementById('sidebar');
+                this.dom.sidebarNav = document.getElementById('sidebar-nav');
+                this.dom.mainContent = document.getElementById('main-content');
+                this.dom.contentBody = document.getElementById('content-body');
+                this.dom.breadcrumb = document.getElementById('breadcrumb');
+                this.dom.articleTitle = document.getElementById('article-title');
+                this.dom.articleSubtitle = document.getElementById('article-subtitle');
+                this.dom.navButtons = document.getElementById('nav-buttons');
+                this.dom.searchInput = document.getElementById('search-input');
+                this.dom.searchResults = document.getElementById('search-results');
+                this.dom.clearSearchBtn = document.getElementById('clear-search-btn');
+                this.dom.menuToggleBtn = document.getElementById('menu-toggle');
+                this.dom.readingProgressBar = document.getElementById('reading-progress-bar');
+                this.dom.feedbackWidget = document.getElementById('feedback-widget');
+            },
+
+            /**
+             * Centraliza o registro de todos os eventos da aplicação.
+             * Adiciona os "ouvintes" para interações do usuário.
+             */
+            bindEvents() {
+                // Evento para navegação (cliques nos links de artigos) e categorias
+                this.dom.sidebarNav.addEventListener('click', this.handleSidebarClick.bind(this));
+                
+                // Eventos da barra de busca
+                this.dom.searchInput.addEventListener('keyup', this.handleSearch.bind(this));
+                this.dom.searchInput.addEventListener('focus', () => this.dom.searchResults.classList.remove('hidden'));
+                document.addEventListener('click', this.handleClickOutsideSearch.bind(this));
+                this.dom.clearSearchBtn.addEventListener('click', this.clearSearch.bind(this));
+
+                // Evento para o botão de menu em telas pequenas
+                this.dom.menuToggleBtn.addEventListener('click', this.toggleSidebar.bind(this));
+
+                // Evento para os botões de voltar/avançar do navegador
+                window.addEventListener('popstate', this.handleRouting.bind(this));
+
+                // Evento para a barra de progresso de leitura
+                this.dom.mainContent.addEventListener('scroll', this.updateReadingProgress.bind(this));
+
+                // Evento para os botões de feedback do artigo
+                this.dom.feedbackWidget.addEventListener('click', this.handleFeedback.bind(this));
+            },
+
+        });
+
