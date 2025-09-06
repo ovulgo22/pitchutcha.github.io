@@ -17,19 +17,18 @@
     <meta name="twitter:description" content="Conhecimento prático e detalhado sobre os pilares que constroem o mundo digital." />
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2290%22 font-size=%2290%22 text-anchor=%22middle%22>💻</text></svg>" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="print.css" media="print">
+    <link rel="stylesheet" href="/style.css"> <link rel="stylesheet" href="/print.css" media="print">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 <body data-theme="dark">
 
     <div class="app-container">
         
-        <div id="sidebar-placeholder"></div>
+        <aside id="sidebar" class="sidebar"></aside>
 
         <main class="main-content-grid">
             
-            <div id="main-header-placeholder"></div>
+            <header id="main-header" class="main-header" role="banner"></header>
 
             <div class="landing-page-content" role="main">
                 <div class="hero-section">
@@ -40,17 +39,17 @@
                 <div class="featured-section">
                     <h2>Comece por aqui</h2>
                     <div class="featured-grid">
-                        <a href="articles/fundacoes/arquitetura-von-neumann.html" class="featured-card">
+                        <a href="/articles/fundacoes/arquitetura-von-neumann.html" class="featured-card">
                             <h3>Arquitetura de Von Neumann</h3>
                             <p>Entenda o modelo que define quase todos os computadores modernos.</p>
                             <span>Leia mais &rarr;</span>
                         </a>
-                        <a href="articles/redes/modelo-osi.html" class="featured-card">
+                        <a href="/articles/redes/modelo-osi.html" class="featured-card">
                             <h3>O Modelo OSI</h3>
                             <p>Aprenda sobre as sete camadas da comunicação em redes.</p>
                             <span>Leia mais &rarr;</span>
                         </a>
-                        <a href="articles/webdev/o-que-e-uma-api.html" class="featured-card">
+                        <a href="/articles/webdev/o-que-e-uma-api.html" class="featured-card">
                             <h3>O que é uma API?</h3>
                             <p>Descubra como diferentes sistemas de software conversam entre si.</p>
                             <span>Leia mais &rarr;</span>
@@ -61,21 +60,19 @@
                 <div class="featured-section">
                     <h2>Navegue por Categoria</h2>
                      <div class="category-grid">
-                        <a href="articles/fundacoes/maquina-turing.html" class="category-card"><h3>Fundações</h3></a>
-                        <a href="articles/redes/modelo-osi.html" class="category-card"><h3>Redes</h3></a>
-                        <a href="articles/webdev/o-que-e-uma-api.html" class="category-card"><h3>Web Dev</h3></a>
-                        <a href="articles/db/sql-vs-nosql.html" class="category-card"><h3>Bancos de Dados</h3></a>
+                        <a href="/articles/fundacoes/maquina-turing.html" class="category-card"><h3>Fundações</h3></a>
+                        <a href="/articles/redes/modelo-osi.html" class="category-card"><h3>Redes</h3></a>
+                        <a href="/articles/webdev/o-que-e-uma-api.html" class="category-card"><h3>Web Dev</h3></a>
+                        <a href="/articles/db/sql-vs-nosql.html" class="category-card"><h3>Bancos de Dados</h3></a>
                     </div>
                 </div>
-
             </div>
-
-            <div id="main-footer-placeholder"></div>
+            
+            <footer class="main-footer" role="contentinfo"></footer>
         </main>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-    <script src="script.js" defer></script>
-</body>
+    <script src="/script.js" defer></script> </body>
 </html>
