@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cacheDom() {
                 // Componentes Globais
                 this.dom.sidebar = document.getElementById('sidebar');
-                this.dom.sidebarPlaceholder = document.getElementById('sidebar-placeholder'); // <-- CORREÇÃO ADICIONADA AQUI
+                this.dom.sidebarPlaceholder = document.getElementById('sidebar-placeholder');
                 this.dom.sidebarNav = document.getElementById('sidebar-nav');
                 this.dom.mainHeader = document.getElementById('main-header');
                 this.dom.mainFooter = document.querySelector('.main-footer');
@@ -178,6 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (this.dom.clearSearchBtn) this.dom.clearSearchBtn.addEventListener('click', this.clearSearch.bind(this));
                 if (this.dom.sidebarNav) this.dom.sidebarNav.addEventListener('click', this.handleSidebarClick.bind(this));
+
+                // CORREÇÃO: Adiciona um listener para fechar a sidebar ao clicar no conteúdo principal
+                if (this.dom.mainContentGrid) this.dom.mainContentGrid.addEventListener('click', this.closeSidebar.bind(this));
             },
             
             // --- LÓGICA DE TEMA ---
@@ -436,11 +439,17 @@ document.addEventListener('DOMContentLoaded', () => {
             },
 
             toggleSidebar() {
-                // ESTA É A FUNÇÃO CORRIGIDA
-                if(!this.dom.sidebarPlaceholder) return; 
+                if(!this.dom.sidebarPlaceholder) return;
                 this.state.sidebarOpen = !this.state.sidebarOpen;
-                this.dom.sidebarPlaceholder.classList.toggle('open', this.state.sidebarOpen); 
+                this.dom.sidebarPlaceholder.classList.toggle('open', this.state.sidebarOpen);
                 this.dom.menuToggleBtn.setAttribute('aria-expanded', this.state.sidebarOpen);
+            },
+
+            // CORREÇÃO: Nova função para apenas fechar a sidebar
+            closeSidebar() {
+                if (this.state.sidebarOpen) {
+                    this.toggleSidebar();
+                }
             },
             
             updateReadingProgress() {
