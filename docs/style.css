@@ -1,10 +1,11 @@
 /* ==========================================================================
-   1. FUNDAÇÃO E VARIÁVEIS
+   1. FUNDAÇÃO E VARIÁVEIS DE TEMA
    ========================================================================== */
-:root {
+
+/* Tema Escuro (Padrão) */
+:root, body[data-theme='dark'] {
     --bg-main: #0d1117;
     --bg-sidebar: #161b22;
-    --bg-content-area: #0d1117;
     --bg-inset: #21262d;
     --border-color: #30363d;
     --text-primary: #c9d1d9;
@@ -13,7 +14,27 @@
     --text-link-hover: #1f6feb;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --code-bg: rgba(177, 186, 196, 0.15);
+    --shadow-color: rgba(0,0,0,0.4);
 }
+
+/* Tema Claro */
+body[data-theme='light'] {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f6f8fa;
+    --bg-inset: #f6f8fa;
+    --border-color: #d0d7de;
+    --text-primary: #24292f;
+    --text-secondary: #57606a;
+    --text-link: #0969da;
+    --text-link-hover: #0a60c8;
+    --code-bg: rgba(175, 184, 193, 0.2);
+    --shadow-color: rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   2. RESET E ESTILOS GLOBAIS
+   ========================================================================== */
 
 * {
     margin: 0;
@@ -27,27 +48,41 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     font-size: 16px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 /* ==========================================================================
-   2. ESTRUTURA PRINCIPAL (LAYOUT)
+   3. LAYOUT PRINCIPAL E ESTRUTURA
    ========================================================================== */
+
 .app-container {
     display: flex;
     height: 100vh;
 }
 
+/* --- Sidebar Principal (Esquerda) --- */
 .sidebar {
     width: 320px;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    height: 100%;
-    transition: margin-left 0.3s ease-in-out;
+    justify-content: space-between;
+    height: 100vh;
+    position: sticky;
+    top: 0;
     flex-shrink: 0;
+    transition: margin-left 0.3s ease-in-out, background-color 0.2s;
 }
 
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 100%;
+}
+
+/* --- Conteúdo Principal (Centro) --- */
 .main-content {
     flex-grow: 1;
     display: flex;
@@ -55,9 +90,32 @@ body {
     overflow-y: auto;
 }
 
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.content-area {
+    width: 100%;
+    max-width: 900px; /* Largura de leitura ideal */
+}
+
+/* --- Sidebar do Índice (Direita) --- */
+.toc-sidebar {
+    width: 280px;
+    font-size: 0.8rem;
+    padding-left: 32px;
+    flex-shrink: 0;
+}
+/*=============== INÍCIO DA PARTE 2 ===============*/
+
 /* ==========================================================================
-   3. SIDEBAR: CABEÇALHO, LOGO E BUSCA
+   4. SIDEBAR: CABEÇALHO, LOGO E BUSCA
    ========================================================================== */
+
 .sidebar-header {
     padding: 24px;
     border-bottom: 1px solid var(--border-color);
@@ -122,7 +180,7 @@ body {
     overflow-y: auto;
     z-index: 1000;
     list-style: none;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 24px var(--shadow-color);
 }
 .search-results.hidden { display: none; }
 
@@ -135,7 +193,7 @@ body {
 }
 .search-results li a:hover,
 .search-results li a:focus {
-    background-color: #1f6feb; /* Cor de hover do GitHub */
+    background-color: var(--text-link-hover);
     color: white;
 }
 .search-results .no-results {
@@ -145,7 +203,7 @@ body {
 }
 
 /* ==========================================================================
-   4. SIDEBAR: NAVEGAÇÃO (CATEGORIAS E ARTIGOS)
+   5. SIDEBAR: NAVEGAÇÃO E RODAPÉ
    ========================================================================== */
 .sidebar-nav {
     overflow-y: auto;
@@ -188,7 +246,7 @@ body {
 }
 
 .category-group.open .nav-list {
-    max-height: 1500px; /* Valor alto para expansão */
+    max-height: 1500px;
     margin-top: 4px;
 }
 .category-group.open .icon-chevron {
@@ -213,10 +271,37 @@ body {
     font-weight: 600;
 }
 
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.theme-toggler {
+    background-color: var(--bg-inset);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    width: 100%;
+}
+.theme-toggler:hover {
+    border-color: var(--text-secondary);
+}
+.theme-toggler svg {
+    width: 16px;
+    height: 16px;
+    display: none; /* Esconde ambos por padrão */
+}
+/* Mostra o ícone correto baseado no tema */
+body[data-theme='dark'] .theme-toggler .icon-sun { display: block; margin: 0 auto; }
+body[data-theme='light'] .theme-toggler .icon-moon { display: block; margin: 0 auto; }
+
 
 /* ==========================================================================
-   5. CONTEÚDO PRINCIPAL: CABEÇALHO E ARTIGO
+   6. CONTEÚDO PRINCIPAL: CABEÇALHO
    ========================================================================== */
+
 .main-header {
     display: flex;
     align-items: center;
@@ -224,6 +309,10 @@ body {
     padding: 16px 24px;
     border-bottom: 1px solid var(--border-color);
     flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-main);
+    z-index: 100;
 }
 
 .menu-toggle {
@@ -242,11 +331,35 @@ body {
     font-size: 0.875rem;
 }
 
-.content-area {
-    padding: 24px 32px;
-    max-width: 900px; /* Largura ideal para leitura */
-    margin: 0 auto;
-    width: 100%;
+.github-link {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+.github-link:hover {
+    color: var(--text-link);
+    background-color: rgba(177, 186, 196, 0.12);
+}
+.github-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/*================ FIM DA PARTE 2 ================*/
+/*=============== INÍCIO DA PARTE 3 ===============*/
+
+/* ==========================================================================
+   7. CONTEÚDO PRINCIPAL: ARTIGO E METADADOS
+   ========================================================================== */
+
+.article-header {
+    margin-bottom: 32px;
 }
 #article-title {
     font-size: 2.5rem;
@@ -258,8 +371,16 @@ body {
 .subtitle {
     font-size: 1.25rem;
     color: var(--text-secondary);
-    margin-bottom: 32px;
+    margin-top: 8px;
+    margin-bottom: 16px;
 }
+.article-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 16px;
+}
+
 .content-body h2 {
     font-size: 1.75rem;
     font-weight: 600;
@@ -267,6 +388,12 @@ body {
     margin-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 8px;
+}
+.content-body h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
 }
 .content-body p, .content-body ul, .content-body ol {
     margin-bottom: 16px;
@@ -284,13 +411,13 @@ body {
 }
 .content-body code {
     font-family: var(--font-mono);
-    background-color: rgba(177, 186, 196, 0.15);
+    background-color: var(--code-bg);
     padding: 0.2em 0.4em;
     font-size: 85%;
     border-radius: 6px;
 }
 .content-body pre {
-    background-color: #161b22;
+    background-color: var(--bg-sidebar);
     padding: 16px;
     border-radius: 6px;
     overflow-x: auto;
@@ -302,40 +429,60 @@ body {
     font-size: 100%;
 }
 
+/* ==========================================================================
+   8. ÍNDICE "NESTA PÁGINA" (TOC)
+   ========================================================================== */
+
+.toc-sidebar {
+    padding-top: 16px;
+    position: sticky;
+    top: 80px; /* Abaixo do header principal */
+    height: calc(100vh - 80px);
+}
+.toc-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+#toc-nav ul {
+    list-style: none;
+}
+#toc-nav a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 4px 0;
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+    transition: all 0.2s ease;
+}
+#toc-nav a:hover {
+    color: var(--text-primary);
+}
+#toc-nav a.active {
+    color: var(--text-link);
+    font-weight: 600;
+    border-left-color: var(--text-link);
+}
+#toc-nav .toc-level-3 {
+    padding-left: 24px;
+}
+
 
 /* ==========================================================================
-   6. COMPONENTES
+   9. COMPONENTES FINAIS (NAVEGAÇÃO, RODAPÉ)
    ========================================================================== */
+
 .reading-progress-bar {
     position: sticky;
-    top: 0;
-    height: 4px;
+    top: 65px; /* Altura do header */
+    height: 3px;
     background-color: var(--text-link);
-    width: 0%; /* Inicia em 0, controlado por JS */
+    width: 0%;
     z-index: 100;
     transition: width 0.1s linear;
-}
-
-.feedback-widget {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-.feedback-widget.hidden { display: none; }
-.feedback-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    opacity: 0.7;
-    transition: opacity 0.2s, transform 0.2s;
-}
-.feedback-btn:hover {
-    opacity: 1;
-    transform: scale(1.2);
 }
 
 .nav-buttons {
@@ -368,10 +515,29 @@ body {
 }
 .nav-button.next { text-align: right; }
 
+.main-footer {
+    text-align: center;
+    padding: 32px;
+    margin-top: 32px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+}
+.main-footer a {
+    color: var(--text-link);
+}
+
 
 /* ==========================================================================
-   7. RESPONSIVIDADE
+   10. RESPONSIVIDADE
    ========================================================================== */
+
+@media (max-width: 1200px) {
+    .toc-sidebar {
+        display: none; /* Esconde o índice "Nesta Página" em telas menores */
+    }
+}
+
 @media (max-width: 1024px) {
     .sidebar {
         position: fixed;
@@ -382,10 +548,13 @@ body {
     }
     .sidebar.open {
         transform: translateX(0);
-        box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        box-shadow: 0 0 40px var(--shadow-color);
     }
     .menu-toggle {
         display: block;
+    }
+    .content-wrapper {
+        padding: 0;
     }
     .content-area {
         padding: 24px;
@@ -399,4 +568,4 @@ body {
     .nav-buttons { flex-direction: column; gap: 1rem; }
     .nav-button { width: 100%; }
 }
-
+/*================ FIM DA PARTE 3 ================*/
