@@ -6,78 +6,62 @@
     <title>Pitchutcha: Enciclopédia de Tecnologia</title>
     <meta name="description" content="Uma enciclopédia de tecnologia curada, construída para desenvolvedores, por ovulgo22.">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2290%22 font-size=%2290%22 text-anchor=%22middle%22>💻</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2290%22 font-size=%2290%22 text-anchor=%22middle%22>💻</text></svg>" type="image/svg+xml">
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
-<body data-theme="dark"> <div class="app-container">
+<body data-theme="dark">
+
+    <div class="app-container">
         
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-content">
-                <header class="sidebar-header">
-                    <h1 class="logo"><a href="#home">Pitchutcha</a></h1>
-                    <div class="search-container">
-                        <input type="text" id="search-input" class="search-input" placeholder="Pesquisar artigos...">
-                        <button id="clear-search-btn" class="clear-search-btn hidden" aria-label="Limpar pesquisa">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95z"/></svg>
-                        </button>
-                        <ul id="search-results" class="search-results hidden" role="listbox"></ul>
+        <div id="sidebar-placeholder"></div>
+
+        <main class="main-content-grid">
+            
+            <div id="main-header-placeholder"></div>
+
+            <div class="landing-page-content">
+                <div class="hero-section">
+                    <h1>A Enciclopédia Aberta de Tecnologia</h1>
+                    <p class="subtitle">Conhecimento prático e detalhado sobre os pilares que constroem o mundo digital. Feito para desenvolvedores, por `ovulgo22`.</p>
+                    <div class="hero-search-container">
+                        <input type="text" id="hero-search-input" placeholder="O que você quer aprender hoje?">
+                        <button id="hero-search-button">Pesquisar</button>
                     </div>
-                </header>
-                <nav id="sidebar-nav" class="sidebar-nav" aria-label="Navegação da enciclopédia"></nav>
-            </div>
-            <footer class="sidebar-footer">
-                <button id="theme-toggler" class="theme-toggler" aria-label="Alternar tema">
-                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.591a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.803 17.803a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.591a.75.75 0 010 1.06zM12 21a.75.75 0 01-.75-.75v-2.25a.75.75 0 011.5 0v2.25A.75.75 0 0112 21zM5.106 17.803a.75.75 0 010-1.06l1.591-1.59a.75.75 0 111.06 1.06l-1.59 1.591a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.106a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.106 6.167a.75.75 0 010-1.06z"/></svg>
-                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.463-.69a.75.75 0 01.981.98 10.503 10.503 0 01-4.293 2.126C13.199 21.75 10.5 21.75 8.25 19.5c-2.25-2.25-2.25-5.024-2.25-7.372 0-2.348.86-4.42 2.364-6.002a.75.75 0 01.819.162z"/></svg>
-                </button>
-            </footer>
-        </aside>
+                </div>
 
-        <main id="main-content" class="main-content" aria-live="polite">
-            <header class="main-header">
-                <button id="menu-toggle" class="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir/Fechar menu">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"></path></svg>
-                </button>
-                <p id="breadcrumb" class="breadcrumb" aria-label="Caminho atual"></p>
-                <a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="Ver o repositório no GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="github-icon"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
-                    <span>GitHub</span>
-                </a>
-            </header>
-            
-            <div id="reading-progress-bar" class="reading-progress-bar"></div>
-            
-            <div class="content-wrapper">
-                <article id="content-area" class="content-area">
-                    <header class="article-header">
-                        <h1 id="article-title"></h1>
-                        <p id="article-subtitle" class="subtitle"></p>
-                        <div id="article-meta" class="article-meta"></div>
-                    </header>
-                    <div id="content-body" class="content-body"></div>
-                </article>
+                <div class="featured-articles">
+                    <h2>Artigos em Destaque</h2>
+                    <div class="featured-grid">
+                        
+                        <a href="/articles/fundacoes/arquitetura-von-neumann.html" class="featured-card">
+                            <h3>Arquitetura de Von Neumann</h3>
+                            <p>Entenda o modelo que define quase todos os computadores modernos.</p>
+                            <span>Leia mais &rarr;</span>
+                        </a>
 
-                <aside id="toc-sidebar" class="toc-sidebar" aria-labelledby="toc-heading">
-                    <h2 id="toc-heading" class="toc-heading">Nesta Página</h2>
-                    <nav id="toc-nav"></nav>
-                </aside>
+                        <a href="/articles/webdev/http3.html" class="featured-card">
+                            <h3>HTTP/3 e QUIC</h3>
+                            <p>Descubra o futuro dos protocolos da web e por que eles são mais rápidos.</p>
+                            <span>Leia mais &rarr;</span>
+                        </a>
+
+                        <a href="/articles/ia/llms.html" class="featured-card">
+                            <h3>Modelos de Linguagem Grandes (LLMs)</h3>
+                            <p>Uma introdução à tecnologia por trás da IA generativa.</p>
+                            <span>Leia mais &rarr;</span>
+                        </a>
+
+                    </div>
+                </div>
             </div>
 
-            <footer id="nav-buttons" class="nav-buttons" aria-label="Navegação de artigos"></footer>
-            
-            <footer class="main-footer">
-                <p>&copy; 2025 Pitchutcha. Construído por <a href="https://github.com/ovulgo22" target="_blank" rel="noopener noreferrer">ovulgo22</a>.</p>
-            </footer>
+            <div id="main-footer-placeholder"></div>
         </main>
     </div>
 
-    <noscript>
-        <p>Este site requer JavaScript para funcionar corretamente. Por favor, habilite-o em seu navegador.</p>
-    </noscript>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script> <script src="script.js" defer></script>
 </body>
 </html>
