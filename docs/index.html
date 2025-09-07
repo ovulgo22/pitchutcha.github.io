@@ -1,192 +1,277 @@
-<!DOCTYPE html>
+<!-- index.html — PARTE 1/3
+     Site: Pitchutcha
+     URL público esperado: https://ovulgo22.github.io/pitchutcha.github.io/
+     Coloque este arquivo na pasta /docs do branch main do repositório pitchutcha.github.io
+-->
+
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitchutcha - Documentação do Projeto</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pitchutcha — História da Computação & Computação Quântica (v1.0)</title>
+  <meta name="description" content="Pitchutcha: Documentação extensa e autoritativa sobre História da Computação, Computação Quântica e tópicos fundamentais." />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;600;700;900&family=Noto+Sans:wght@400;500;700" rel="stylesheet" onload="this.rel='stylesheet'">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" defer></script>
+
+  <!-- Base para caminhos absolutos do repositório GitHub Pages.
+       Mantenha conforme o URL: https://ovulgo22.github.io/pitchutcha.github.io/ -->
+  <base href="/pitchutcha.github.io/">
+
+  <!-- CSS local para ajustes finos (será criado em assets/css/styles.css) -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Meta tags para SEO / Social -->
+  <meta property="og:title" content="Pitchutcha — História da Computação & Computação Quântica" />
+  <meta property="og:description" content="Coleção contínua e aprofundada de artigos sobre história da computação, computação quântica e tópicos complementares." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#137fec" />
+
+  <style type="text/tailwindcss">
+    :root{
+      --primary-color: #137fec;
+      --bg: #f8fafc;
+      --muted: #64748b;
+    }
+    body{ font-family: Inter, "Noto Sans", sans-serif; background-color: var(--bg); }
+  </style>
 </head>
-<body>
-    <header>
-        <h1>Pitchutcha</h1>
-        <nav>
-            <ul>
-                <li><a href="#funcionalidades">Funcionalidades</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#testes">Testes</a></li>
-                <li><a href="#contribuindo">Contribuindo</a></li>
-                <li><a href="#feedback">Feedback</a></li>
-                <li><a href="#documentacao-externa">Documentação Externa</a></li>
-                <li><a href="#consideracoes-finais">Considerações Finais</a></li>
-                <li><a href="#acessibilidade">Acessibilidade</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
+<body class="antialiased text-slate-900">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center gap-6">
+            <a href="index.html" class="flex items-center gap-2" aria-label="Pitchutcha — Início">
+              <svg class="h-8 w-8 text-[var(--primary-color)]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+              </svg>
+              <span class="text-lg font-bold">Pitchutcha</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6" aria-label="Navegação principal">
+              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/index.html">Docs</a>
+              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="search.html">Buscar</a>
+              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/history/index.html">História</a>
+              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/quantum/index.html">Quântica</a>
+            </nav>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="relative hidden sm:block w-64" aria-hidden="false">
+              <label for="global-search" class="sr-only">Pesquisar</label>
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true">search</span>
+              <input aria-label="Pesquisar conteúdo em Pitchutcha" id="global-search" class="h-10 w-full rounded-md border border-gray-300 bg-gray-50 pl-10 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" placeholder="Pesquisar conteúdo..." type="search" />
+            </div>
+
+            <button id="theme-toggle" class="rounded-full p-2 bg-white border border-gray-200 hover:bg-gray-50" title="Alternar tema" aria-pressed="false">
+              <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+            </button>
+
+            <a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-md bg-[var(--primary-color)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:opacity-95">
+              Ver no GitHub
+            </a>
+
+            <button class="rounded-full" aria-label="Perfil">
+              <img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqtbeD0HpPcGQVcgIizY1t3YwHpu8AEKMvI4_gTee2SqjwgqEy-ismQIB1iaQRPFEJpEC-XlHkOorS9EhLt2JY-J-EowgbDduECuhY7BIeex6NIPSItw1zv8K7EiR50JjQ1eq8K4CqWmwRb-BdFanmrfeXFrJzqKjyZfsgArP077evxe_3hDA5BiHCK1mAUT-9TMJpSZ-XS7nZpQsPfgdSVYtWOTeBPSYOR_Vzg5EfdbXrsAb1XvnpcJeS7rdPsc-VMkP4M5oeX_NA" class="h-8 w-8 rounded-full object-cover" />
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <main>
-        <section id="funcionalidades">
-            <h2>Funcionalidades do Projeto</h2>
-            <p>O projeto Pitchutcha oferece uma série de funcionalidades projetadas para facilitar o gerenciamento e a organização de informações. Aqui estão algumas delas:</p>
-            <ul>
-                <li><strong>Interface Amigável:</strong> A UI foi projetada com o usuário em mente, tornando a navegação intuitiva.</li>
-                <li><strong>Configurações Personalizáveis:</strong> Os usuários podem adaptar a plataforma às suas necessidades, incluindo temas e notificações.</li>
-                <li><strong>Exportação de Dados:</strong> Permite que os dados sejam exportados em formatos comuns como CSV, JSON e PDF.</li>
-                <li><strong>Multiusuário:</strong> Suporte para múltiplos usuários, permitindo que diferentes pessoas acessem a plataforma com permissões variadas.</li>
-            </ul>
-        </section>
+    <!-- Main layout: sidebar + content -->
+    <main class="flex-1">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Sidebar (coluna esquerda fixa em desktop) -->
+          <aside class="w-full lg:w-80 flex-shrink-0">
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-20">
+              <div class="p-6">
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-2xl text-slate-800" aria-hidden="true">science</span>
+                  <div>
+                    <h2 class="text-lg font-semibold text-slate-900">Pitchutcha</h2>
+                    <p class="text-sm text-slate-500">Enciclopédia completa de Computação</p>
+                  </div>
+                </div>
 
-        <section id="roadmap">
-            <h2>Roadmap do Projeto</h2>
-            <p>Abaixo estão algumas metas e desenvolvimentos planejados para o futuro do projeto Pitchutcha:</p>
-            <ul>
-                <li><strong>Versão 1.1:</strong> Melhorias na performance e novas funcionalidades de exportação até o final do Q2 de 2024.</li>
-                <li><strong>Versão 2.0:</strong> Lançamento de uma API robusta para integração com outras plataformas até o final do ano.</li>
-                <li><strong>Suporte a Múltiplas Linguagens:</strong> Planejamento para adicionar suporte a mais idiomas no Q1 de 2025.</li>
-            </ul>
-            <p>Fique atento às nossas atualizações para saber mais sobre o progresso do projeto!</p>
-        </section>
+                <nav class="mt-6" aria-label="Navegação lateral">
+                  <ul class="space-y-1">
+                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/algorithms/index.html"><span class="material-symbols-outlined">memory</span> Algorithms</a></li>
+                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/data-structures/index.html"><span class="material-symbols-outlined">account_tree</span> Data Structures</a></li>
+                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/programming-languages/index.html"><span class="material-symbols-outlined">code</span> Programming Languages</a></li>
+                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/quantum/index.html"><span class="material-symbols-outlined">psychology</span> Quantum Computing</a></li>
+                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/history/index.html"><span class="material-symbols-outlined">history_edu</span> History of Computing</a></li>
+                  </ul>
+                </nav>
+              </div>
 
-        <section id="testes">
-            <h2>Testes e Validações</h2>
-            <p>A qualidade do projeto é uma prioridade. Abaixo, descreveremos os tipos de testes realizados:</p>
-            <h3>Testes Unitários</h3>
-            <p>Testes unitários são implementados para validar cada componente isoladamente. Utilizamos Jest para a execução desses testes.</p>
-            <h3>Testes de Integração</h3>
-            <p>Os testes de integração garantem que diferentes módulos funcionem juntos corretamente. Ferramentas como Mocha e Chai são usadas.</p>
-            <h3>Testes de Aceitação</h3>
-            <p>Realizamos testes de aceitação com usuários finais para garantir que o produto atenda às necessidades do usuário.</p>
-        </section>
+              <div class="border-t border-gray-100 p-4 bg-gray-50">
+                <h3 class="text-sm font-semibold text-gray-700">Explore</h3>
+                <p class="text-sm text-gray-600 mt-2">Navegue por tópicos, busque conteúdos e marque favoritos.</p>
+              </div>
+            </div>
+          </aside>
+          <!-- Conteúdo principal -->
+          <div class="flex-1 min-w-0">
+            <!-- Banner / Introdução -->
+            <section class="mb-10">
+              <div class="bg-[var(--primary-color)] text-white rounded-lg p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div class="flex-1">
+                  <h1 class="text-3xl sm:text-4xl font-extrabold">Bem-vindo ao Pitchutcha</h1>
+                  <p class="mt-2 text-lg sm:text-xl text-gray-100">Exploração completa e contínua sobre História da Computação, Computação Quântica e tópicos fundamentais.</p>
+                  <a href="docs/index.html" class="inline-block mt-4 px-6 py-3 bg-white text-[var(--primary-color)] font-semibold rounded-lg shadow hover:bg-gray-100 transition">Começar a Explorar</a>
+                </div>
+                <div class="hidden sm:block flex-shrink-0 w-40 h-40 bg-white rounded-full flex items-center justify-center text-[var(--primary-color)] font-bold text-xl shadow-lg">
+                  Pitchutcha
+                </div>
+              </div>
+            </section>
 
-        <section id="contribuindo">
-            <h2>Contribuindo para o Projeto</h2>
-            <p>Quer contribuir para o Pitchutcha? Aqui estão alguns passos que você pode seguir:</p>
-            <ol>
-                <li>Fork o repositório no GitHub.</li>
-                <li>Crie uma nova branch para suas alterações:</li>
-                <pre><code>git checkout -b minha-contribuicao</code></pre>
-                <li>Faça suas alterações e comite:</li>
-                <pre><code>git commit -m "Descrição do que foi feito"</code></pre>
-                <li>Submeta sua branch:</li>
-                <pre><code>git push origin minha-contribuicao</code></pre>
-                <li>Abra um Pull Request!</li>
-            </ol>
-            <p>Estamos animados para ver suas contribuições e agradecemos antecipadamente!</p>
-        </section>
+            <!-- Artigos em destaque -->
+            <section class="mb-12">
+              <h2 class="text-2xl font-bold text-slate-900 mb-4">Artigos em Destaque</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                  <a href="docs/history/early-computers.html">
+                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Os Primeiros Computadores</h3>
+                    <p class="text-sm text-gray-500 mt-1">Explore desde o ábaco até as primeiras máquinas de Turing, detalhando a evolução inicial da computação.</p>
+                  </a>
+                </article>
 
-        <section id="feedback">
-            <h2>Feedback</h2>
-            <p>Adoraríamos ouvir sua opinião sobre o projeto! Use o formulário abaixo para nos enviar suas sugestões:</p>
-            <form action="YOUR_SERVER_ENDPOINT" method="POST">
-                <label for="name">Seu Nome:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Seu Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Sua Mensagem:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-            <p>Seu feedback é importante para nós e ajuda a melhorar o projeto continuamente!</p>
-        </section>
+                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                  <a href="docs/quantum/intro-quantum.html">
+                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Introdução à Computação Quântica</h3>
+                    <p class="text-sm text-gray-500 mt-1">Entenda os conceitos fundamentais de qubits, superposição e algoritmos quânticos revolucionários.</p>
+                  </a>
+                </article>
 
-        <section id="documentacao-externa">
-            <h2>Documentação Externa</h2>
-            <p>Abaixo estão algumas referências úteis e documentações externas que podem ajudar a aprofundar seu conhecimento sobre tecnologias usadas no projeto:</p>
-            <ul>
-                <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">Documentação do React</a> - Aprenda sobre a biblioteca utilizada para a construção da interface.</li>
-                <li><a href="https://nodejs.org/en/docs/" target="_blank">Documentação do Node.js</a> - Entenda mais sobre o ambiente de execução JavaScript no lado do servidor.</li>
-                <li><a href="https://expressjs.com/en/4x/api.html" target="_blank">Documentação do Express</a> - Explore o framework utilizado para desenvolver a API do seu projeto.</li>
-                <li><a href="https://mongoosejs.com/docs/index.html" target="_blank">Documentação do Mongoose</a> - Saiba mais sobre a biblioteca para modelar objetos MongoDB.</li>
-                <li><a href="https://www.mongodb.com/docs/" target="_blank">Documentação do MongoDB</a> - Aprenda a trabalhar com o banco de dados NoSQL usado no projeto.</li>
-            </ul>
-        </section>
+                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                  <a href="docs/algorithms/algorithm-design.html">
+                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Design de Algoritmos</h3>
+                    <p class="text-sm text-gray-500 mt-1">Parâmetros de eficiência, paradigmas de programação e exemplos práticos de algoritmos históricos e modernos.</p>
+                  </a>
+                </article>
 
-        <section id="consideracoes-finais">
-            <h2>Considerações Finais</h2>
-            <p>Obrigado por acessar a documentação do Pitchutcha! Queremos assegurar que sua experiência seja a melhor possível.</p>
-            <p>Este projeto é open-source e qualquer feedback ou contribuição é muito bem-vindo. Nossa missão é criar uma comunidade colaborativa e inovadora.</p>
-            <p>Fique à vontade para explorar, utilizar e melhorar o projeto. Estamos sempre à disposição para responder a perguntas e ajudar no que for necessário!</p>
-        </section>
+                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+                  <a href="docs/programming-languages/evolution.html">
+                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Evolução das Linguagens de Programação</h3>
+                    <p class="text-sm text-gray-500 mt-1">Das primeiras linguagens de baixo nível até as linguagens modernas de alto nível usadas na indústria e na pesquisa.</p>
+                  </a>
+                </article>
+              </div>
+            </section>
 
-        <section id="agradecimentos">
-            <h2>Agradecimentos</h2>
-            <p>Queremos expressar nossa gratidão a todas as pessoas que contribuíram para este projeto, seja através de sugestões, código, testes ou feedback.</p>
-            <p>Agradecimentos especiais a:</p>
-            <ul>
-                <li>Todos os contribuidores que colaboraram com código e sugestões.</li>
-                <li>Quem testou e forneceu feedback para melhorar a usabilidade.</li>
-                <li>Nossa comunidade de usuários que inspira melhorias contínuas!</li>
-            </ul>
-        </section>
+            <!-- Conteúdo infinito / artigos extensos -->
+            <section id="infinite-content" class="space-y-12">
+              <h2 class="text-2xl font-bold text-slate-900 mb-4">Exploração Detalhada</h2>
+              
+              <!-- Exemplo de artigo longo (História da Computação) -->
+              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">História Completa da Computação</h3>
+                <p class="text-sm text-gray-500 mb-4">Do ábaco aos supercomputadores, detalhando a evolução tecnológica, teórica e prática da computação ao longo dos séculos.</p>
+                
+                <div class="prose max-w-none">
+                  <h4>Origens Antigas</h4>
+                  <p>As primeiras ferramentas de cálculo surgiram há milhares de anos, incluindo o ábaco na Mesopotâmia e dispositivos de contagem na China e Egito antigos. Esses métodos permitiram manipulações matemáticas básicas para comércio, astronomia e engenharia.</p>
+                  
+                  <h4>Máquinas Mecânicas</h4>
+                  <p>No século XVII, surgiram as primeiras calculadoras mecânicas, como a máquina de Pascal e a de Leibniz. Esses dispositivos eram capazes de somar, subtrair e, em alguns casos, multiplicar números automaticamente, pavimentando o caminho para a computação automática.</p>
 
-        <section id="mantenedores">
-            <h2>Mantenedores do Projeto</h2>
-            <p>Este projeto é mantido por:</p>
-            <ul>
-                <li><strong>Ovulgo22</strong>: Seu nome e a principal força por trás do código.</li>
-                <li><strong>Colaboradores Abertos</strong>: Este espaço está aberto para novas contribuições, seja com melhorias, correções de bugs ou novas funcionalidades.</li>
-            </ul>
-        </section>
+                  <h4>Era dos Computadores Eletrônicos</h4>
+                  <p>No século XX, surgiram os computadores eletrônicos, desde o ENIAC até os mainframes. Inovações em circuitos, memória e linguagens de programação transformaram a computação em um campo acessível a empresas, governos e universidades.</p>
+                </div>
+              </article>
 
-        <section id="links-uteis">
-            <h2>Links Úteis</h2>
-            <p>Abaixo estão alguns links úteis para acessar diretamente partes importantes do projeto ou conteúdos relacionados:</p>
-            <ul>
-                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank">Repositório GitHub</a> - Acesse o repositório completo do projeto.</li>
-                <li><a href="https://pitchutcha.github.io/docs" target="_blank">Documentação Completa</a> - Acesse a documentação completa do projeto.</li>
-                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io/issues" target="_blank">Issues do Projeto</a> - Reporte bugs ou sugira novas funcionalidades.</li>
-                <li><a href="https://github.com/ovulgo22/pitchutcha.github.io/pulls" target="_blank">Pull Requests</a> - Veja as contribuições em andamento.</li>
-                <li><a href="mailto:suporte@exemplo.com">Suporte por Email</a> - Entre em contato diretamente para assistência.</li>
-            </ul>
-        </section>
+              <!-- Exemplo de artigo longo (Computação Quântica) -->
+              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Computação Quântica — Fundamentos</h3>
+                <p class="text-sm text-gray-500 mb-4">Conceitos essenciais como qubits, superposição, emaranhamento e algoritmos quânticos revolucionários explicados de forma detalhada e contínua.</p>
+                
+                <div class="prose max-w-none">
+                  <h4>Qubits e Superposição</h4>
+                  <p>Um qubit é a unidade básica de informação na computação quântica. Diferente do bit clássico, que pode ser 0 ou 1, o qubit pode existir simultaneamente em múltiplos estados (superposição), permitindo paralelismo massivo.</p>
 
-        <section id="acessibilidade">
-            <h2>Acessibilidade</h2>
-            <p>Estamos comprometidos em garantir que nosso projeto seja acessível a todos os usuários. Aqui estão algumas práticas implementadas:</p>
-            <ul>
-                <li><strong>Texto Alternativo:</strong> Todas as imagens têm textos alternativos descritivos para ajudar usuários com deficiência visual.</li>
-                <li><strong>Navegação por Teclado:</strong> Todas as seções são acessíveis via teclado, permitindo navegação sem a necessidade de um mouse.</li>
-                <li><strong>Contraste Adequado:</strong> As cores do site foram escolhidas para garantir que o texto seja legível para todos, incluindo pessoas com daltonismo.</li>
-                <li><strong>ARIALabels:</strong> Usamos ARIA roles e labels para melhorar a experiência de leitores de tela.</li>
-            </ul>
-        </section>
+                  <h4>Emaranhamento Quântico</h4>
+                  <p>O emaranhamento permite que qubits separados estejam correlacionados de forma instantânea, mesmo a grandes distâncias. Este fenômeno é explorado em algoritmos quânticos para acelerar problemas computacionais complexos.</p>
 
-        <section id="contato">
-            <h2>Contato</h2>
-            <p>Se você tiver alguma dúvida ou comentário, entre em contato conosco!</p>
-            <ul>
-                <li>Email: <a href="mailto:suporte@exemplo.com">suporte@exemplo.com</a></li>
-                <li>Telefone: (00) 1234-5678</li>
-                <li>Endereço: Rua Exemplo, 123, Cidade, Estado</li>
-            </ul>
-        </section>
-    </main>
+                  <h4>Algoritmos Quânticos</h4>
+                  <p>Algoritmos como Shor e Grover demonstram vantagens quânticas significativas em fatoração de grandes números e busca em bases de dados não estruturadas, respectivamente. Tais algoritmos são estudados intensamente para aplicações em criptografia, IA e simulação de sistemas físicos.</p>
+                </div>
+              </article>
+              <!-- Continuação do conteúdo infinito (exemplo avançado) -->
+              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Complementos Fundamentais da Computação</h3>
+                <p class="text-sm text-gray-500 mb-4">Tópicos avançados e essenciais, incluindo estruturas de dados, complexidade algorítmica, programação paralela e fundamentos de hardware moderno.</p>
+                
+                <div class="prose max-w-none">
+                  <h4>Estruturas de Dados Avançadas</h4>
+                  <p>Listas ligadas, árvores balanceadas, grafos, tabelas hash e heaps são fundamentais para otimização de algoritmos. Cada estrutura oferece vantagens específicas para armazenamento e acesso de dados.</p>
 
-    <footer>
-        <h2>Rodapé</h2>
-        <p>&copy; 2023 Pitchutcha. Todos os direitos reservados.</p>
-        <p>Este projeto está sob a licença <a href="LICENSE_URL" target="_blank">MIT</a>. Sinta-se à vontade para utilizar e modificar, respeitando os termos da licença.</p>
-        
-        <section id="politica-privacidade">
-            <h3>Política de Privacidade</h3>
-            <p>Levamos sua privacidade a sério. As informações coletadas através deste projeto são utilizadas unicamente para melhorar a experiência do usuário. Nunca compartilharemos seus dados com terceiros sem seu consentimento explícito.</p>
-        </section>
+                  <h4>Complexidade Algorítmica</h4>
+                  <p>Analisar a eficiência de algoritmos utilizando Big O, Big Theta e Big Omega permite compreender limites de escalabilidade e desempenho, essencial para problemas de grande porte.</p>
 
-        <section id="aviso-responsabilidade">
-            <h3>Aviso de Responsabilidade</h3>
-            <p>Todo o conteúdo e informações deste projeto são fornecidos "no estado em que se encontram". Não assumimos responsabilidade por quaisquer danos diretos ou indiretos resultantes do uso deste projeto, incluindo, mas não se limitando a, perda de dados ou lucros.</p>
-        </section>
-        
-        <ul class="social-media">
-            <li><a href="https://twitter.com/ovulgo22" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
-            <li><a href="https://github.com/ovulgo22" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-            <li><a href="https://linkedin.com/in/ovulgo22" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-        </ul>
+                  <h4>Programação Paralela e Distribuída</h4>
+                  <p>Com o aumento do poder computacional, técnicas de paralelismo em CPU e GPU e sistemas distribuídos permitem resolver problemas massivos, como simulações físicas e análise de dados de larga escala.</p>
 
-        <p><a href="#topo">Voltar ao topo</a></p>
-    </footer>
+                  <h4>Fundamentos de Hardware</h4>
+                  <p>Arquitetura de computadores modernos, processadores multi-core, memórias cache e tecnologias emergentes como computação quântica e neuromórfica são essenciais para entender a base do processamento de informações.</p>
+                </div>
+              </article>
 
-    <script src="script.js"></script>
-</body>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <!-- Rodapé -->
+      <footer class="bg-gray-50 border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
+          © 2024 Pitchutcha. Todos os direitos reservados. Criado por <span class="font-semibold">ovulgo22</span>.
+        </div>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Alternar tema claro/escuro
+      const themeToggle = document.getElementById("theme-toggle");
+      const body = document.body;
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark");
+      });
+
+      // Infinite Scroll simulado para conteúdo contínuo
+      const infiniteContent = document.getElementById("infinite-content");
+      let page = 1;
+      window.addEventListener("scroll", () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+          loadMoreContent();
+        }
+      });
+
+      function loadMoreContent() {
+        if (page > 10) return; // Limite para demo (pode ser removido para verdadeiro conteúdo infinito)
+        page++;
+        const article = document.createElement("article");
+        article.className = "bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-6";
+        article.innerHTML = `
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Artigo Extendido - Parte ${page}</h3>
+          <p class="text-sm text-gray-500 mb-4">Conteúdo adicional detalhado sobre História da Computação, Computação Quântica e complementos.</p>
+          <div class="prose max-w-none">
+            <h4>Seção ${page}.1</h4>
+            <p>Exposição detalhada, exemplos técnicos, estudos históricos e fundamentos teóricos aprofundados...</p>
+            <h4>Seção ${page}.2</h4>
+            <p>Continuação do conhecimento avançado, ilustrando conceitos complexos, algoritmos e tecnologias emergentes.</p>
+          </div>
+        `;
+        infiniteContent.appendChild(article);
+      }
+    </script>
+  </body>
 </html>
