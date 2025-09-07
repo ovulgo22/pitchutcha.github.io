@@ -747,3 +747,104 @@ for (let i = 0; i < coll.length; i++) {
 <p>Esta seção será expandida infinitamente, com subcapítulos codificados em HTML e CSS puro, interatividade com JavaScript, timelines, biografias de pioneiros e simulações inline de algoritmos clássicos.</p>
 </div>
 </section>
+
+  <!-- Seção: Computação Quântica -->
+<section id="computacao-quantica" style="margin-bottom:40px;">
+<h1 style="font-size:36px;color:#0d141b;margin-bottom:15px;">Computação Quântica</h1>
+
+<!-- Introdução codificada -->
+<p style="margin-bottom:20px;font-size:18px;color:#4c739a;">
+A computação quântica é baseada nos princípios da mecânica quântica, utilizando qubits em vez de bits tradicionais. Isso permite processamento paralelo massivo, criptografia quântica e algoritmos exponencialmente mais rápidos em certas tarefas.
+</p>
+
+<!-- Exemplo de visualização de qubit em HTML + CSS puro -->
+<div style="width:200px;height:200px;margin:20px auto;position:relative;border-radius:50%;background:conic-gradient(#137fec 0% 50%,#e7edf3 50% 100%);box-shadow:0 0 10px rgba(0,0,0,0.2);">
+<div style="position:absolute;top:50%;left:50%;width:4px;height:100%;background:#0d141b;transform:translate(-50%,-50%) rotate(45deg);"></div>
+<div style="position:absolute;top:50%;left:50%;width:4px;height:100%;background:#0d141b;transform:translate(-50%,-50%) rotate(135deg);"></div>
+</div>
+
+<!-- Lista de conceitos quânticos -->
+<ul style="font-size:16px;color:#0d141b;line-height:1.6;">
+<li><strong>Qubit:</strong> Unidade fundamental de informação quântica, podendo representar 0, 1 ou superposição de ambos.</li>
+<li><strong>Superposição:</strong> Permite que um qubit exista em múltiplos estados ao mesmo tempo.</li>
+<li><strong>Emaranhamento:</strong> Conexão quântica entre qubits, permitindo correlação instantânea independente da distância.</li>
+<li><strong>Portas quânticas:</strong> Operações básicas que transformam o estado dos qubits, análogas às portas lógicas clássicas.</li>
+<li><strong>Algoritmos quânticos:</strong> Grover, Shor, e outros, que resolvem problemas específicos muito mais rápido que algoritmos clássicos.</li>
+</ul>
+
+<!-- Botão para expandir Computação Quântica completa -->
+<button class="collapsible" style="margin-top:20px;">Expandir Conteúdo Completo de Computação Quântica</button>
+<div class="content">
+<p>Esta seção será expandida infinitamente, abordando desde teoria quântica fundamental até simulações práticas de algoritmos, correlações quânticas, computação híbrida clássica-quântica e impactos futuros em criptografia, inteligência artificial e ciência de materiais.</p>
+</div>
+</section>
+
+  <!-- Seção: Complementos Fundamentais -->
+<section id="complementos" style="margin-bottom:40px;">
+<h1 style="font-size:36px;color:#0d141b;margin-bottom:15px;">Complementos Fundamentais da Computação</h1>
+
+<!-- Introdução -->
+<p style="margin-bottom:20px;font-size:18px;color:#4c739a;">
+Esta seção explora conhecimentos essenciais que complementam a Computação Clássica e Quântica: algoritmos avançados, matemática aplicada, linguagens de programação, inteligência artificial e simulações práticas.
+</p>
+
+<!-- Lista codificada de tópicos -->
+<ul style="font-size:16px;color:#0d141b;line-height:1.6;">
+<li><strong>Algoritmos Avançados:</strong> Estruturas de dados complexas, algoritmos de grafos, compressão de dados, otimização e teoria da complexidade.</li>
+<li><strong>Matemática Aplicada:</strong> Álgebra linear, cálculo, estatística, teoria da probabilidade, combinatória e teoria dos números, fundamentais para IA e computação quântica.</li>
+<li><strong>Linguagens de Programação:</strong> Python, C/C++, Rust, Haskell, Julia e linguagens de script para automação, análise e simulações.</li>
+<li><strong>Inteligência Artificial:</strong> Aprendizado de máquina, redes neurais, aprendizado profundo, reforço, visão computacional e processamento de linguagem natural.</li>
+<li><strong>Simulações e Modelagem:</strong> Ambientes codificados em HTML, CSS e JavaScript para visualização de algoritmos, física, química computacional e sistemas complexos.</li>
+</ul>
+
+<!-- Exemplo de simulação codificada: algoritmo visual de caminho mínimo -->
+<div style="width:100%;height:300px;margin:20px 0;position:relative;border:2px solid #137fec;border-radius:8px;">
+<canvas id="graphCanvas" style="width:100%;height:100%;display:block;"></canvas>
+</div>
+
+<script>
+const canvas = document.getElementById('graphCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
+// Nodos simulados
+const nodes = [
+  {x:50,y:50}, {x:200,y:50}, {x:350,y:50},
+  {x:50,y:200}, {x:200,y:200}, {x:350,y:200},
+  {x:50,y:350}, {x:200,y:350}, {x:350,y:350}
+];
+
+// Arestas simuladas
+const edges = [
+  [0,1],[1,2],[0,3],[3,6],[1,4],[4,7],[2,5],[5,8],[3,4],[4,5],[6,7],[7,8]
+];
+
+// Desenhar nodos
+nodes.forEach(n => {
+  ctx.beginPath();
+  ctx.arc(n.x,n.y,12,0,2*Math.PI);
+  ctx.fillStyle='#137fec';
+  ctx.fill();
+  ctx.strokeStyle='#0d141b';
+  ctx.stroke();
+});
+
+// Desenhar arestas
+edges.forEach(e => {
+  const [a,b] = e;
+  ctx.beginPath();
+  ctx.moveTo(nodes[a].x,nodes[a].y);
+  ctx.lineTo(nodes[b].x,nodes[b].y);
+  ctx.strokeStyle='#4c739a';
+  ctx.lineWidth=2;
+  ctx.stroke();
+});
+</script>
+
+<!-- Botão colapsável para expandir complementos infinitos -->
+<button class="collapsible" style="margin-top:20px;">Expandir Complementos Completos</button>
+<div class="content">
+<p>Esta área será expandida infinitamente para detalhar todos os algoritmos, métodos matemáticos aplicados, simulações interativas, linguagens, frameworks e integrações avançadas.</p>
+</div>
+</section>
