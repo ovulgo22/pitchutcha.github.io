@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitchutcha Docs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <button id="sidebarToggle" aria-label="Abrir menu">&#9776;</button>
+            <a href="#home" class="logo">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="Logo" />
+                <span>Pitchutcha Docs</span>
+            </a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#docs">Documentação</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+            <button id="themeToggle" aria-label="Alternar tema">🌙</button>
+        </div>
+    </header>
+    <div class="container">
+        <aside id="sidebar">
+            <div class="sidebar-header">Navegação</div>
+            <ul>
+                <li><a href="#home" id="nav-home">🏠 Home</a></li>
+                <li><a href="#docs" id="nav-docs">📄 Documentação</a></li>
+                <li><a href="#sobre" id="nav-sobre">ℹ️ Sobre</a></li>
+                <li><a href="#contato" id="nav-contato">✉️ Contato</a></li>
+            </ul>
+            <div class="sidebar-header">Avançado</div>
+            <ul>
+                <li><a href="#exemplo">Exemplo</a></li>
+                <li><a href="#api">API</a></li>
+            </ul>
+        </aside>
+        <main id="main-content">
+            <!-- O conteúdo das páginas será carregado aqui via script.js -->
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
