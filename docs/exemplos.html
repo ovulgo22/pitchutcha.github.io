@@ -2,9 +2,9 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>pitchutcha.github.io Docs – Bem-vindo</title>
+  <title>Exemplos – pitchutcha.github.io Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Documentação estilo GitHub Docs, 100% HTML/CSS/JS, multi-página, responsivo, acessível, dark/light mode.">
+  <meta name="description" content="Exemplos de componentes visuais e interações.">
   <link rel="stylesheet" href="style.css">
   <script src="docs.js" defer></script>
 </head>
@@ -23,7 +23,7 @@
       <a href="introducao.html">Introdução</a>
       <a href="primeiros-passos.html">Primeiros Passos</a>
       <a href="componentes.html">Componentes</a>
-      <a href="exemplos.html">Exemplos</a>
+      <a href="exemplos.html" aria-current="page">Exemplos</a>
     </nav>
     <div class="header-search">
       <input type="search" id="search-box" placeholder="Pesquisar documentação…" aria-label="Pesquisar">
@@ -38,22 +38,29 @@
     <main class="docs-content">
       <nav class="breadcrumbs" aria-label="Breadcrumb"></nav>
       <nav id="toc" aria-label="Navegação da página"></nav>
-      <h1 id="bem-vindo">Bem-vindo à documentação</h1>
-      <div class="callout info">
-        Esta documentação segue o padrão visual do GitHub Docs: sidebar fixa, busca instantânea, breadcrumbs, dark/light mode e navegação rápida.
+      <h1 id="exemplos">Exemplos de Componentes Visuais</h1>
+      <div class="callout tip">
+        Veja abaixo exemplos prontos de componentes visuais reutilizáveis:
       </div>
-      <h2 id="sobre-o-projeto">Sobre o projeto</h2>
-      <p>
-        O site foi construído 100% em HTML, CSS e JS puro, com acessibilidade, responsividade, dark/light mode e visual fiel ao GitHub Docs.
-      </p>
-      <h2 id="caracteristicas">Características</h2>
-      <ul role="list">
-        <li role="listitem">Sidebar multi-nível, breadcrumbs, TOC e navegação automática.</li>
-        <li role="listitem">Componentes visuais reutilizáveis (callouts, botões, etc).</li>
-        <li role="listitem">Busca instantânea com atalho <kbd>/</kbd>.</li>
-        <li role="listitem">Totalmente responsivo e acessível.</li>
-      </ul>
-      <p>Siga pelo menu lateral ou pela busca para começar!</p>
+      <h2 id="callouts">Callouts</h2>
+      <div class="callout info">Este é um callout de informação.</div>
+      <div class="callout success">Este é um callout de sucesso.</div>
+      <div class="callout warn">Este é um callout de aviso.</div>
+      <div class="callout danger">Este é um callout de perigo.</div>
+      <div class="callout tip">Este é um callout de dica.</div>
+      <h2 id="botoes">Botões</h2>
+      <button class="btn btn-primary">Primário</button>
+      <button class="btn btn-secondary">Secundário</button>
+      <h2 id="tabela">Tabela de propriedades</h2>
+      <table class="table-props">
+        <thead>
+          <tr><th>Propriedade</th><th>Tipo</th><th>Descrição</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>label</td><td>string</td><td>Texto exibido no botão</td></tr>
+          <tr><td>onClick</td><td>function</td><td>Callback ao clicar</td></tr>
+        </tbody>
+      </table>
     </main>
   </div>
 </body>

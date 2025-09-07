@@ -1,80 +1,98 @@
-// Tema light/dark
+// ---- Sidebar dinâmico via JSON ----
+let NAV_CONFIG = [];
 (function() {
-  const btn = document.getElementById("theme-toggle");
-  if (!btn) return;
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let theme = localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", theme);
+  fetch('sidebar.json').then(r=>r.json()).then(nav => {
+    NAV_CONFIG = nav;
+    renderSidebar();
+    renderBreadcrumbs();
+  });
 
-  function setIcon() {
-    btn.innerHTML = theme === "dark"
-      ? '<svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="2"/><path d="M11 2v2m0 14v2m9-9h-2M4 11H2m15.07-6.07l-1.42 1.42M6.35 17.66l-1.42 1.42m12.02 0l-1.42-1.42M6.35 4.34L4.93 2.92" stroke="currentColor" stroke-width="2"/></svg>'
-      : '<svg width="22" height="22" aria-hidden="true"><path d="M19 13A8 8 0 0 1 9 3a8 8 0 1 0 10 10z" fill="currentColor"/></svg>';
-  }
-  setIcon();
-  btn.onclick = function() {
-    theme = theme === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    setIcon();
-  };
-})();
-
-// Ativa highlight na sidebar/nav do link atual
-(function() {
-  function setActiveLinks() {
+  function renderSidebar() {
+    function createList(nav, currentHref) {
+      let ul = document.createElement('ul');
+      nav.forEach(item => {
+        let li = document.createElement('li');
+        let link = document.createElement('a');
+        link.href = item.href;
+        link.textContent = item.label;
+        if (item.href === currentHref) {
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        }
+        li.appendChild(link);
+        if (item.children && item.children.length) {
+          let btn = document.createElement('button');
+          btn.className = 'expand-btn';
+          btn.setAttribute('aria-expanded', 'false');
+          btn.innerHTML = '<span aria-hidden="true">▶</span>';
+          li.insertBefore(btn, link);
+          let sub = createList(item.children, currentHref);
+          sub.className = 'submenu';
+          sub.style.display = 'none';
+          li.appendChild(sub);
+          btn.onclick = function() {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            sub.style.display = expanded ? 'none' : 'block';
+            btn.innerHTML = expanded
+              ? '<span aria-hidden="true">▶</span>' : '<span aria-hidden="true">▼</span>';
+            localStorage.setItem('sidebar-' + item.href, !expanded ? 'open' : 'closed');
+          };
+          const state = localStorage.getItem('sidebar-' + item.href);
+          if (state === 'open' || (item.children.some(child => child.href === currentHref))) {
+            btn.setAttribute('aria-expanded', 'true');
+            btn.innerHTML = '<span aria-hidden="true">▼</span>';
+            sub.style.display = 'block';
+          }
+        }
+        ul.appendChild(li);
+      });
+      return ul;
+    }
+    const sidebar = document.querySelector('.sidebar ul');
+    if (!sidebar) return;
     const loc = window.location.pathname.split('/').pop() || "index.html";
-    document.querySelectorAll('.sidebar a, .header-nav a').forEach(a => {
-      if (a.getAttribute('href') === loc) {
-        a.classList.add('active');
-        a.setAttribute('aria-current', 'page');
-      } else {
-        a.classList.remove('active');
-        a.removeAttribute('aria-current');
+    sidebar.innerHTML = '';
+    sidebar.appendChild(createList(NAV_CONFIG, loc));
+  }
+
+  window.renderSidebar = renderSidebar; // para recarregar se necessário
+})();
+
+// ---- Breadcrumbs automáticos baseados na sidebar ----
+function renderBreadcrumbs() {
+  function findTrail(nav, href, trail = []) {
+    for (const item of nav) {
+      if (item.href === href) return [...trail, item];
+      if (item.children) {
+        const found = findTrail(item.children, href, [...trail, item]);
+        if (found.length) return found;
       }
-    });
-  }
-  setActiveLinks();
-})();
-
-// Breadcrumbs automáticos
-(function() {
-  function buildBreadcrumbs() {
-    const path = window.location.pathname.split('/').pop() || "index.html";
-    const crumbs = [
-      {name: "Início", href: "index.html"},
-      {name: "Introdução", href: "introducao.html"},
-      {name: "Primeiros Passos", href: "primeiros-passos.html"},
-      {name: "Componentes", href: "componentes.html"},
-      {name: "Botão", href: "componentes-botao.html"}
-    ];
-    let nav = document.querySelector('.breadcrumbs');
-    if (!nav) return;
-    nav.innerHTML = "";
-    if(path === "index.html") {
-      nav.innerHTML = `<a href="index.html">Início</a>`;
-      return;
     }
-    let trail = [];
-    if(path === "introducao.html") trail = [crumbs[0], crumbs[1]];
-    if(path === "primeiros-passos.html") trail = [crumbs[0], crumbs[2]];
-    if(path === "componentes.html") trail = [crumbs[0], crumbs[3]];
-    if(path === "componentes-botao.html") trail = [crumbs[0], crumbs[3], crumbs[4]];
-    for(let i=0; i<trail.length; ++i) {
-      if(i !== 0) nav.innerHTML += `<span>/</span>`;
-      nav.innerHTML += `<a href="${trail[i].href}"${i === trail.length-1 ? ' aria-current="page"' : ''}>${trail[i].name}</a>`;
-    }
+    return [];
   }
-  document.addEventListener('DOMContentLoaded', buildBreadcrumbs);
-})();
+  const nav = document.querySelector('.breadcrumbs');
+  if (!nav) return;
+  const loc = window.location.pathname.split('/').pop() || "index.html";
+  let trail = [{ label: "Início", href: "index.html" }];
+  if (loc !== "index.html" && NAV_CONFIG.length) {
+    const navTrail = findTrail(NAV_CONFIG, loc);
+    if (navTrail.length) trail = [{ label: "Início", href: "index.html" }, ...navTrail];
+  }
+  nav.innerHTML = '';
+  trail.forEach((item, i) => {
+    if (i > 0) nav.innerHTML += `<span>/</span>`;
+    nav.innerHTML += `<a href="${item.href}"${i === trail.length-1 ? ' aria-current="page"' : ''}>${item.label}</a>`;
+  });
+}
 
-// TOC e Scrollspy
+// ---- TOC dinâmico & Scrollspy inteligente ----
 (function() {
-  function buildTOC() {
+  document.addEventListener('DOMContentLoaded', function() {
     const toc = document.getElementById('toc');
     if (!toc) return;
-    toc.innerHTML = "";
-    const headers = Array.from(document.querySelectorAll('.docs-content h1, .docs-content h2'));
+    toc.innerHTML = '';
+    const headers = Array.from(document.querySelectorAll('.docs-content h1, .docs-content h2, .docs-content h3'));
     if (headers.length < 2) { toc.style.display = "none"; return; }
     let ul = document.createElement('ul');
     headers.forEach(h => {
@@ -101,19 +119,27 @@
         else a.classList.remove('active');
       });
     });
-  }
-  document.addEventListener('DOMContentLoaded', buildTOC);
+  });
 })();
 
-// Busca instantânea (mock)
+// ---- Busca instantânea (mock) ----
 (function() {
-  const docsIndex = [
-    { title: "Bem-vindo à documentação", href: "index.html", content: "Documentação estilo GitHub Docs, HTML/JS/CSS puro." },
-    { title: "Introdução", href: "introducao.html", content: "Visão geral e motivações do projeto." },
-    { title: "Primeiros Passos", href: "primeiros-passos.html", content: "Como começar rapidamente." },
-    { title: "Componentes", href: "componentes.html", content: "Catálogo de componentes reutilizáveis." },
-    { title: "Botão", href: "componentes-botao.html", content: "Detalhes do componente botão." }
-  ];
+  function flatNav(nav) {
+    let arr = [];
+    for (const item of nav) {
+      arr.push({ title: item.label, href: item.href });
+      if (item.children) arr = arr.concat(flatNav(item.children));
+    }
+    return arr;
+  }
+  let docsIndex = [];
+  fetch('sidebar.json').then(r=>r.json()).then(nav => {
+    docsIndex = [
+      ...flatNav(nav),
+      { title: "Bem-vindo à documentação", href: "index.html", content: "Documentação estilo GitHub Docs, HTML/JS/CSS puro." },
+      { title: "Props do Botão", href: "componentes-botao.html", content: "Detalhes do componente botão." }
+    ];
+  });
   const searchBox = document.getElementById('search-box');
   const results = document.getElementById('search-results');
   if (!searchBox || !results) return;
@@ -126,7 +152,7 @@
     }
     q = q.toLowerCase();
     const found = docsIndex.filter(d =>
-      d.title.toLowerCase().includes(q) || d.content.toLowerCase().includes(q)
+      d.title.toLowerCase().includes(q) || (d.content && d.content.toLowerCase().includes(q))
     );
     if (found.length === 0) {
       results.innerHTML = '<span style="padding:1em;display:block;color:var(--color-muted)">Nenhum resultado encontrado.</span>';
@@ -134,7 +160,7 @@
       found.forEach(doc => {
         let a = document.createElement('a');
         a.href = doc.href;
-        a.innerHTML = `<strong>${doc.title}</strong><br><span style="font-size:0.92em;color:var(--color-muted)">${doc.content}</span>`;
+        a.innerHTML = `<strong>${doc.title}</strong>` + (doc.content ? `<br><span style="font-size:0.92em;color:var(--color-muted)">${doc.content}</span>` : '');
         results.appendChild(a);
       });
     }
@@ -146,10 +172,48 @@
       e.preventDefault();
       searchBox.focus();
     }
+    // Navegação por teclado nos resultados
+    if (results.classList.contains('show') && ['ArrowDown','ArrowUp','Enter'].includes(e.key)) {
+      let links = Array.from(results.querySelectorAll('a'));
+      let active = links.findIndex(a => a === document.activeElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        (links[active+1] || links[0])?.focus();
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        (links[active-1] || links[links.length-1])?.focus();
+      }
+      if (e.key === 'Enter' && document.activeElement.tagName === 'A') {
+        window.location = document.activeElement.getAttribute('href');
+      }
+    }
   });
   document.addEventListener('click', e => {
     if (!results.contains(e.target) && e.target !== searchBox) {
       results.classList.remove('show');
     }
   });
+})();
+
+// ---- Tema claro/escuro persistente ----
+(function() {
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let theme = localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+
+  function setIcon() {
+    btn.innerHTML = theme === "dark"
+      ? '<svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="2"/><path d="M11 2v2m0 14v2m9-9h-2M4 11H2m15.07-6.07l-1.42 1.42M6.35 17.66l-1.42 1.42m12.02 0l-1.42-1.42M6.35 4.34L4.93 2.92" stroke="currentColor" stroke-width="2"/></svg>'
+      : '<svg width="22" height="22" aria-hidden="true"><path d="M19 13A8 8 0 0 1 9 3a8 8 0 1 0 10 10z" fill="currentColor"/></svg>';
+  }
+  setIcon();
+  btn.onclick = function() {
+    theme = theme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    setIcon();
+  };
 })();
