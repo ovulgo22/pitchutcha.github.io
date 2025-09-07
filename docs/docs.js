@@ -1,6 +1,7 @@
 // Tema light/dark
 (function() {
   const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   let theme = localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
@@ -10,7 +11,6 @@
       ? '<svg width="22" height="22" aria-hidden="true"><circle cx="11" cy="11" r="5" stroke="currentColor" stroke-width="2"/><path d="M11 2v2m0 14v2m9-9h-2M4 11H2m15.07-6.07l-1.42 1.42M6.35 17.66l-1.42 1.42m12.02 0l-1.42-1.42M6.35 4.34L4.93 2.92" stroke="currentColor" stroke-width="2"/></svg>'
       : '<svg width="22" height="22" aria-hidden="true"><path d="M19 13A8 8 0 0 1 9 3a8 8 0 1 0 10 10z" fill="currentColor"/></svg>';
   }
-
   setIcon();
   btn.onclick = function() {
     theme = theme === "dark" ? "light" : "dark";
@@ -37,11 +37,43 @@
   setActiveLinks();
 })();
 
-// Scrollspy e TOC
+// Breadcrumbs automáticos
+(function() {
+  function buildBreadcrumbs() {
+    const path = window.location.pathname.split('/').pop() || "index.html";
+    const crumbs = [
+      {name: "Início", href: "index.html"},
+      {name: "Introdução", href: "introducao.html"},
+      {name: "Primeiros Passos", href: "primeiros-passos.html"},
+      {name: "Componentes", href: "componentes.html"},
+      {name: "Botão", href: "componentes-botao.html"}
+    ];
+    let nav = document.querySelector('.breadcrumbs');
+    if (!nav) return;
+    nav.innerHTML = "";
+    if(path === "index.html") {
+      nav.innerHTML = `<a href="index.html">Início</a>`;
+      return;
+    }
+    let trail = [];
+    if(path === "introducao.html") trail = [crumbs[0], crumbs[1]];
+    if(path === "primeiros-passos.html") trail = [crumbs[0], crumbs[2]];
+    if(path === "componentes.html") trail = [crumbs[0], crumbs[3]];
+    if(path === "componentes-botao.html") trail = [crumbs[0], crumbs[3], crumbs[4]];
+    for(let i=0; i<trail.length; ++i) {
+      if(i !== 0) nav.innerHTML += `<span>/</span>`;
+      nav.innerHTML += `<a href="${trail[i].href}"${i === trail.length-1 ? ' aria-current="page"' : ''}>${trail[i].name}</a>`;
+    }
+  }
+  document.addEventListener('DOMContentLoaded', buildBreadcrumbs);
+})();
+
+// TOC e Scrollspy
 (function() {
   function buildTOC() {
     const toc = document.getElementById('toc');
     if (!toc) return;
+    toc.innerHTML = "";
     const headers = Array.from(document.querySelectorAll('.docs-content h1, .docs-content h2'));
     if (headers.length < 2) { toc.style.display = "none"; return; }
     let ul = document.createElement('ul');
