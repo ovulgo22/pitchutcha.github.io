@@ -2,9 +2,9 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>pitchutcha.github.io Docs – Bem-vindo</title>
+  <title>Botão – pitchutcha.github.io Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Documentação estilo GitHub Docs, 100% HTML/CSS/JS, multi-página, responsivo, acessível, dark/light mode.">
+  <meta name="description" content="Detalhamento do componente Botão, acessível e responsivo.">
   <link rel="stylesheet" href="style.css">
   <script src="docs.js" defer></script>
 </head>
@@ -38,7 +38,7 @@
         <li>
           <a href="componentes.html">Componentes</a>
           <ul>
-            <li><a href="componentes-botao.html">Botão</a></li>
+            <li><a href="componentes-botao.html" aria-current="page">Botão</a></li>
           </ul>
         </li>
       </ul>
@@ -46,24 +46,25 @@
     <main class="docs-content">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="index.html">Início</a>
+        <span>/</span>
+        <a href="componentes.html">Componentes</a>
+        <span>/</span>
+        <a href="componentes-botao.html" aria-current="page">Botão</a>
       </nav>
       <nav id="toc" aria-label="Navegação da página"></nav>
-      <h1 id="bem-vindo">Bem-vindo à documentação</h1>
+      <h1 id="botao">Botão</h1>
       <div class="callout info">
-        Esta documentação segue o padrão visual do GitHub Docs: sidebar fixa, busca instantânea, breadcrumbs, dark/light mode e navegação rápida.
+        Botão reutilizável, com foco em acessibilidade, contraste e navegação por teclado.
       </div>
-      <h2 id="sobre-o-projeto">Sobre o projeto</h2>
-      <p>
-        O site foi construído 100% em HTML, CSS e JS puro, com acessibilidade, responsividade, dark/light mode e visual fiel ao GitHub Docs.
-      </p>
-      <h2 id="caracteristicas">Características</h2>
+      <h2 id="exemplo-uso">Exemplo de uso</h2>
+      <pre><code>&lt;button class="btn"&gt;Clique aqui&lt;/button&gt;</code></pre>
+      <button class="btn" style="margin-top: 0.5em;">Clique aqui</button>
+      <h2 id="props">Props</h2>
       <ul>
-        <li>Multi-páginas com navegação dinâmica.</li>
-        <li>Componentes reutilizáveis e modulares.</li>
-        <li>Busca instantânea (use <kbd>/</kbd>).</li>
-        <li>Totalmente responsivo e acessível.</li>
+        <li><code>children</code>: conteúdo do botão.</li>
+        <li><code>onClick</code>: função ao clicar.</li>
+        <li><code>type</code>: tipo do botão (<code>button</code>, <code>submit</code>).</li>
       </ul>
-      <p>Siga pelo menu lateral ou pela busca para começar!</p>
     </main>
   </div>
 </body>

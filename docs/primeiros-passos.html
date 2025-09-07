@@ -2,9 +2,9 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>pitchutcha.github.io Docs – Bem-vindo</title>
+  <title>Primeiros Passos – pitchutcha.github.io Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Documentação estilo GitHub Docs, 100% HTML/CSS/JS, multi-página, responsivo, acessível, dark/light mode.">
+  <meta name="description" content="Primeiros passos para usar e contribuir com a documentação.">
   <link rel="stylesheet" href="style.css">
   <script src="docs.js" defer></script>
 </head>
@@ -21,7 +21,7 @@
     <span class="header-title">pitchutcha.github.io Docs</span>
     <nav class="header-nav" aria-label="Navegação principal">
       <a href="introducao.html">Introdução</a>
-      <a href="primeiros-passos.html">Primeiros Passos</a>
+      <a href="primeiros-passos.html" aria-current="page">Primeiros Passos</a>
       <a href="componentes.html">Componentes</a>
     </nav>
     <div class="header-search">
@@ -34,7 +34,7 @@
     <nav class="sidebar" aria-label="Índice de navegação">
       <ul>
         <li><a href="introducao.html">Introdução</a></li>
-        <li><a href="primeiros-passos.html">Primeiros Passos</a></li>
+        <li><a href="primeiros-passos.html" aria-current="page">Primeiros Passos</a></li>
         <li>
           <a href="componentes.html">Componentes</a>
           <ul>
@@ -46,24 +46,24 @@
     <main class="docs-content">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href="index.html">Início</a>
+        <span>/</span>
+        <a href="primeiros-passos.html" aria-current="page">Primeiros Passos</a>
       </nav>
       <nav id="toc" aria-label="Navegação da página"></nav>
-      <h1 id="bem-vindo">Bem-vindo à documentação</h1>
-      <div class="callout info">
-        Esta documentação segue o padrão visual do GitHub Docs: sidebar fixa, busca instantânea, breadcrumbs, dark/light mode e navegação rápida.
+      <h1 id="inicio-rapido">Primeiros Passos</h1>
+      <div class="callout success">
+        Veja como começar rapidamente com o projeto!
       </div>
-      <h2 id="sobre-o-projeto">Sobre o projeto</h2>
-      <p>
-        O site foi construído 100% em HTML, CSS e JS puro, com acessibilidade, responsividade, dark/light mode e visual fiel ao GitHub Docs.
-      </p>
-      <h2 id="caracteristicas">Características</h2>
+      <h2 id="instalacao">Instalação</h2>
+      <ol>
+        <li>Clone o repositório.</li>
+        <li>Instale as dependências com <code>pnpm install</code> ou <code>npm install</code>.</li>
+        <li>Rode localmente com <code>pnpm dev</code> ou <code>npm run dev</code>.</li>
+      </ol>
+      <h2 id="estrutura">Estrutura de Pastas</h2>
       <ul>
-        <li>Multi-páginas com navegação dinâmica.</li>
-        <li>Componentes reutilizáveis e modulares.</li>
-        <li>Busca instantânea (use <kbd>/</kbd>).</li>
-        <li>Totalmente responsivo e acessível.</li>
+        <li><strong>/docs</strong>: páginas e arquivos estáticos.</li>
       </ul>
-      <p>Siga pelo menu lateral ou pela busca para começar!</p>
     </main>
   </div>
 </body>
