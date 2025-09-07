@@ -1,277 +1,226 @@
-<!-- index.html — PARTE 1/3
-     Site: Pitchutcha
-     URL público esperado: https://ovulgo22.github.io/pitchutcha.github.io/
-     Coloque este arquivo na pasta /docs do branch main do repositório pitchutcha.github.io
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pitchutcha — História da Computação & Computação Quântica (v1.0)</title>
-  <meta name="description" content="Pitchutcha: Documentação extensa e autoritativa sobre História da Computação, Computação Quântica e tópicos fundamentais." />
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;600;700;900&family=Noto+Sans:wght@400;500;700" rel="stylesheet" onload="this.rel='stylesheet'">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" defer></script>
-
-  <!-- Base para caminhos absolutos do repositório GitHub Pages.
-       Mantenha conforme o URL: https://ovulgo22.github.io/pitchutcha.github.io/ -->
-  <base href="/pitchutcha.github.io/">
-
-  <!-- CSS local para ajustes finos (será criado em assets/css/styles.css) -->
-  <link rel="stylesheet" href="assets/css/styles.css">
-
-  <!-- Meta tags para SEO / Social -->
-  <meta property="og:title" content="Pitchutcha — História da Computação & Computação Quântica" />
-  <meta property="og:description" content="Coleção contínua e aprofundada de artigos sobre história da computação, computação quântica e tópicos complementares." />
-  <meta property="og:type" content="website" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#137fec" />
-
-  <style type="text/tailwindcss">
-    :root{
-      --primary-color: #137fec;
-      --bg: #f8fafc;
-      --muted: #64748b;
-    }
-    body{ font-family: Inter, "Noto Sans", sans-serif; background-color: var(--bg); }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pitchutcha - História Completa da Computação</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+:root {
+  --primary-color: #137fec;
+  --secondary-color: #e7edf3;
+  --text-primary: #0d141b;
+  --text-secondary: #4c739a;
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  transition: background-color 0.5s, color 0.5s;
+}
+.dark {
+  --primary-color: #137fec;
+  --secondary-color: #1f2937;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --background-primary: #0f172a;
+  --background-secondary: #1e293b;
+}
+a { text-decoration: none; }
+</style>
 </head>
-<body class="antialiased text-slate-900">
-  <div class="flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
-          <div class="flex items-center gap-6">
-            <a href="index.html" class="flex items-center gap-2" aria-label="Pitchutcha — Início">
-              <svg class="h-8 w-8 text-[var(--primary-color)]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
-              </svg>
-              <span class="text-lg font-bold">Pitchutcha</span>
-            </a>
+<body class="flex flex-col min-h-screen">
 
-            <nav class="hidden md:flex items-center gap-6" aria-label="Navegação principal">
-              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/index.html">Docs</a>
-              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="search.html">Buscar</a>
-              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/history/index.html">História</a>
-              <a class="text-sm font-medium text-gray-600 hover:text-gray-900" href="docs/quantum/index.html">Quântica</a>
-            </nav>
-          </div>
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-[var(--secondary-color)] px-10 py-4">
+<div class="flex items-center gap-4">
+<svg class="h-8 w-8 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM14.29 15.71L12 13.41L9.71 15.71C9.32 16.1 8.68 16.1 8.29 15.71C7.9 15.32 7.9 14.68 8.29 14.29L10.59 12L8.29 9.71C7.9 9.32 7.9 8.68 8.29 8.29C8.68 7.9 9.32 7.9 9.71 8.29L12 10.59L14.29 8.29C14.68 7.9 15.32 7.9 15.71 8.29C16.1 8.68 16.1 9.32 15.71 9.71L13.41 12L15.71 14.29C16.09 14.68 16.09 15.32 15.71 15.71C15.32 16.1 14.68 16.1 14.29 15.71Z"></path></svg>
+<h1 class="text-xl font-bold">Pitchutcha</h1>
+</div>
+<nav class="hidden md:flex gap-6">
+<a href="#history" class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]">História da Computação</a>
+<a href="#quantum" class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]">Computação Quântica</a>
+<a href="#resources" class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]">Recursos</a>
+<a href="#about" class="text-sm font-medium text-[var(--text-primary)] hover:text-[var(--primary-color)]">Sobre</a>
+</nav>
+<div class="flex items-center gap-4">
+<button id="theme-toggle" class="rounded-full p-2 hover:bg-[var(--secondary-color)]">
+<span class="material-symbols-outlined text-[var(--text-primary)]">dark_mode</span>
+</button>
+<img class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnap9xilXequTTj8y2lwvtBfgjKpgfIqQ-57r3yHGEGa4sZCh2lG0fC7lNmYf-LTcHfrNE8dYriijHj5CT4AmovxWBVfIsXXSKwK9lJdYGOUgn1yWLeFsijs0Y-V9kueFwgtOQfQuP49i5oQVuM9VM90QX_k0ByYo_qQeXv9_vcNq9wadvaAealviqzBhtbhZoTYy_QmCvddSjYf6h22htCWg3qsNZBdVmvyjjIp-iLpJnj2blBXgVCfyQ74HRgWrVJGZXPt7NwoCm" alt="Avatar"/>
+</div>
+</header>
 
-          <div class="flex items-center gap-4">
-            <div class="relative hidden sm:block w-64" aria-hidden="false">
-              <label for="global-search" class="sr-only">Pesquisar</label>
-              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true">search</span>
-              <input aria-label="Pesquisar conteúdo em Pitchutcha" id="global-search" class="h-10 w-full rounded-md border border-gray-300 bg-gray-50 pl-10 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" placeholder="Pesquisar conteúdo..." type="search" />
-            </div>
+<!-- Main Layout -->
+<main class="flex flex-1">
+<!-- Sidebar -->
+<aside class="hidden lg:block w-80 border-r border-[var(--secondary-color)] p-6 sticky top-0 h-screen">
+<h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Seções</h2>
+<nav class="space-y-2">
+<a href="#history" class="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] rounded-md hover:bg-[var(--secondary-color)]">História da Computação</a>
+<a href="#quantum" class="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] rounded-md hover:bg-[var(--secondary-color)]">Computação Quântica</a>
+<a href="#algorithms" class="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] rounded-md hover:bg-[var(--secondary-color)]">Algoritmos Fundamentais</a>
+<a href="#resources" class="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] rounded-md hover:bg-[var(--secondary-color)]">Recursos de Aprendizado</a>
+<a href="#about" class="block px-3 py-2 text-sm font-medium text-[var(--text-primary)] rounded-md hover:bg-[var(--secondary-color)]">Sobre Pitchutcha</a>
+</nav>
+</aside>
 
-            <button id="theme-toggle" class="rounded-full p-2 bg-white border border-gray-200 hover:bg-gray-50" title="Alternar tema" aria-pressed="false">
-              <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
-            </button>
+<!-- Main Content -->
+<div class="flex-1 p-8 md:p-12 max-w-6xl mx-auto">
+<section id="hero" class="mb-16">
+<h1 class="text-4xl font-extrabold mb-4 text-[var(--text-primary)]">Pitchutcha: História Completa da Computação</h1>
+<p class="text-lg text-[var(--text-secondary)] mb-6">
+Explore todo o conhecimento sobre a história da computação, desde máquinas mecânicas antigas até os avanços modernos em computação quântica. Navegue por conteúdos detalhados, infinitos e continuamente expansíveis.
+</p>
+<a href="#history" class="inline-block bg-[var(--primary-color)] text-white px-6 py-3 rounded-md hover:bg-blue-600">Começar a Explorar</a>
+</section>
 
-            <a href="https://github.com/ovulgo22/pitchutcha.github.io" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 rounded-md bg-[var(--primary-color)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:opacity-95">
-              Ver no GitHub
-            </a>
+<section id="history" class="mb-16">
+<h2 class="text-3xl font-bold mb-4 text-[var(--text-primary)]">História da Computação</h2>
+<p class="text-[var(--text-secondary)] mb-4">
+Desde o ábaco e as máquinas de calcular mecânicas até os computadores digitais, a história da computação revela a evolução do pensamento humano e da tecnologia. Cada invenção abriu portas para novos paradigmas e revolucionou a forma como processamos informações.
+</p>
 
-            <button class="rounded-full" aria-label="Perfil">
-              <img alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqtbeD0HpPcGQVcgIizY1t3YwHpu8AEKMvI4_gTee2SqjwgqEy-ismQIB1iaQRPFEJpEC-XlHkOorS9EhLt2JY-J-EowgbDduECuhY7BIeex6NIPSItw1zv8K7EiR50JjQ1eq8K4CqWmwRb-BdFanmrfeXFrJzqKjyZfsgArP077evxe_3hDA5BiHCK1mAUT-9TMJpSZ-XS7nZpQsPfgdSVYtWOTeBPSYOR_Vzg5EfdbXrsAb1XvnpcJeS7rdPsc-VMkP4M5oeX_NA" class="h-8 w-8 rounded-full object-cover" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main layout: sidebar + content -->
-    <main class="flex-1">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-        <div class="flex flex-col lg:flex-row gap-8">
-          <!-- Sidebar (coluna esquerda fixa em desktop) -->
-          <aside class="w-full lg:w-80 flex-shrink-0">
-            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-20">
-              <div class="p-6">
-                <div class="flex items-center gap-3">
-                  <span class="material-symbols-outlined text-2xl text-slate-800" aria-hidden="true">science</span>
-                  <div>
-                    <h2 class="text-lg font-semibold text-slate-900">Pitchutcha</h2>
-                    <p class="text-sm text-slate-500">Enciclopédia completa de Computação</p>
-                  </div>
-                </div>
-
-                <nav class="mt-6" aria-label="Navegação lateral">
-                  <ul class="space-y-1">
-                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/algorithms/index.html"><span class="material-symbols-outlined">memory</span> Algorithms</a></li>
-                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/data-structures/index.html"><span class="material-symbols-outlined">account_tree</span> Data Structures</a></li>
-                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/programming-languages/index.html"><span class="material-symbols-outlined">code</span> Programming Languages</a></li>
-                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/quantum/index.html"><span class="material-symbols-outlined">psychology</span> Quantum Computing</a></li>
-                    <li><a class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 text-slate-700 font-medium" href="docs/history/index.html"><span class="material-symbols-outlined">history_edu</span> History of Computing</a></li>
-                  </ul>
-                </nav>
-              </div>
-
-              <div class="border-t border-gray-100 p-4 bg-gray-50">
-                <h3 class="text-sm font-semibold text-gray-700">Explore</h3>
-                <p class="text-sm text-gray-600 mt-2">Navegue por tópicos, busque conteúdos e marque favoritos.</p>
-              </div>
-            </div>
-          </aside>
-          <!-- Conteúdo principal -->
-          <div class="flex-1 min-w-0">
-            <!-- Banner / Introdução -->
-            <section class="mb-10">
-              <div class="bg-[var(--primary-color)] text-white rounded-lg p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                <div class="flex-1">
-                  <h1 class="text-3xl sm:text-4xl font-extrabold">Bem-vindo ao Pitchutcha</h1>
-                  <p class="mt-2 text-lg sm:text-xl text-gray-100">Exploração completa e contínua sobre História da Computação, Computação Quântica e tópicos fundamentais.</p>
-                  <a href="docs/index.html" class="inline-block mt-4 px-6 py-3 bg-white text-[var(--primary-color)] font-semibold rounded-lg shadow hover:bg-gray-100 transition">Começar a Explorar</a>
-                </div>
-                <div class="hidden sm:block flex-shrink-0 w-40 h-40 bg-white rounded-full flex items-center justify-center text-[var(--primary-color)] font-bold text-xl shadow-lg">
-                  Pitchutcha
-                </div>
-              </div>
-            </section>
-
-            <!-- Artigos em destaque -->
-            <section class="mb-12">
-              <h2 class="text-2xl font-bold text-slate-900 mb-4">Artigos em Destaque</h2>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                  <a href="docs/history/early-computers.html">
-                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Os Primeiros Computadores</h3>
-                    <p class="text-sm text-gray-500 mt-1">Explore desde o ábaco até as primeiras máquinas de Turing, detalhando a evolução inicial da computação.</p>
-                  </a>
-                </article>
-
-                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                  <a href="docs/quantum/intro-quantum.html">
-                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Introdução à Computação Quântica</h3>
-                    <p class="text-sm text-gray-500 mt-1">Entenda os conceitos fundamentais de qubits, superposição e algoritmos quânticos revolucionários.</p>
-                  </a>
-                </article>
-
-                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                  <a href="docs/algorithms/algorithm-design.html">
-                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Design de Algoritmos</h3>
-                    <p class="text-sm text-gray-500 mt-1">Parâmetros de eficiência, paradigmas de programação e exemplos práticos de algoritmos históricos e modernos.</p>
-                  </a>
-                </article>
-
-                <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-                  <a href="docs/programming-languages/evolution.html">
-                    <h3 class="text-lg font-semibold text-slate-900 hover:text-[var(--primary-color)]">Evolução das Linguagens de Programação</h3>
-                    <p class="text-sm text-gray-500 mt-1">Das primeiras linguagens de baixo nível até as linguagens modernas de alto nível usadas na indústria e na pesquisa.</p>
-                  </a>
-                </article>
-              </div>
-            </section>
-
-            <!-- Conteúdo infinito / artigos extensos -->
-            <section id="infinite-content" class="space-y-12">
-              <h2 class="text-2xl font-bold text-slate-900 mb-4">Exploração Detalhada</h2>
-              
-              <!-- Exemplo de artigo longo (História da Computação) -->
-              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-xl font-bold text-slate-900 mb-2">História Completa da Computação</h3>
-                <p class="text-sm text-gray-500 mb-4">Do ábaco aos supercomputadores, detalhando a evolução tecnológica, teórica e prática da computação ao longo dos séculos.</p>
-                
-                <div class="prose max-w-none">
-                  <h4>Origens Antigas</h4>
-                  <p>As primeiras ferramentas de cálculo surgiram há milhares de anos, incluindo o ábaco na Mesopotâmia e dispositivos de contagem na China e Egito antigos. Esses métodos permitiram manipulações matemáticas básicas para comércio, astronomia e engenharia.</p>
-                  
-                  <h4>Máquinas Mecânicas</h4>
-                  <p>No século XVII, surgiram as primeiras calculadoras mecânicas, como a máquina de Pascal e a de Leibniz. Esses dispositivos eram capazes de somar, subtrair e, em alguns casos, multiplicar números automaticamente, pavimentando o caminho para a computação automática.</p>
-
-                  <h4>Era dos Computadores Eletrônicos</h4>
-                  <p>No século XX, surgiram os computadores eletrônicos, desde o ENIAC até os mainframes. Inovações em circuitos, memória e linguagens de programação transformaram a computação em um campo acessível a empresas, governos e universidades.</p>
-                </div>
-              </article>
-
-              <!-- Exemplo de artigo longo (Computação Quântica) -->
-              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Computação Quântica — Fundamentos</h3>
-                <p class="text-sm text-gray-500 mb-4">Conceitos essenciais como qubits, superposição, emaranhamento e algoritmos quânticos revolucionários explicados de forma detalhada e contínua.</p>
-                
-                <div class="prose max-w-none">
-                  <h4>Qubits e Superposição</h4>
-                  <p>Um qubit é a unidade básica de informação na computação quântica. Diferente do bit clássico, que pode ser 0 ou 1, o qubit pode existir simultaneamente em múltiplos estados (superposição), permitindo paralelismo massivo.</p>
-
-                  <h4>Emaranhamento Quântico</h4>
-                  <p>O emaranhamento permite que qubits separados estejam correlacionados de forma instantânea, mesmo a grandes distâncias. Este fenômeno é explorado em algoritmos quânticos para acelerar problemas computacionais complexos.</p>
-
-                  <h4>Algoritmos Quânticos</h4>
-                  <p>Algoritmos como Shor e Grover demonstram vantagens quânticas significativas em fatoração de grandes números e busca em bases de dados não estruturadas, respectivamente. Tais algoritmos são estudados intensamente para aplicações em criptografia, IA e simulação de sistemas físicos.</p>
-                </div>
-              </article>
-              <!-- Continuação do conteúdo infinito (exemplo avançado) -->
-              <article class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-xl font-bold text-slate-900 mb-2">Complementos Fundamentais da Computação</h3>
-                <p class="text-sm text-gray-500 mb-4">Tópicos avançados e essenciais, incluindo estruturas de dados, complexidade algorítmica, programação paralela e fundamentos de hardware moderno.</p>
-                
-                <div class="prose max-w-none">
-                  <h4>Estruturas de Dados Avançadas</h4>
-                  <p>Listas ligadas, árvores balanceadas, grafos, tabelas hash e heaps são fundamentais para otimização de algoritmos. Cada estrutura oferece vantagens específicas para armazenamento e acesso de dados.</p>
-
-                  <h4>Complexidade Algorítmica</h4>
-                  <p>Analisar a eficiência de algoritmos utilizando Big O, Big Theta e Big Omega permite compreender limites de escalabilidade e desempenho, essencial para problemas de grande porte.</p>
-
-                  <h4>Programação Paralela e Distribuída</h4>
-                  <p>Com o aumento do poder computacional, técnicas de paralelismo em CPU e GPU e sistemas distribuídos permitem resolver problemas massivos, como simulações físicas e análise de dados de larga escala.</p>
-
-                  <h4>Fundamentos de Hardware</h4>
-                  <p>Arquitetura de computadores modernos, processadores multi-core, memórias cache e tecnologias emergentes como computação quântica e neuromórfica são essenciais para entender a base do processamento de informações.</p>
-                </div>
-              </article>
-
-            </section>
-          </div>
-        </div>
-      </main>
-
-      <!-- Rodapé -->
-      <footer class="bg-gray-50 border-t border-gray-200 mt-12">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
-          © 2024 Pitchutcha. Todos os direitos reservados. Criado por <span class="font-semibold">ovulgo22</span>.
-        </div>
-      </footer>
+     <!-- index.html – Parte 2 -->
+<main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-5xl mx-auto">
+    <div class="mb-8 text-sm text-gray-500 flex items-center gap-2">
+      <a class="hover:text-blue-600" href="#">Home</a>
+      <span>/</span>
+      <a class="hover:text-blue-600" href="#">História da Computação</a>
+      <span>/</span>
+      <span class="text-gray-900">Parte 1</span>
     </div>
 
-    <!-- Scripts -->
-    <script>
-      // Alternar tema claro/escuro
-      const themeToggle = document.getElementById("theme-toggle");
-      const body = document.body;
-      themeToggle.addEventListener("click", () => {
-        body.classList.toggle("dark");
-      });
+    <article class="prose prose-lg max-w-none">
+      <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">A História Completa da Computação</h1>
+      <p class="mt-6 text-lg text-gray-700">
+        A história da computação é longa e fascinante, abrangendo desde dispositivos mecânicos simples até computadores modernos e a emergente computação quântica. Nesta seção, exploraremos os marcos históricos, inovações técnicas e as figuras-chave que moldaram o mundo da tecnologia.
+      </p>
 
-      // Infinite Scroll simulado para conteúdo contínuo
-      const infiniteContent = document.getElementById("infinite-content");
-      let page = 1;
-      window.addEventListener("scroll", () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-          loadMoreContent();
-        }
-      });
+      <section class="pt-10" id="early-computing">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Computação Mecânica e Pré-Digital</h2>
+        <p class="mt-4 text-gray-700">
+          Os primeiros dispositivos de cálculo surgiram na antiguidade e no século XVII. Entre eles, destacam-se:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Ábaco:</strong> Um dos primeiros dispositivos de cálculo conhecidos, usado há milhares de anos na Mesopotâmia, China e outras civilizações.</li>
+          <li><strong>Máquina de Pascal (1642):</strong> Blaise Pascal desenvolveu a primeira calculadora mecânica capaz de somar e subtrair automaticamente.</li>
+          <li><strong>Máquina Analítica de Charles Babbage (1837):</strong> Um projeto inovador de computador mecânico programável, que, embora nunca totalmente construído na época, é considerado um marco conceitual da computação moderna.</li>
+          <li><strong>Ada Lovelace:</strong> Reconhecida como a primeira programadora, Ada criou algoritmos para a máquina analítica de Babbage, prevendo conceitos de programação muito antes do hardware existir.</li>
+        </ul>
+      </section>
 
-      function loadMoreContent() {
-        if (page > 10) return; // Limite para demo (pode ser removido para verdadeiro conteúdo infinito)
-        page++;
-        const article = document.createElement("article");
-        article.className = "bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-6";
-        article.innerHTML = `
-          <h3 class="text-xl font-bold text-slate-900 mb-2">Artigo Extendido - Parte ${page}</h3>
-          <p class="text-sm text-gray-500 mb-4">Conteúdo adicional detalhado sobre História da Computação, Computação Quântica e complementos.</p>
-          <div class="prose max-w-none">
-            <h4>Seção ${page}.1</h4>
-            <p>Exposição detalhada, exemplos técnicos, estudos históricos e fundamentos teóricos aprofundados...</p>
-            <h4>Seção ${page}.2</h4>
-            <p>Continuação do conhecimento avançado, ilustrando conceitos complexos, algoritmos e tecnologias emergentes.</p>
-          </div>
-        `;
-        infiniteContent.appendChild(article);
-      }
-    </script>
-  </body>
-</html>
+      <section class="pt-10" id="first-digital-computers">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Primeiros Computadores Digitais</h2>
+        <p class="mt-4 text-gray-700">
+          Com a chegada do século XX, surgiram os primeiros computadores digitais eletrônicos, que substituíram dispositivos mecânicos e marcaram o início da era da computação moderna:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>ENIAC (1945):</strong> Um dos primeiros computadores eletrônicos de uso geral, desenvolvido nos EUA. Era gigante, com mais de 17.000 válvulas e ocupava uma sala inteira.</li>
+          <li><strong>EDVAC e Arquitetura de von Neumann:</strong> Introduziram a ideia de armazenar programas na memória, conceito fundamental que ainda é a base dos computadores modernos.</li>
+          <li><strong>Transistores (1947):</strong> A invenção do transistor permitiu a substituição das válvulas, tornando os computadores menores, mais rápidos e confiáveis.</li>
+          <li><strong>IBM 701 e Mainframes (1950s-60s):</strong> Computadores de grande porte utilizados em universidades, governo e indústrias, consolidando a computação comercial.</li>
+        </ul>
+      </section>
+
+      <section class="pt-10" id="programming-languages">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Primeiras Linguagens de Programação</h2>
+        <p class="mt-4 text-gray-700">
+          Com o avanço do hardware, surgiu a necessidade de linguagens que pudessem instruir os computadores de forma eficiente:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Assembly:</strong> Linguagem de baixo nível, diretamente ligada às instruções da CPU, permitindo controle preciso do hardware.</li>
+          <li><strong>Fortran (1957):</strong> Primeira linguagem de alto nível para cálculos científicos e engenharia.</li>
+          <li><strong>LISP (1958):</strong> Criada para pesquisa em inteligência artificial, introduziu conceitos avançados como listas e recursão.</li>
+          <li><strong>COBOL (1959):</strong> Focada em negócios e administração, ainda utilizada em sistemas corporativos legados.</li>
+        </ul>
+      </section>
+
+      <section class="pt-10" id="personal-computers">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">A Revolução dos Computadores Pessoais</h2>
+        <p class="mt-4 text-gray-700">
+          Entre as décadas de 1970 e 1980, a computação deixou de ser restrita a grandes instituições, tornando-se acessível ao público geral:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Altair 8800 (1975):</strong> Considerado o primeiro microcomputador popular, inspirou a criação da Microsoft e software comercial.</li>
+          <li><strong>Apple II e IBM PC:</strong> Tornaram-se símbolos da democratização da computação e da popularização de interfaces gráficas.</li>
+          <li><strong>Sistemas Operacionais:</strong> Surgiram os primeiros sistemas operacionais amigáveis, como CP/M, DOS e posteriormente Windows e MacOS.</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+</main>
+
+     <!-- index.html – Parte 3 -->
+<main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-5xl mx-auto">
+    <article class="prose prose-lg max-w-none">
+      <section class="pt-10" id="modern-computing">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Computação Moderna</h2>
+        <p class="mt-4 text-gray-700">
+          A partir da década de 1990, a computação evoluiu rapidamente com novos paradigmas e tecnologias:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Internet:</strong> Popularizada nos anos 90, revolucionou a comunicação, comércio e acesso à informação.</li>
+          <li><strong>Laptops e dispositivos móveis:</strong> Tornaram a computação portátil, possibilitando novas formas de trabalho e estudo.</li>
+          <li><strong>Cloud Computing:</strong> Permitindo armazenamento, processamento e serviços online escaláveis e acessíveis globalmente.</li>
+          <li><strong>Inteligência Artificial:</strong> Algoritmos avançados e aprendizado de máquina estão transformando a automação, reconhecimento de padrões e análise de dados.</li>
+        </ul>
+      </section>
+
+      <section class="pt-10" id="supercomputers">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Supercomputadores</h2>
+        <p class="mt-4 text-gray-700">
+          Supercomputadores são máquinas extremamente poderosas, utilizadas para simulações complexas, cálculos científicos e previsões climáticas:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Cray-1 (1976):</strong> Um dos primeiros supercomputadores de grande sucesso comercial, revolucionou cálculos científicos.</li>
+          <li><strong>IBM Blue Gene:</strong> Projetado para simulações biológicas e científicas em grande escala.</li>
+          <li><strong>Summit:</strong> Supercomputador dos EUA com capacidade de mais de 200 petaflops, usado para pesquisas de ponta em física e inteligência artificial.</li>
+        </ul>
+      </section>
+
+      <section class="pt-10" id="quantum-computing">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">Computação Quântica</h2>
+        <p class="mt-4 text-gray-700">
+          A computação quântica é um paradigma emergente que utiliza princípios da mecânica quântica para processar informações de forma exponencialmente mais rápida que computadores clássicos para certas tarefas:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><strong>Qubit:</strong> Unidade básica de informação quântica, capaz de representar simultaneamente 0 e 1.</li>
+          <li><strong>Superposição:</strong> Permite que qubits existam em múltiplos estados simultaneamente, aumentando o poder de processamento.</li>
+          <li><strong>Emaranhamento:</strong> Propriedade que conecta qubits de maneira que o estado de um afeta instantaneamente o outro, mesmo separados por grandes distâncias.</li>
+          <li><strong>Algoritmos Quânticos:</strong> Incluem o algoritmo de Shor (fatoração rápida de números inteiros) e algoritmo de Grover (busca em bases de dados não estruturadas).</li>
+          <li><strong>Empresas e Pesquisas:</strong> IBM, Google e Rigetti estão liderando o desenvolvimento de hardware e software quântico experimental.</li>
+        </ul>
+      </section>
+
+      <section class="pt-10" id="future-computing">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900">O Futuro da Computação</h2>
+        <p class="mt-4 text-gray-700">
+          O futuro da computação promete integrações ainda mais profundas entre inteligência artificial, computação quântica e sistemas distribuídos:
+        </p>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Computação híbrida, combinando processadores clássicos e quânticos.</li>
+          <li>Avanços em IA geral, capaz de raciocinar, aprender e criar de forma autônoma.</li>
+          <li>Redes de computadores globais mais rápidas e seguras, com criptografia quântica e blockchain avançado.</li>
+          <li>Expansão da computação em dispositivos vestíveis, implantes e ambientes inteligentes.</li>
+        </ul>
+        <p class="mt-4 text-gray-700">
+          Com esses avanços, o conhecimento, pesquisa e educação em computação se tornarão ainda mais essenciais, garantindo que a humanidade aproveite todo o potencial da tecnologia.
+        </p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="bg-white border-t border-gray-200 mt-auto">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
+    © 2025 Pitchutcha. Todos os direitos reservados.
+  </div>
+</footer>
+</div>
