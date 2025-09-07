@@ -848,3 +848,433 @@ edges.forEach(e => {
 <p>Esta área será expandida infinitamente para detalhar todos os algoritmos, métodos matemáticos aplicados, simulações interativas, linguagens, frameworks e integrações avançadas.</p>
 </div>
 </section>
+
+  <!-- Seção: História Completa da Computação -->
+<section id="historia" style="margin-bottom:40px;">
+<h1 style="font-size:36px;color:#0d141b;margin-bottom:15px;">História Completa da Computação</h1>
+
+<!-- Introdução -->
+<p style="margin-bottom:20px;font-size:18px;color:#4c739a;">
+A história da computação percorre desde as primeiras ferramentas de cálculo até os sistemas modernos de computação quântica. Esta seção detalha cada período com precisão histórica e técnica.
+</p>
+
+<!-- Linha do tempo codificada -->
+<div style="display:flex;flex-direction:column;gap:30px;">
+
+<!-- 1. Pré-história e cálculos primitivos -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">1. Pré-história e cálculos primitivos</h2>
+<p style="font-size:16px;color:#0d141b;">
+Desde o ábaco (~2300 a.C.) até instrumentos mecânicos rudimentares, o homem buscou automatizar cálculos e organizar informações. Destacam-se o ábaco chinês, as tábuas de cálculo e réguas de cálculo.
+</p>
+</div>
+
+<!-- 2. Computação Mecânica -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">2. Computação Mecânica (séculos XVII-XIX)</h2>
+<p style="font-size:16px;color:#0d141b;">
+- 1623: Wilhelm Schickard desenvolve a primeira calculadora mecânica.
+- 1642: Blaise Pascal constrói a Pascalina, uma máquina de somar mecânica.
+- 1801: Joseph Marie Jacquard inventa o tear programável, precursor da lógica de programação.
+- 1837: Charles Babbage projeta a Máquina Analítica, base conceitual para computadores modernos.
+</p>
+</div>
+
+<!-- 3. Computação Eletromecânica e Eletrônica -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">3. Computação Eletromecânica e Eletrônica (1930-1950)</h2>
+<p style="font-size:16px;color:#0d141b;">
+- 1937: Alan Turing propõe a máquina de Turing, conceito teórico de computação universal.
+- 1941: Konrad Zuse constrói o Z3, primeiro computador eletromecânico totalmente funcional.
+- 1943-1944: Colossus, o primeiro computador digital eletrônico programável, é usado para decifrar códigos durante a Segunda Guerra Mundial.
+- 1946: ENIAC, computador eletrônico digital, executa cálculos militares complexos.
+</p>
+</div>
+
+<!-- 4. Era dos Computadores de Transistor -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">4. Era dos Transistores (1950-1965)</h2>
+<p style="font-size:16px;color:#0d141b;">
+A substituição das válvulas por transistores aumenta confiabilidade e diminui consumo de energia. Sistemas como IBM 1401 e DEC PDP-1 surgem, consolidando a computação em universidades e empresas.
+</p>
+</div>
+
+<!-- 5. Circuitos Integrados e Mainframes -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">5. Circuitos Integrados e Mainframes (1965-1980)</h2>
+<p style="font-size:16px;color:#0d141b;">
+O avanço dos circuitos integrados permite miniaturização e aumento de velocidade. Computadores mainframes dominam grandes empresas, enquanto universidades desenvolvem linguagens de programação avançadas como FORTRAN, COBOL e ALGOL.
+</p>
+</div>
+
+<!-- 6. Computadores Pessoais e Software Moderno -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">6. Computadores Pessoais e Software Moderno (1980-2000)</h2>
+<p style="font-size:16px;color:#0d141b;">
+A democratização do acesso com Apple II, IBM PC e sistemas operacionais como MS-DOS e Windows. Desenvolvimento de linguagens modernas (C++, Java, Python) e início da internet pública.
+</p>
+</div>
+
+<!-- 7. Computação Contemporânea e Cloud -->
+<div>
+<h2 style="font-size:28px;color:#137fec;">7. Computação Contemporânea e Cloud (2000-2020)</h2>
+<p style="font-size:16px;color:#0d141b;">
+Expansão de dispositivos móveis, cloud computing, big data e inteligência artificial. Empresas como Google, Amazon e Microsoft lideram serviços escaláveis e distribuídos.
+</p>
+</div>
+
+<!-- Botão colapsável para expandir história completa infinita -->
+<button class="collapsible" style="margin-top:20px;">Expandir História Completa</button>
+<div class="content">
+<p>A seção expansível detalhará cada década, cientista, linguagem, tecnologia, algoritmo e dispositivo de forma infinita, com textos, simulações e visualizações codificadas diretamente em HTML/CSS/JS.</p>
+</div>
+
+</div>
+</section>
+
+  <section class="pt-10" id="quantum-computing">
+<h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Computação Quântica</h2>
+<p class="mt-4 text-[var(--text-secondary)]">
+A computação quântica explora princípios da mecânica quântica, como superposição, entrelaçamento e interferência quântica, para processar informações de maneiras impossíveis na computação clássica.
+Um qubit pode representar simultaneamente 0 e 1, permitindo que algoritmos quânticos resolvam problemas complexos exponencialmente mais rápido em certas tarefas.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Qubits e Superposição</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Um qubit é a unidade básica da computação quântica. Diferente do bit clássico, que só pode ser 0 ou 1, o qubit pode existir em uma combinação linear de ambos:
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4">
+<pre class="text-white"><code class="language-python"># Representação de um qubit em Python (simulação)
+from qiskit import QuantumCircuit
+qc = QuantumCircuit(1)
+qc.h(0)  # Aplica porta Hadamard, criando superposição
+qc.draw('text')</code></pre>
+</div>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Entrelaçamento Quântico</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+O entrelaçamento cria correlações entre qubits, permitindo que a medição de um afete instantaneamente o outro, independentemente da distância. Isso é a base de algoritmos quânticos avançados e criptografia quântica.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Portas Quânticas</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+As portas quânticas manipulam qubits em superposição. As principais portas incluem:
+<ul class="list-disc ml-6 mt-2">
+<li><strong>Hadamard (H):</strong> Cria superposição</li>
+<li><strong>Pauli-X (X):</strong> Equivalente a NOT clássico</li>
+<li><strong>CNOT:</strong> Controle de qubits entrelaçados</li>
+<li><strong>Phase (S, T):</strong> Modula a fase do qubit</li>
+</ul>
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Algoritmos Quânticos</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Algoritmos quânticos famosos incluem:
+<ul class="list-disc ml-6 mt-2">
+<li><strong>Shor:</strong> Fatoração de números inteiros exponencialmente mais rápida</li>
+<li><strong>Grover:</strong> Pesquisa não estruturada em bases de dados</li>
+<li><strong>Variational Quantum Eigensolver (VQE):</strong> Simulação química e otimização</li>
+</ul>
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Simulação Quântica no Browser</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Para tornar seu site interativo sem depender de downloads, podemos simular estados quânticos em JavaScript puro:
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-javascript">// Simulação básica de um qubit em superposição
+class Qubit {
+    constructor() {
+        this.state = [Math.SQRT1_2, Math.SQRT1_2]; // superposição |0> e |1>
+    }
+    measure() {
+        const prob0 = this.state[0] ** 2;
+        return Math.random() < prob0 ? 0 : 1;
+    }
+}
+const q = new Qubit();
+console.log("Resultado da medição do qubit:", q.measure());</code></pre>
+</div>
+
+<p class="mt-4 text-[var(--text-secondary)]">
+Este é apenas o início de um sistema infinito de aprendizado interativo. Podemos adicionar simulações avançadas de múltiplos qubits, visualizações dinâmicas e algoritmos quânticos completos em tempo real no site Pitchutcha.
+</p>
+  </section>
+
+  <section class="pt-10" id="ai-ml-advanced">
+<h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Inteligência Artificial e Machine Learning</h2>
+<p class="mt-4 text-[var(--text-secondary)]">
+A inteligência artificial (IA) é um campo da ciência da computação dedicado a criar sistemas capazes de realizar tarefas que exigem inteligência humana. Machine Learning (ML) é uma subárea da IA focada em criar algoritmos que aprendem padrões a partir de dados sem serem explicitamente programados.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Aprendizado Supervisionado</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+No aprendizado supervisionado, o modelo aprende a partir de pares de entrada-saída. Exemplo clássico: classificação de emails como spam ou não-spam.
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-python"># Exemplo básico de aprendizado supervisionado em Python
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+
+data = load_iris()
+X, y = data.data, data.target
+model = DecisionTreeClassifier()
+model.fit(X, y)
+print("Previsão para nova flor:", model.predict([[5.1, 3.5, 1.4, 0.2]]))</code></pre>
+</div>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Aprendizado Não Supervisionado</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+No aprendizado não supervisionado, o modelo encontra padrões ou agrupamentos nos dados sem rótulos. Exemplo: segmentação de clientes em grupos.
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-python"># Exemplo básico de clustering
+from sklearn.cluster import KMeans
+import numpy as np
+
+X = np.array([[1,2],[1,4],[1,0],[10,2],[10,4],[10,0]])
+kmeans = KMeans(n_clusters=2, random_state=0).fit(X)
+print("Clusters atribuídos:", kmeans.labels_)</code></pre>
+</div>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Redes Neurais e Deep Learning</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Redes neurais simulam a estrutura do cérebro humano, conectando unidades chamadas neurônios artificiais. Deep Learning utiliza redes profundas para resolver problemas complexos, como reconhecimento de imagens e linguagem natural.
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-python"># Exemplo de rede neural simples
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+import numpy as np
+
+X = np.random.rand(100, 3)
+y = np.random.randint(0, 2, 100)
+model = Sequential([Dense(8, input_dim=3, activation='relu'),
+                    Dense(1, activation='sigmoid')])
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X, y, epochs=10, verbose=1)</code></pre>
+</div>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Simulação Interativa em JavaScript</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Podemos criar pequenas simulações de IA diretamente no navegador usando JavaScript puro, sem depender de bibliotecas externas.
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-javascript">// Perceptron simples em JS
+class Perceptron {
+    constructor(weights, bias) {
+        this.weights = weights;
+        this.bias = bias;
+    }
+    activate(sum) {
+        return sum >= 0 ? 1 : 0;
+    }
+    predict(inputs) {
+        let sum = this.bias;
+        for (let i = 0; i < inputs.length; i++) {
+            sum += inputs[i] * this.weights[i];
+        }
+        return this.activate(sum);
+    }
+}
+const p = new Perceptron([0.5, -0.3], 0.1);
+console.log("Predição do perceptron:", p.predict([1, 0]));</code></pre>
+</div>
+
+<p class="mt-4 text-[var(--text-secondary)]">
+Este conteúdo é expansível infinitamente, podendo incluir redes neurais convolucionais, recorrentes, transformers, aprendizado por reforço, e algoritmos avançados de otimização.
+</p>
+  </section>
+
+  <section class="pt-10" id="history-quantum-tech">
+<h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">História Avançada da Computação e Computação Quântica</h2>
+<p class="mt-4 text-[var(--text-secondary)]">
+A história da computação avançada começa com os primeiros computadores eletromecânicos e evolui para sistemas digitais modernos, culminando na computação quântica, que promete transformar radicalmente a tecnologia.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Era dos Computadores Mecânicos</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Antes da eletrônica digital, dispositivos como a Máquina Analítica de Charles Babbage e o Tabulador de Hollerith processavam informações usando engrenagens, cartões perfurados e lógica mecânica. Esses sistemas já demonstravam princípios fundamentais de algoritmos e programação.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Primeiros Computadores Eletrônicos</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Nos anos 1940 e 1950 surgiram os primeiros computadores eletrônicos, como ENIAC e UNIVAC, utilizando válvulas e posteriormente transistores. Eles permitiram cálculos de grande escala e o desenvolvimento da ciência da computação como disciplina formal.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Era dos Microprocessadores</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+O surgimento dos microprocessadores nos anos 1970 democratizou o acesso à computação, permitindo computadores pessoais e a explosão de software comercial e acadêmico. Empresas como Intel, Apple e IBM lideraram essa revolução.
+</p>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Computação Quântica</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+A computação quântica utiliza qubits, que podem representar 0 e 1 simultaneamente (superposição) e interagir através de emaranhamento quântico. Isso permite resolver problemas de otimização, simulação química e criptografia de maneira exponencialmente mais eficiente que computadores clássicos.
+</p>
+<div class="not-prose mt-4 rounded-lg bg-gray-900 p-4 overflow-x-auto">
+<pre class="text-white"><code class="language-python"># Simulação simples de qubit usando Qiskit
+from qiskit import QuantumCircuit, Aer, execute
+
+qc = QuantumCircuit(1,1)
+qc.h(0)  # Aplica porta Hadamard (superposição)
+qc.measure(0,0)
+
+backend = Aer.get_backend('qasm_simulator')
+result = execute(qc, backend, shots=1024).result()
+counts = result.get_counts()
+print("Distribuição de estados do qubit:", counts)</code></pre>
+</div>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Tecnologias Fundamentais Complementares</h3>
+<ul class="list-disc list-inside mt-2 text-[var(--text-secondary)]">
+<li><strong>Redes de Computadores:</strong> Infraestrutura para comunicação global, protocolos TCP/IP e internet.</li>
+<li><strong>Sistemas Operacionais:</strong> Gerenciamento de recursos e execução de programas.</li>
+<li><strong>Banco de Dados:</strong> Armazenamento, recuperação e manipulação de grandes volumes de informações.</li>
+<li><strong>Criptografia:</strong> Segurança de dados usando algoritmos clássicos e quânticos.</li>
+<li><strong>Algoritmos Avançados:</strong> Algoritmos de busca, ordenação, otimização, IA, ML e análise complexa.</li>
+</ul>
+
+<h3 class="text-2xl font-semibold mt-6 text-[var(--text-primary)]">Linha do Tempo da Computação</h3>
+<p class="mt-2 text-[var(--text-secondary)]">
+Podemos representar a evolução histórica em uma linha do tempo interativa totalmente codificada usando HTML e CSS.
+</p>
+<div class="not-prose mt-4 p-4 bg-gray-100 rounded-lg overflow-x-auto">
+<div class="timeline flex gap-8 items-center">
+<div class="timeline-item text-center">
+<div class="timeline-dot bg-[var(--primary-color)] w-6 h-6 rounded-full mx-auto"></div>
+<p class="mt-2 text-sm">1837<br>Babbage</p>
+</div>
+<div class="timeline-item text-center">
+<div class="timeline-dot bg-[var(--primary-color)] w-6 h-6 rounded-full mx-auto"></div>
+<p class="mt-2 text-sm">1945<br>ENIAC</p>
+</div>
+<div class="timeline-item text-center">
+<div class="timeline-dot bg-[var(--primary-color)] w-6 h-6 rounded-full mx-auto"></div>
+<p class="mt-2 text-sm">1971<br>Intel 4004</p>
+</div>
+<div class="timeline-item text-center">
+<div class="timeline-dot bg-[var(--primary-color)] w-6 h-6 rounded-full mx-auto"></div>
+<p class="mt-2 text-sm">1990<br>Internet</p>
+</div>
+<div class="timeline-item text-center">
+<div class="timeline-dot bg-[var(--primary-color)] w-6 h-6 rounded-full mx-auto"></div>
+<p class="mt-2 text-sm">2024<br>Computação Quântica</p>
+</div>
+</div>
+</div>
+  </section>
+
+  <section class="pt-16" id="security-and-cryptography">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Segurança e Criptografia</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    Segurança da informação e criptografia são pilares fundamentais da computação moderna, garantindo confidencialidade, integridade e disponibilidade dos dados.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Criptografia simétrica e assimétrica – Proteção de dados em trânsito e armazenamento.</li>
+    <li>Assinaturas digitais e certificados – Garantia de autenticidade e integridade.</li>
+    <li>Protocolos seguros – TLS/SSL, VPNs e autenticação multifatorial.</li>
+    <li>Segurança em redes e sistemas distribuídos – Prevenção de ataques cibernéticos.</li>
+  </ul>
+</section>
+
+<section class="pt-16" id="blockchain-and-decentralization">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Blockchain e Descentralização</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    Blockchain é uma tecnologia que permite armazenamento distribuído, imutável e transparente de informações, suportando criptomoedas, contratos inteligentes e sistemas descentralizados.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Estrutura de blocos encadeados – Cada bloco contém registros e hash do bloco anterior.</li>
+    <li>Redes peer-to-peer – Eliminação de intermediários e maior resiliência.</li>
+    <li>Contratos inteligentes – Execução automática de regras sem confiança central.</li>
+    <li>Aplicações além de criptomoedas – Supply chain, identidade digital e registro público de dados.</li>
+  </ul>
+</section>
+
+<section class="pt-16" id="distributed-computing">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Computação Distribuída</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    Computação distribuída envolve múltiplos computadores trabalhando juntos como um sistema único, melhorando escalabilidade, confiabilidade e desempenho.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Sistemas distribuídos e clusters – Processamento paralelo e balanceamento de carga.</li>
+    <li>MapReduce e Big Data – Processamento de grandes volumes de dados em paralelo.</li>
+    <li>Computação em nuvem – Infraestrutura como serviço (IaaS), plataforma como serviço (PaaS) e software como serviço (SaaS).</li>
+    <li>Coerência e tolerância a falhas – Protocolos de consenso e replicação de dados.</li>
+  </ul>
+</section>
+
+<section class="pt-16" id="information-theory">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Teoria da Informação</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    A teoria da informação, desenvolvida por Claude Shannon, é a base da compressão de dados, comunicação digital e codificação eficiente.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Entropia – Medida da incerteza ou quantidade de informação.</li>
+    <li>Codificação – Compressão sem perda e códigos de detecção/correção de erros.</li>
+    <li>Capacidade do canal – Limites teóricos para transmissão de informação.</li>
+    <li>Aplicações – Comunicação digital, armazenamento e redes de dados.</li>
+  </ul>
+</section>
+
+  <section class="pt-16" id="future-computing">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Avanços Futuros em Computação</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    A computação do futuro promete revolucionar a forma como interagimos com dados, inteligência artificial e tecnologias emergentes.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Computação quântica de próxima geração – Qubits mais estáveis, algoritmos avançados e aplicações práticas em criptografia e simulação.</li>
+    <li>Inteligência Artificial Geral (AGI) – Sistemas capazes de aprender e raciocinar em múltiplos domínios, aproximando-se da inteligência humana.</li>
+    <li>Computação neuromórfica – Processadores inspirados no cérebro humano para eficiência energética e processamento paralelo massivo.</li>
+    <li>Integração de computação com biotecnologia – Bioinformática, computação molecular e interfaces cérebro-computador.</li>
+  </ul>
+</section>
+
+<section class="pt-16" id="ethics-and-society">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Ética e Impacto Social</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    Com grandes avanços tecnológicos vêm grandes responsabilidades. A ética na computação e o impacto social são cruciais para desenvolvimento sustentável e inclusivo.
+  </p>
+  <ul class="list-disc pl-6 mt-2 text-[var(--text-secondary)]">
+    <li>Privacidade e proteção de dados – Regulamentações como GDPR e LGPD para garantir direitos digitais.</li>
+    <li>IA responsável – Transparência, explicabilidade e mitigação de vieses em algoritmos.</li>
+    <li>Inclusão digital – Reduzir a desigualdade no acesso à tecnologia e educação em computação.</li>
+    <li>Sustentabilidade tecnológica – Otimização energética de datacenters e computação verde.</li>
+  </ul>
+</section>
+
+<section class="pt-16" id="conclusion">
+  <h2 class="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Conclusão</h2>
+  <p class="mt-4 text-[var(--text-secondary)]">
+    A história da computação é marcada por inovação, complexidade e avanço contínuo. Desde os primeiros computadores mecânicos até a computação quântica, cada etapa expandiu nosso entendimento e capacidade de resolver problemas. 
+    Com ética, conhecimento técnico e visão de futuro, a computação continuará moldando sociedades e transformando a forma como vivemos, aprendemos e interagimos.
+  </p>
+</section>
+
+<!-- Feedback Section -->
+<hr class="my-12 border-[var(--secondary-color)]"/>
+<div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+  <div class="flex items-center gap-4">
+    <button class="flex items-center gap-2 rounded-full border border-transparent bg-[var(--secondary-color)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:border-[var(--primary-color)] transition-colors">
+      <span class="material-symbols-outlined text-base">thumb_up</span> Helpful
+    </button>
+    <button class="flex items-center gap-2 rounded-full border border-transparent bg-[var(--secondary-color)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:border-[var(--primary-color)] transition-colors">
+      <span class="material-symbols-outlined text-base">thumb_down</span> Not helpful
+    </button>
+    <button class="flex items-center gap-2 rounded-full border border-transparent bg-[var(--secondary-color)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:border-[var(--primary-color)] transition-colors">
+      <span class="material-symbols-outlined text-base">share</span> Share
+    </button>
+  </div>
+  <p class="text-sm text-[var(--text-secondary)]">Last updated: September 7, 2025</p>
+</div>
+
+<!-- Navigation -->
+<div class="mt-12 flex justify-between">
+  <a class="inline-flex items-center gap-2 rounded-md border border-[var(--secondary-color)] bg-[var(--background-primary)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--secondary-color)]" href="#">
+    <span class="material-symbols-outlined">arrow_back</span>
+    <span>Previous: Computação Quântica</span>
+  </a>
+  <a class="inline-flex items-center gap-2 rounded-md border border-[var(--secondary-color)] bg-[var(--background-primary)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--secondary-color)]" href="#">
+    <span>Next: Recursos Complementares</span>
+    <span class="material-symbols-outlined">arrow_forward</span>
+  </a>
+</div>
